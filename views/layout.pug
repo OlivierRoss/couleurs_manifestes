@@ -1,7 +1,11 @@
 doctype html
-html
+html(lang="fr")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(desc="Exposition")
+    meta(charset="utf-8")
   body
+    #to-fullscreen.flex(onclick="document.body.requestFullscreen();")
+      a fullscreen
     block content

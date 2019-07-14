@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#to-fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50px;
+  background-color: beige;
+}
