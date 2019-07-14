@@ -5,8 +5,10 @@ html(lang="fr")
     link(rel='stylesheet', href='/stylesheets/style.css')
     meta(desc="Exposition")
     meta(charset="utf-8")
+    script(src="/javascripts/lib/require.js")
+    script(src="/javascripts/application.js")
   body
-    #to-fullscreen.flex(onclick="document.getElementById('container-application').requestFullscreen();")
+    #to-fullscreen.flex
       a fullscreen
     #container-application
       block content
