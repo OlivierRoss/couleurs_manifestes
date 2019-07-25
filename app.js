@@ -5,6 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
+// Setup google api
+const {google} = require('googleapis');
+const sheets = google.sheets('v4');
+const scopes = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+const keyfile = path.join(__dirname, 'env/couleurs-manifestes-7b61afc4f8a6.json');
+const {auth} = require('google-auth-library');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 

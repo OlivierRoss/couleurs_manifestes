@@ -1,4 +1,9 @@
 # couleurs_manifestes
+Pour se connecter à l'api sheets :
+* Créer identifiants sur cloudconsole pour sheets à partir d'un serveur web
+* Partager le fichier visé à la nouvelle adresse
+* Connexion avec "googleapis"
+* Api sheets
 
 ## Étapes de déploiement
 1. docker build -t cm_0 . :: Créer l'application
