@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var sassMiddleware = require('node-sass-middleware');
+//var sassMiddleware = require('node-sass-middleware');
 
 // Setup google api
 const {google} = require('googleapis');
@@ -22,12 +22,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // SASS
-app.use(sassMiddleware({
+/*app.use(sassMiddleware({
   src: __dirname,
   dest: path.join(__dirname, '/public'),
   debug: true,
   outputStyle: 'compressed'})
 );
+*/
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,0 +1,32 @@
+.oeuvre {
+  width: 100%;
+  height: 100%;
+
+  text-align: center;
+
+  header {
+    height: 10%;
+
+    display: flex;
+    justify-content: space-between;
+
+    .dimension-precedente {
+      width: 10%;
+    }
+
+    .dimension-suivante {
+      width: 10%;
+    }
+  }
+
+  .contenu-dimension {
+    height: 80%;
+    background-color: blue;
+  }
+
+  footer {
+    height: 10%;
+    background-color: white;
+  }
+
+}

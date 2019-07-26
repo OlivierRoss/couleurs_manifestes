@@ -14,3 +14,7 @@ Pour se connecter à l'api sheets :
 6. heroku container:push web --app couleurs-manifestes
 7. heroku container:release web --app couleurs-manifestes
 8. curl https://couleurs-manifestes.herokuapp.com/
+
+## Dev
+1. npm start
+2. npm run check-babel
