@@ -1,16 +1,9 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-//var sassMiddleware = require('node-sass-middleware');
-
-// Setup google api
-const {google} = require('googleapis');
-const sheets = google.sheets('v4');
-const scopes = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-const keyfile = path.join(__dirname, 'env/couleurs-manifestes-7b61afc4f8a6.json');
-const {auth} = require('google-auth-library');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -20,15 +13,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-// SASS
-/*app.use(sassMiddleware({
-  src: __dirname,
-  dest: path.join(__dirname, '/public'),
-  debug: true,
-  outputStyle: 'compressed'})
-);
-*/
 
 app.use(logger('dev'));
 app.use(express.json());
