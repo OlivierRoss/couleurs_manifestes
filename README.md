@@ -17,4 +17,4 @@ Pour se connecter à l'api sheets :
 
 ## Dev
 1. npm start
-2. npm run check-babel
+2. gulp transpile

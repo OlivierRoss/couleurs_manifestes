@@ -8,6 +8,6 @@ requirejs.config({
 // Importation des librairies externes
 requirejs(["lib/jquery-3.4.1.min"], function () {
   // Importation des librairies internes
-  requirejs(["comportement", "oeuvre"]);
+  requirejs(["comportement", "oeuvre", "app"]);
 });
 

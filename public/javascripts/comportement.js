@@ -8,5 +8,5 @@ $("#cercle-accueil").click(function () {
   // Mettre en plein écran
   //$('#container-application').get(0).requestFullscreen();
 
-  ReactDOM.render(React.createElement(Oeuvre, null), document.getElementById('container-application'));
+  ReactDOM.render(React.createElement(Application, null), document.getElementById('container-application'));
 });

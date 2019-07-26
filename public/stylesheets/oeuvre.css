@@ -1,18 +1,16 @@
 .oeuvre {
   width: 100%;
-  height: 100%;
+  height: 90%;
   text-align: center; }
   .oeuvre header {
     height: 10%;
     display: flex;
     justify-content: space-between; }
-    .oeuvre header .dimension-precedente {
-      width: 10%; }
-    .oeuvre header .dimension-suivante {
-      width: 10%; }
+    .oeuvre header > * {
+      align-self: center; }
+    .oeuvre header .dimension-precedente, .oeuvre header .dimension-suivante {
+      padding: 10px; }
   .oeuvre .contenu-dimension {
-    height: 80%;
-    background-color: blue; }
-  .oeuvre footer {
-    height: 10%;
-    background-color: white; }
+    height: 85%;
+    overflow: scroll;
+    margin: 10px 20px; }
