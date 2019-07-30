@@ -6,7 +6,7 @@ $("#cercle-accueil").click(function () {
   $("#container-application").toggle();
 
   // Mettre en plein écran
-  //$('#container-application').get(0).requestFullscreen();
+  $('#container-application').get(0).requestFullscreen();
 
   ReactDOM.render(React.createElement(Application, null), document.getElementById('container-application'));
 });

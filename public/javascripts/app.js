@@ -23,17 +23,18 @@ var Application = function (_React$Component) {
     value: function getOeuvres() {
       if (typeof this.oeuvres !== 'undefined') {
         return this.oeuvres;
+      } else {
+        $.ajax({
+          url: "/oeuvres",
+          success: function success(result) {
+            console.log(result);
+
+            this.oeuvres = result;
+            document.getElementsByClassName("nom-oeuvre")[0].innerHTML = result[1][0];
+            document.getElementsByClassName("contenu-dimension")[0].innerHTML = result[1][9];
+          }
+        });
       }
-      // Integrer async await ici
-      else {
-          $.ajax({
-            url: "/oeuvres",
-            success: function success(result) {
-              this.oeuvres = result;
-              console.log(result);
-            }
-          });
-        }
     }
   }, {
     key: "renderOeuvre",
