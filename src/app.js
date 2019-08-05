@@ -14,6 +14,7 @@ class Application extends React.Component {
       $.ajax({
         url: "/oeuvres",
         success: function(result){
+          oeuvres = result;
           console.log(result);
 
           this.oeuvres = result;

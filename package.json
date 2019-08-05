@@ -8,6 +8,7 @@
     "sass": "node-sass -w sass/ -o public/stylesheets/"
   },
   "dependencies": {
+    "@sentry/node": "5.5.0",
     "babel-cli": "6",
     "babel-preset-react-app": "3",
     "bluebird": "^3.5.5",
@@ -25,7 +26,8 @@
     "node-sass": "^4.12.0",
     "node-sass-middleware": "^0.11.0",
     "nodemon": "^1.19.1",
-    "pug": "~2.0.4"
+    "pug": "~2.0.4",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "gulp-sass": "^4.0.2"

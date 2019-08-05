@@ -27,6 +27,7 @@ var Application = function (_React$Component) {
         $.ajax({
           url: "/oeuvres",
           success: function success(result) {
+            oeuvres = result;
             console.log(result);
 
             this.oeuvres = result;
