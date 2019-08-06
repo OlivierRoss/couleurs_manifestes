@@ -1,17 +1,70 @@
-requirejs.config({
-  baseUrl: '/javascripts'
-});
+Vue.config.productionTip = false;
 
-// Importation des librairies externes
-requirejs(["lib/jquery-3.4.1.min"], () => {
+// Creation de l'application
+function lancer_couleurs_manifestes () {
+  cm = new Vue({
+    el: '#container-application',
+    template: '<div id="container-application"><component v-bind:is="ecran" v-on:element_depart_selectionne="charger_application" :class="{affiche: etat == \'affiche\'}"/><interactions /></div>',
+    data: {
+      etat: 'affiche',
+      ecran: 'accueil',
+      oeuvres: []
+    },
+    // Charger les oeuvres
+    created: function () {
+      var me = this;
+      fetch("/oeuvres")
+        .then((data) => {return data.json();} ) // parametres
+        .then((res) => { me.oeuvres = res; });
+    },
+    methods: {
+      charger_application: function (event) {
+        this.cacher_accueil();
 
-  // Importation des librairies internes
-  requirejs(["app", "oeuvre", "accueil"], () => {
+        // Attendre la fin de l'animation
+        setTimeout(() => {
 
-    // Creation de l'element principal
-    ReactDOM.render( <Application />, document.getElementById('container-application') );
+          // Afficher l'application
+          if( this.confirmer_oeuvres_presentes() ) {
+            this.afficher_oeuvre();
+          }
+          else {
+            // Attendre quelques secondes encore
+            setTimeout(() => {
+              // Afficher l'application
+              if( this.confirmer_oeuvres_presentes() ) {
+                this.afficher_oeuvre();
+              }
+              // Afficher erreur
+              else {
+                this.afficher_erreur();// TODO creer interface erreur;
+              }
+            }, 2500);
+          }
+        }, 1000);
+      },
+      cacher_accueil: function () {
+        this.etat = 'cache';
+      },
+      confirmer_oeuvres_presentes: function () {
+        return this.oeuvres.length > 0;
+      },
+      afficher_application: function () {
+        return true;
+      },
+      afficher_oeuvre: function () {
+        this.ecran = "oeuvre";
+        setTimeout(() => {
+          this.etat = 'affiche';
+        }, 10);
+      },
+      afficher_erreur: function () {
+        this.ecran = "erreur";
+        this.etat = 'affiche';
+      }
+    },
+    computed: { }
   });
-});
+}
 
-
-
+window.onload = lancer_couleurs_manifestes;

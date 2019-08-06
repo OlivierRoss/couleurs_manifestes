@@ -1,8 +1,12 @@
 .accueil {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   text-align: center;
   display: flex;
-  justify-content: center; }
-  .accueil > * {
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s; }
+  .accueil > img {
     align-self: center; }
+  .accueil.affiche {
+    opacity: 1; }

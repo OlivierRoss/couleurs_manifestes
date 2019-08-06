@@ -12,7 +12,6 @@ var morgan = require('morgan');
 //Sentry.init({ dsn: 'https://cbd37e3223d8414a93121911083d1190@sentry.io/1505617'  });
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 // TODO Activer seulement en production
@@ -29,7 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // TODO Activer seulement en production
 //app.use(Sentry.Handlers.errorHandler());

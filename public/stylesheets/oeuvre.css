@@ -1,7 +1,9 @@
 .oeuvre {
   width: 100%;
   height: 90%;
-  text-align: center; }
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s; }
   .oeuvre header {
     height: 10%;
     display: flex;
@@ -16,3 +18,5 @@
     height: 85%;
     overflow: scroll;
     margin: 10px 20px; }
+  .oeuvre.affiche {
+    opacity: 1; }
