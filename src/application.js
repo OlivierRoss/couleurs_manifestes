@@ -6,10 +6,13 @@ requirejs.config({
 requirejs(["lib/jquery-3.4.1.min"], () => {
 
   // Importation des librairies internes
-  requirejs(["app", "oeuvre", "accueil"], () => {
+  requirejs(["index"], () => {
 
     // Creation de l'element principal
-    ReactDOM.render( <Application />, document.getElementById('container-application') );
+    //ReactDOM.render( <Application />, document.getElementById('container-application') );
+    //vm = new Vue ({
+    //  el: '#container-application'
+    //});
   });
 });
 

@@ -6,20 +6,15 @@ html(lang="fr")
     link(rel='stylesheet', href='/stylesheets/app.css')
     link(rel='stylesheet', href='/stylesheets/oeuvre.css')
     link(rel='stylesheet', href='/stylesheets/accueil.css')
-    link(rel='stylesheet', href='/stylesheets/spin.css')
     meta(desc="Exposition")
     meta(charset="utf-8")
 
-    // React
-    script(src="https://unpkg.com/react@16/umd/react.development.js", crossorigin)
-    script(src="https://unpkg.com/react-dom@16/umd/react-dom.development.js", crossorigin)
-    // Babel, precompiler : https://reactjs.org/docs/add-react-to-a-website.html
-    script(src="https://unpkg.com/babel-standalone@6/babel.min.js")
+    // Vue
+    script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
 
     // Interne
-    script(src="/javascripts/lib/spin.js/spin.js", type="module")
-    script(src="/javascripts/lib/require.js")
-    script(src="/javascripts/application.js")
+    script(src="/javascripts/components/interface_accueil.js")
+    script(src="/javascripts/index.js")
 
   body
     block content
