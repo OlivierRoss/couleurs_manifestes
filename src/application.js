@@ -68,3 +68,4 @@ function lancer_couleurs_manifestes () {
 }
 
 window.onload = lancer_couleurs_manifestes;
+

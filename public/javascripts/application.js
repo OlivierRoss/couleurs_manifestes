@@ -1,6 +1,7 @@
-Vue.config.productionTip = false;
+"use strict";
 
-// Creation de l'application
+Vue.config.productionTip = false; // Creation de l'application
+
 function lancer_couleurs_manifestes() {
   cm = new Vue({
     el: '#container-application',
@@ -24,11 +25,9 @@ function lancer_couleurs_manifestes() {
       charger_application: function charger_application(event) {
         var _this = this;
 
-        this.cacher_accueil();
+        this.cacher_accueil(); // Attendre la fin de l'animation
 
-        // Attendre la fin de l'animation
         setTimeout(function () {
-
           // Afficher l'application
           if (_this.confirmer_oeuvres_presentes()) {
             _this.afficher_oeuvre();
@@ -38,10 +37,10 @@ function lancer_couleurs_manifestes() {
               // Afficher l'application
               if (_this.confirmer_oeuvres_presentes()) {
                 _this.afficher_oeuvre();
-              }
-              // Afficher erreur
+              } // Afficher erreur
               else {
                   _this.afficher_erreur(); // TODO creer interface erreur;
+
                 }
             }, 2500);
           }

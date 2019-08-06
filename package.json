@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "jsx": "npx babel --watch src --out-dir public/javascripts/ --presets react-app/prod",
+    "jsx": "npx babel --watch src --out-dir public/javascripts/ --presets=@babel/env",
     "sass": "node-sass -w sass/ -o public/stylesheets/"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "@sentry/node": "5.5.0",
     "babel-cli": "6",
     "babel-preset-react-app": "3",
@@ -32,6 +33,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "gulp-sass": "^4.0.2"
   }
 }
