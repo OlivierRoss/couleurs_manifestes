@@ -4,6 +4,9 @@
 
   text-align: center;
 
+  opacity: 0;
+  transition: opacity 1s;
+
   header {
     height: 10%;
 
@@ -27,6 +30,10 @@
     height: 85%;
     overflow: scroll;
     margin: 10px 20px;
+  }
+
+  &.affiche {
+    opacity: 1;
   }
 
 }

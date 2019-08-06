@@ -1,13 +1,20 @@
 .accueil {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 
   text-align: center;
 
   display: flex;
   justify-content: center;
 
-  & > * {
+  & > img {
     align-self: center;
+  }
+
+  opacity: 0;
+  transition: opacity 1s;
+
+  &.affiche {
+    opacity: 1;
   }
 }
