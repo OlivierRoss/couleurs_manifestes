@@ -6,44 +6,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Oeuvre = function (_React$Component) {
-  _inherits(Oeuvre, _React$Component);
+var Accueil = function (_React$Component) {
+  _inherits(Accueil, _React$Component);
 
-  function Oeuvre(props) {
-    _classCallCheck(this, Oeuvre);
+  function Accueil(props) {
+    _classCallCheck(this, Accueil);
 
-    return _possibleConstructorReturn(this, (Oeuvre.__proto__ || Object.getPrototypeOf(Oeuvre)).call(this, props));
+    return _possibleConstructorReturn(this, (Accueil.__proto__ || Object.getPrototypeOf(Accueil)).call(this, props));
   }
 
-  _createClass(Oeuvre, [{
+  _createClass(Accueil, [{
     key: "render",
     value: function render() {
       return React.createElement(
         "article",
-        { className: "oeuvre" },
-        React.createElement(
-          "header",
-          null,
-          React.createElement(
-            "div",
-            { className: "dimension-precedente" },
-            "Politique"
-          ),
-          React.createElement(
-            "div",
-            { className: "nom-oeuvre" },
-            "Nom"
-          ),
-          React.createElement(
-            "div",
-            { className: "dimension-suivante" },
-            "Biographie"
-          )
-        ),
-        React.createElement("div", { className: "contenu-dimension" })
+        { className: "accueil flex" },
+        React.createElement("img", {
+          src: "/images/logo_cm.jpg",
+          onClick: this.props.onClick
+        })
       );
     }
   }]);
 
-  return Oeuvre;
+  return Accueil;
 }(React.Component);

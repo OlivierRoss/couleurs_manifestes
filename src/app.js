@@ -1,47 +1,64 @@
 class Application extends React.Component {
   constructor(props) {
+    // Initialisation
     super(props);
-
-    console.log(this.getOeuvres());
-  }
-
-  getOeuvres () {
-    if(typeof(this.oeuvres) !== 'undefined') {
-      return this.oeuvres;
+    this.state = {
+      oeuvres: [],
+      state: "init"
     }
 
-    else {
+    // Chargement des oeuvres
+    this.state.oeuvres = this.charger_oeuvres();
+  }
+
+  charger_oeuvres () {
+    return new Promise((resolve, reject) => {
       $.ajax({
         url: "/oeuvres",
-        success: function(result){
-          oeuvres = result;
-          console.log(result);
-
-          this.oeuvres = result;
-          document.getElementsByClassName("nom-oeuvre")[0].innerHTML = result[1][0];
-          document.getElementsByClassName("contenu-dimension")[0].innerHTML = result[1][9];
+        success: (result) => { resolve(result); },
+        error: (err) => {
+          console.error(err);
+          reject(err);
         }
       });
-    }
+    });
   }
 
-  renderOeuvre() {
+  render_accueil () {
     return (
-      <Oeuvre 
-        nom="Nom oeuvre"
+      <Accueil 
+        onClick={() => this.showApplication()}
       />
-    )
+    );
   }
+
+  showApplication () {
+    // Cacher l'accueil
+    test = document.getElementsByClassName("acceuil")[0];
+    document.getElementsByClassName("acceuil")[0].style.opacity = 0;
+  }
+
+  renderOeuvre(index) {
+    return (
+      <Oeuvre />
+    );
+  }
+
+  renderFooter() {
+    return (
+      <footer>
+        <div className="goto">#</div>
+        <div className="hasard">?</div>
+        <div className="partager">partager</div>
+      </footer>
+    );
+  }
+
   render() {
     return (
       <section className="application">
-        { this.renderOeuvre() }
-        <footer>
-          <div className="goto">#</div>
-          <div className="hasard">?</div>
-          <div className="partager">partager</div>
-        </footer>
+        { this.render_accueil() }
       </section>
-    )
+    );
   }
 }

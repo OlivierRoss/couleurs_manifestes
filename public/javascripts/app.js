@@ -13,36 +13,79 @@ var Application = function (_React$Component) {
     _classCallCheck(this, Application);
 
     var _this = _possibleConstructorReturn(this, (Application.__proto__ || Object.getPrototypeOf(Application)).call(this, props));
+    // Initialisation
 
-    console.log(_this.getOeuvres());
+
+    _this.state = {
+      oeuvres: [],
+      state: "init"
+
+      // Chargement des oeuvres
+    };_this.state.oeuvres = _this.charger_oeuvres();
     return _this;
   }
 
   _createClass(Application, [{
-    key: "getOeuvres",
-    value: function getOeuvres() {
-      if (typeof this.oeuvres !== 'undefined') {
-        return this.oeuvres;
-      } else {
+    key: "charger_oeuvres",
+    value: function charger_oeuvres() {
+      return new Promise(function (resolve, reject) {
         $.ajax({
           url: "/oeuvres",
           success: function success(result) {
-            oeuvres = result;
-            console.log(result);
-
-            this.oeuvres = result;
-            document.getElementsByClassName("nom-oeuvre")[0].innerHTML = result[1][0];
-            document.getElementsByClassName("contenu-dimension")[0].innerHTML = result[1][9];
+            resolve(result);
+          },
+          error: function error(err) {
+            console.error(err);
+            reject(err);
           }
         });
-      }
+      });
+    }
+  }, {
+    key: "render_accueil",
+    value: function render_accueil() {
+      var _this2 = this;
+
+      return React.createElement(Accueil, {
+        onClick: function onClick() {
+          return _this2.showApplication();
+        }
+      });
+    }
+  }, {
+    key: "showApplication",
+    value: function showApplication() {
+      // Cacher l'accueil
+      test = document.getElementsByClassName("acceuil")[0];
+      document.getElementsByClassName("acceuil")[0].style.opacity = 0;
     }
   }, {
     key: "renderOeuvre",
-    value: function renderOeuvre() {
-      return React.createElement(Oeuvre, {
-        nom: "Nom oeuvre"
-      });
+    value: function renderOeuvre(index) {
+      return React.createElement(Oeuvre, null);
+    }
+  }, {
+    key: "renderFooter",
+    value: function renderFooter() {
+      return React.createElement(
+        "footer",
+        null,
+        React.createElement(
+          "div",
+          { className: "goto" },
+          "#"
+        ),
+        React.createElement(
+          "div",
+          { className: "hasard" },
+          "?"
+        ),
+        React.createElement(
+          "div",
+          { className: "partager" },
+          "partager"
+        )
+      );
     }
   }, {
     key: "render",
@@ -50,26 +93,7 @@ var Application = function (_React$Component) {
       return React.createElement(
         "section",
         { className: "application" },
-        this.renderOeuvre(),
-        React.createElement(
-          "footer",
-          null,
-          React.createElement(
-            "div",
-            { className: "goto" },
-            "#"
-          ),
-          React.createElement(
-            "div",
-            { className: "hasard" },
-            "?"
-          ),
-          React.createElement(
-            "div",
-            { className: "partager" },
-            "partager"
-          )
-        )
+        this.render_accueil()
       );
     }
   }]);
