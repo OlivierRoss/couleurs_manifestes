@@ -1,43 +1,35 @@
 import Interactions from "./interactions.js";
 
+require("../../sass/oeuvre.scss");
 require("../../sass/interactions.scss");
 
 export default {
   props: ['infos'],
+
   components: {
     'interactions': Interactions
   },
-  data: function () {
-    return {
 
-    };
-  },
   template: `
     <section class="oeuvre">
     <header>
-    <div class="dimension-precedente">{{ dimension_suiv }} </div>
-    <div class="nom-oeuvre">{{ nom }}</div>
-    <div class="dimension-suivante">{{ dimension_suiv }}</div>
+    <div class="dimension-precedente" v-on:click="dimension_precedente">{{ infos.nom_dimension_precedente }} </div>
+    <div class="nom-oeuvre">{{ infos.nom }}</div>
+    <div class="dimension-suivante" v-on:click="dimension_suivante">{{ infos.nom_dimension_suivante }}</div>
     </header>
-    <div class="contenu-dimension">{{ infos.dimensions[7].valeur }}</div>
+    <div class="contenu-dimension">{{ infos.valeur_dimension_active }}</div>
     <interactions />
     </section>
   `,
-  created: function () {
-    console.log(this.infos);
-    this.nom = this.infos.dimensions[0].valeur; 
-  },
 
-  computed: {
-    get_nom: function () {
-      return this.infos.dimensions[0].valeur;
+  methods: {
+    dimension_precedente: function () {
+      this.$emit('update-dimension', 0);
     },
-    dimension_prev: function () {
-      return this.infos.dimensions[1].nom;
-    },
-    dimension_suiv: function () {
-      return this.infos.dimensions[2].nom;
+    dimension_suivante: function () {
+      this.$emit('update-dimension', 1);
     }
   }
+
 };
 

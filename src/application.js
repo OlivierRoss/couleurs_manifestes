@@ -10,8 +10,6 @@ import Accueil from "./elements/accueil.js";
 import Erreur from "./elements/erreur.js";
 
 require('../sass/mobile.scss');
-require('../sass/oeuvre.scss');
-//require('../sass/erreur.scss');
 require('../sass/accueil.scss');
 
 var VueTouch = require('vue-touch');
@@ -31,7 +29,7 @@ function lancer_couleurs_manifestes () {
     template: `<v-touch id="container-application" v-on:tap="">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" />
-        <oeuvre v-else-if="ecran == 'oeuvre'" :infos="oeuvre_active" />
+        <oeuvre v-else-if="ecran == 'oeuvre'" :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
         <erreur v-else :message="message_erreur" />
       </transition>
     </v-touch>`,
@@ -39,6 +37,7 @@ function lancer_couleurs_manifestes () {
       ecran: 'accueil',
       oeuvres: [],
       oeuvre_active: null,
+      dimension_active: null,
       valeur_initiale: null,
       message_erreur: "Donnees indisponibles"
     },
@@ -86,7 +85,22 @@ function lancer_couleurs_manifestes () {
       // Comportement
       determiner_valeur_initiale: function (valeur) {
         this.valeur_initiale = valeur;
+        this.dimension_active = 0;
         this.charger_application();
+      },
+      update_dimension: function (dimension) { 
+        if(dimension > 0 ) {
+          this.dimension_active = this.dimension_suiv;
+        }
+        else {
+          this.dimension_active = this.dimension_prev;
+        }
+      },
+      get_dimension: function (index) {
+        return this.oeuvre_active.dimensions[index];
+      },
+      set_dimension_active: function (index) {
+        this.dimension_active = index;
       },
 
       // Utils
@@ -94,8 +108,39 @@ function lancer_couleurs_manifestes () {
         return this.oeuvres.length > 0;
       }
     },
-    computed: {
 
+    computed: {
+      get_oeuvre_active_infos: function () {
+        return {
+          nom: this.oeuvre_active.dimensions[0].valeur,
+          nom_dimension_precedente: this.get_dimension(this.dimension_prev).nom,
+          nom_dimension_suivante: this.get_dimension(this.dimension_suiv).nom,
+          nom_dimension_active: this.get_nom_dimension_active,
+          valeur_dimension_active: this.get_valeur_dimension_active
+        }
+      },
+      get_nom_dimension_active: function () {
+        return this.oeuvre_active.dimensions[this.dimension_active].nom;
+      },
+      get_valeur_dimension_active: function () {
+        return this.oeuvre_active.dimensions[this.dimension_active].valeur;
+      },
+      dimension_prev: function () {
+        if(this.dimension_active > 0) {
+          return this.dimension_active - 1;
+        }
+        else {
+          return this.oeuvre_active.dimensions.length - 1;
+        }
+      },
+      dimension_suiv: function () {
+        if(this.dimension_active < this.oeuvre_active.dimensions.length - 1) {
+          return this.dimension_active + 1;
+        }
+        else {
+          return 0;
+        }
+      }
     }
   });
 }
