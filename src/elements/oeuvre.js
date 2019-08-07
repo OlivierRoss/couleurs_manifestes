@@ -1,5 +1,7 @@
 import Interactions from "./interactions.js";
 
+require("../../sass/interactions.scss");
+
 export default {
   props: ['infos'],
   components: {

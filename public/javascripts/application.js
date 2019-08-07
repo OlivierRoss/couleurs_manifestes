@@ -97,6 +97,17 @@ eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loa
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./sass/interactions.scss":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./sass/interactions.scss ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".footer-oeuvre {\\n  justify-content: space-evenly !important; }\\n  .footer-oeuvre img {\\n    width: 50px; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./sass/interactions.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./sass/mobile.scss":
 /*!*********************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./sass/mobile.scss ***!
@@ -176,6 +187,17 @@ eval("var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs
 
 /***/ }),
 
+/***/ "./sass/interactions.scss":
+/*!********************************!*\
+  !*** ./sass/interactions.scss ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!../node_modules/sass-loader/lib/loader.js!./interactions.scss */ \"./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./sass/interactions.scss\");\n\nif (typeof content === 'string') {\n  content = [[module.i, content, '']];\n}\n\nvar options = {}\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\")(content, options);\n\nif (content.locals) {\n  module.exports = content.locals;\n}\n\n\n//# sourceURL=webpack:///./sass/interactions.scss?");
+
+/***/ }),
+
 /***/ "./sass/mobile.scss":
 /*!**************************!*\
   !*** ./sass/mobile.scss ***!
@@ -242,7 +264,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  template: '<footer>Footer</footer>'\n});\n\n//# sourceURL=webpack:///./src/elements/interactions.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  template: \"\\n    <footer class=\\\"flex footer-oeuvre\\\">\\n      <div><img src=\\\"/images/diese.svg\\\" /></div>\\n      <div><img src=\\\"/images/question.svg\\\" /></div>\\n      <div><img src=\\\"/images/partager.svg\\\" /></div>\\n    </footer>\\n  \"\n});\n\n//# sourceURL=webpack:///./src/elements/interactions.js?");
 
 /***/ }),
 
@@ -254,7 +276,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./interactions.js */ \"./src/elements/interactions.js\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  props: ['infos'],\n  components: {\n    'interactions': _interactions_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  data: function data() {\n    return {};\n  },\n  template: \"\\n    <section class=\\\"oeuvre\\\">\\n    <header>\\n    <div class=\\\"dimension-precedente\\\">{{ dimension_suiv }} </div>\\n    <div class=\\\"nom-oeuvre\\\">{{ nom }}</div>\\n    <div class=\\\"dimension-suivante\\\">{{ dimension_suiv }}</div>\\n    </header>\\n    <div class=\\\"contenu-dimension\\\">{{ infos.dimensions[7].valeur }}</div>\\n    <interactions />\\n    </section>\\n  \",\n  created: function created() {\n    console.log(this.infos);\n    this.nom = this.infos.dimensions[0].valeur;\n  },\n  computed: {\n    get_nom: function get_nom() {\n      return this.infos.dimensions[0].valeur;\n    },\n    dimension_prev: function dimension_prev() {\n      return this.infos.dimensions[1].nom;\n    },\n    dimension_suiv: function dimension_suiv() {\n      return this.infos.dimensions[2].nom;\n    }\n  }\n});\n\n//# sourceURL=webpack:///./src/elements/oeuvre.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./interactions.js */ \"./src/elements/interactions.js\");\n\n\n__webpack_require__(/*! ../../sass/interactions.scss */ \"./sass/interactions.scss\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  props: ['infos'],\n  components: {\n    'interactions': _interactions_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  data: function data() {\n    return {};\n  },\n  template: \"\\n    <section class=\\\"oeuvre\\\">\\n    <header>\\n    <div class=\\\"dimension-precedente\\\">{{ dimension_suiv }} </div>\\n    <div class=\\\"nom-oeuvre\\\">{{ nom }}</div>\\n    <div class=\\\"dimension-suivante\\\">{{ dimension_suiv }}</div>\\n    </header>\\n    <div class=\\\"contenu-dimension\\\">{{ infos.dimensions[7].valeur }}</div>\\n    <interactions />\\n    </section>\\n  \",\n  created: function created() {\n    console.log(this.infos);\n    this.nom = this.infos.dimensions[0].valeur;\n  },\n  computed: {\n    get_nom: function get_nom() {\n      return this.infos.dimensions[0].valeur;\n    },\n    dimension_prev: function dimension_prev() {\n      return this.infos.dimensions[1].nom;\n    },\n    dimension_suiv: function dimension_suiv() {\n      return this.infos.dimensions[2].nom;\n    }\n  }\n});\n\n//# sourceURL=webpack:///./src/elements/oeuvre.js?");
 
 /***/ })
 
