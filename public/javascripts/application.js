@@ -1,7 +1,6 @@
-"use strict";
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false; // Creation de l'application
-
+// Creation de l'application
 function lancer_couleurs_manifestes() {
   cm = new Vue({
     el: '#container-application',
@@ -12,58 +11,56 @@ function lancer_couleurs_manifestes() {
       oeuvres: []
     },
     // Charger les oeuvres
-    created: function created() {
+    created: function () {
       var me = this;
-      fetch("/oeuvres").then(function (data) {
+      fetch("/oeuvres").then(data => {
         return data.json();
       }) // parametres
-      .then(function (res) {
+      .then(res => {
         me.oeuvres = res;
       });
     },
     methods: {
-      charger_application: function charger_application(event) {
-        var _this = this;
+      charger_application: function (event) {
+        this.cacher_accueil();
 
-        this.cacher_accueil(); // Attendre la fin de l'animation
+        // Attendre la fin de l'animation
+        setTimeout(() => {
 
-        setTimeout(function () {
           // Afficher l'application
-          if (_this.confirmer_oeuvres_presentes()) {
-            _this.afficher_oeuvre();
+          if (this.confirmer_oeuvres_presentes()) {
+            this.afficher_oeuvre();
           } else {
             // Attendre quelques secondes encore
-            setTimeout(function () {
+            setTimeout(() => {
               // Afficher l'application
-              if (_this.confirmer_oeuvres_presentes()) {
-                _this.afficher_oeuvre();
-              } // Afficher erreur
+              if (this.confirmer_oeuvres_presentes()) {
+                this.afficher_oeuvre();
+              }
+              // Afficher erreur
               else {
-                  _this.afficher_erreur(); // TODO creer interface erreur;
-
+                  this.afficher_erreur(); // TODO creer interface erreur;
                 }
             }, 2500);
           }
         }, 1000);
       },
-      cacher_accueil: function cacher_accueil() {
+      cacher_accueil: function () {
         this.etat = 'cache';
       },
-      confirmer_oeuvres_presentes: function confirmer_oeuvres_presentes() {
+      confirmer_oeuvres_presentes: function () {
         return this.oeuvres.length > 0;
       },
-      afficher_application: function afficher_application() {
+      afficher_application: function () {
         return true;
       },
-      afficher_oeuvre: function afficher_oeuvre() {
-        var _this2 = this;
-
+      afficher_oeuvre: function () {
         this.ecran = "oeuvre";
-        setTimeout(function () {
-          _this2.etat = 'affiche';
+        setTimeout(() => {
+          this.etat = 'affiche';
         }, 10);
       },
-      afficher_erreur: function afficher_erreur() {
+      afficher_erreur: function () {
         this.ecran = "erreur";
         this.etat = 'affiche';
       }
