@@ -7,7 +7,7 @@
 
 //import { Spinner } from 'spin.js';
 var VueTouch = require('vue-touch');
-Vue.use(VueTouch, {name: 'v-touch'});
+Vue.use(VueTouch, {name: 'v-touch'}); //https://github.com/vuejs/vue-touch/tree/next
 
 Vue.config.productionTip = false;
 
