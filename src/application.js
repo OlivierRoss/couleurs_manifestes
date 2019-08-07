@@ -4,7 +4,11 @@ Vue.config.productionTip = false;
 function lancer_couleurs_manifestes () {
   cm = new Vue({
     el: '#container-application',
-    template: '<div id="container-application"><component v-bind:is="ecran" v-on:element_depart_selectionne="charger_application" :class="{affiche: etat == \'affiche\'}"/><interactions /></div>',
+    template: `<div id="container-application">
+      <accueil v-if="ecran == 'accueil'" v-on:element_depart_selectionne="charger_application" :class="{affiche: etat == 'affiche'}" />
+      <oeuvre v-if="ecran == 'oeuvre'" />
+      <interactions v-if="ecran == 'oeuvre'" />
+    </div>`,
     data: {
       etat: 'affiche',
       ecran: 'accueil',
@@ -14,7 +18,7 @@ function lancer_couleurs_manifestes () {
     created: function () {
       var me = this;
       fetch("/oeuvres")
-        .then((data) => {return data.json();} ) // parametres
+        .then((data) => {return data.json();} ) // passage des parametres
         .then((res) => { me.oeuvres = res; });
     },
     methods: {

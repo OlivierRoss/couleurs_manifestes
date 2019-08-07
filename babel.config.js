@@ -6,15 +6,11 @@ const presets = [
         edge: "14",
         firefox: "39",
         chrome: "42",
-        safari: "10.1",
-
+        safari: "10.1"
       },
-      useBuiltIns: "usage",
-
+      useBuiltIns: "usage"
     },
-
   ],
-
 ];
 
-module.exports = { presets  };
+module.exports = { presets };
