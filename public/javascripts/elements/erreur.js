@@ -1,7 +1,6 @@
+"use strict";
+
 Vue.component('erreur', {
   props: ['message'],
-  template: `
-    <section class="erreur">
-      <div class="message-erreur">{{ message }}</div>
-    </section>`
+  template: "\n    <section class=\"erreur\">\n      <div class=\"message-erreur\">{{ message }}</div>\n    </section>"
 });
