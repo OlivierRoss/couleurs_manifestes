@@ -3,17 +3,16 @@
  * Ajouter logique de selection de la premiere oeuvre
  * Ajouter logique de selection des nouvelles oeuvres
  * Ajouter logique de selection des nouvelles dimensions
- * Creer une interface d'affichage des erreurs - ne fonctionne pas
  */
 Vue.config.productionTip = false;
 
 // Creation de l'application
 function lancer_couleurs_manifestes () {
-  cm = new Vue({
+  new Vue({
     el: '#container-application',
     template: `<div id="container-application">
-      <accueil v-if="ecran == 'accueil'" v-on:element_depart_selectionne="charger_application" :class="{affiche: etat == 'affiche'}" />
-      <oeuvre v-if="ecran == 'oeuvre'" v-bind:infos="oeuvre_active" :class="{affiche: etat == 'affiche'}" />
+      <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" :class="{affiche: etat == 'affiche'}" />
+      <oeuvre v-if="ecran == 'oeuvre'" :infos="oeuvre_active" :class="{affiche: etat == 'affiche'}" />
       <interactions v-if="ecran == 'oeuvre'" />
       <erreur v-if="ecran == 'erreur'" message="Donnees indisponibles" />
     </div>`,
@@ -21,7 +20,8 @@ function lancer_couleurs_manifestes () {
       etat: 'affiche',
       ecran: 'accueil',
       oeuvres: [],
-      oeuvre_active: null
+      oeuvre_active: null,
+      valeur_initiale: null
     },
     // Charger les oeuvres
     created: function () {
@@ -34,6 +34,8 @@ function lancer_couleurs_manifestes () {
         });
     },
     methods: {
+
+      // Chargement
       charger_application: function (event) {
         this.cacher_accueil();
 
@@ -59,11 +61,10 @@ function lancer_couleurs_manifestes () {
           }
         }, 1000);
       },
+
+      // Affichage
       cacher_accueil: function () {
         this.etat = 'cache';
-      },
-      oeuvres_presentes: function () {
-        return this.oeuvres.length > 0;
       },
       afficher_application: function () {
         return true;
@@ -77,9 +78,22 @@ function lancer_couleurs_manifestes () {
       afficher_erreur: function () {
         this.ecran = "erreur";
         this.etat = 'affiche';
+      },
+
+      // Comportement
+      determiner_valeur_initiale: function (valeur) {
+        this.valeur_initiale = valeur;
+        this.charger_application();
+      },
+
+      // Utils
+      oeuvres_presentes: function () {
+        return this.oeuvres.length > 0;
       }
     },
-    computed: { }
+    computed: {
+
+    }
   });
 }
 
