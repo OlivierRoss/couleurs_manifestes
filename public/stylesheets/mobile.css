@@ -2,9 +2,6 @@ body {
   margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-a {
-  color: #00B7FF; }
-
 .flex {
   display: flex;
   justify-content: center;
@@ -14,3 +11,10 @@ a {
   margin: auto;
   width: 100vw;
   height: 100vh; }
+
+/***************** Vue transitions ***************/
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s; }
+
+.fade-enter, .fade-leave-to {
+  opacity: 0; }

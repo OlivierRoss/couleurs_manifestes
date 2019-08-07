@@ -7,8 +7,14 @@ Vue.component('oeuvre', {
     <div class="nom-oeuvre">{{ infos.dimensions[0].valeur }}</div>
     <div class="dimension-suivante">{{ dimension_suiv }}</div>
     </header>
-    <div class="contenu-dimension"></div>
-    </section>`,
+    <div class="contenu-dimension">{{ infos.dimensions[7].valeur }}</div>
+    <interactions />
+    </section>
+  `,
+  created: function () {
+    console.log(this.infos);
+  },
+
   computed: {
     get_nom: function () {
       return this.infos.dimensions[0].valeur;

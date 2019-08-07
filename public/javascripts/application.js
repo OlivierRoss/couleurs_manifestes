@@ -11,13 +11,13 @@ Vue.config.productionTip = false; // Creation de l'application
 function lancer_couleurs_manifestes() {
   new Vue({
     el: '#container-application',
-    template: "<div id=\"container-application\">\n      <accueil v-if=\"ecran == 'accueil'\" :passer_valeur_initiale=\"this.determiner_valeur_initiale\" :class=\"{affiche: etat == 'affiche'}\" />\n      <oeuvre v-if=\"ecran == 'oeuvre'\" :infos=\"oeuvre_active\" :class=\"{affiche: etat == 'affiche'}\" />\n      <interactions v-if=\"ecran == 'oeuvre'\" />\n      <erreur v-if=\"ecran == 'erreur'\" message=\"Donnees indisponibles\" />\n    </div>",
+    template: "<div id=\"container-application\">\n      <transition appear name=\"fade\" mode=\"out-in\">\n        <accueil v-if=\"ecran == 'accueil'\" :passer_valeur_initiale=\"this.determiner_valeur_initiale\" />\n        <oeuvre v-else-if=\"ecran == 'oeuvre'\" :infos=\"oeuvre_active\" />\n        <erreur v-else :message=\"message_erreur\" />\n      </transition>\n    </div>",
     data: {
-      etat: 'affiche',
       ecran: 'accueil',
       oeuvres: [],
       oeuvre_active: null,
-      valeur_initiale: null
+      valeur_initiale: null,
+      message_erreur: "Donnees indisponibles"
     },
     // Charger les oeuvres
     created: function created() {
@@ -35,14 +35,11 @@ function lancer_couleurs_manifestes() {
       charger_application: function charger_application(event) {
         var _this = this;
 
-        this.cacher_accueil(); // Attendre la fin de l'animation
-
-        setTimeout(function () {
-          // Afficher l'application
-          if (_this.oeuvres_presentes()) {
-            _this.afficher_oeuvre();
-          } else {
-            // Attendre quelques secondes encore
+        // Afficher l'application
+        if (this.oeuvres_presentes()) {
+          this.afficher_oeuvre();
+        } // Attendre quelques secondes encore
+        else {
             setTimeout(function () {
               // Afficher l'application
               if (_this._oeuvres_presentes()) {
@@ -53,26 +50,17 @@ function lancer_couleurs_manifestes() {
                 }
             }, 2500);
           }
-        }, 1000);
       },
       // Affichage
-      cacher_accueil: function cacher_accueil() {
-        this.etat = 'cache';
-      },
-      afficher_application: function afficher_application() {
-        return true;
-      },
       afficher_oeuvre: function afficher_oeuvre() {
-        var _this2 = this;
-
         this.ecran = "oeuvre";
-        setTimeout(function () {
-          _this2.etat = 'affiche';
-        }, 10);
       },
-      afficher_erreur: function afficher_erreur() {
+      afficher_erreur: function afficher_erreur(message) {
+        if (message) {
+          this.message_erreur = message;
+        }
+
         this.ecran = "erreur";
-        this.etat = 'affiche';
       },
       // Comportement
       determiner_valeur_initiale: function determiner_valeur_initiale(valeur) {

@@ -3,10 +3,6 @@
   height: 100vh;
   text-align: center;
   display: flex;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 1s; }
+  justify-content: center; }
   .accueil > img {
     align-self: center; }
-  .accueil.affiche {
-    opacity: 1; }

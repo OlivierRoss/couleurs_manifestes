@@ -10,11 +10,4 @@
   & > img {
     align-self: center;
   }
-
-  opacity: 0;
-  transition: opacity 1s;
-
-  &.affiche {
-    opacity: 1;
-  }
 }

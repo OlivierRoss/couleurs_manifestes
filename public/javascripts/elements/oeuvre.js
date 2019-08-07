@@ -2,7 +2,10 @@
 
 Vue.component('oeuvre', {
   props: ['infos'],
-  template: "\n    <section class=\"oeuvre\">\n    <header>\n    <div class=\"dimension-precedente\">{{ dimension_prev }} </div>\n    <div class=\"nom-oeuvre\">{{ infos.dimensions[0].valeur }}</div>\n    <div class=\"dimension-suivante\">{{ dimension_suiv }}</div>\n    </header>\n    <div class=\"contenu-dimension\"></div>\n    </section>",
+  template: "\n    <section class=\"oeuvre\">\n    <header>\n    <div class=\"dimension-precedente\">{{ dimension_prev }} </div>\n    <div class=\"nom-oeuvre\">{{ infos.dimensions[0].valeur }}</div>\n    <div class=\"dimension-suivante\">{{ dimension_suiv }}</div>\n    </header>\n    <div class=\"contenu-dimension\">{{ infos.dimensions[7].valeur }}</div>\n    <interactions />\n    </section>\n  ",
+  created: function created() {
+    console.log(this.infos);
+  },
   computed: {
     get_nom: function get_nom() {
       return this.infos.dimensions[0].valeur;
