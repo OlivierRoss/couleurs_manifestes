@@ -3,7 +3,6 @@ const { parallel  } = require('gulp');
 const { exec  } = require('child_process');
 
 function sass () {
-  console.log("sass");
   exec("npm run sass", (err, stdout, stderr) => {
     if (err) {
       console.error(err)
@@ -14,9 +13,8 @@ function sass () {
   });
 }
 
-function jsx () {
-  console.log("jsx");
-    exec("npm run jsx", (err, stdout, stderr) => {
+function babel () {
+    exec("npm run babel", (err, stdout, stderr) => {
     if (err) {
       console.error(err)
     } else {
@@ -26,4 +24,4 @@ function jsx () {
   });
 }
 
-exports.transpile = parallel(sass, jsx);
+exports.transpile = parallel(sass, babel);

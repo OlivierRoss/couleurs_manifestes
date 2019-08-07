@@ -4,6 +4,5 @@ Vue.component('erreur', {
     <section class="erreur">
       <div class="message-erreur">{{ message }}</div>
     </section>`
-  }
 });
 

@@ -15,7 +15,7 @@ function lancer_couleurs_manifestes () {
       <accueil v-if="ecran == 'accueil'" v-on:element_depart_selectionne="charger_application" :class="{affiche: etat == 'affiche'}" />
       <oeuvre v-if="ecran == 'oeuvre'" v-bind:infos="oeuvre_active" :class="{affiche: etat == 'affiche'}" />
       <interactions v-if="ecran == 'oeuvre'" />
-      <erreur v-if="ecran == 'erreur'" />
+      <erreur v-if="ecran == 'erreur'" message="Donnees indisponibles" />
     </div>`,
     data: {
       etat: 'affiche',

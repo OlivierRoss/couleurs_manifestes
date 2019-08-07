@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "jsx": "npx babel --watch src --out-dir public/javascripts/",
+    "babel": "npx babel --watch src --out-dir public/javascripts/",
     "sass": "node-sass -w sass/ -o public/stylesheets/"
   },
   "dependencies": {
