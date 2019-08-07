@@ -5,6 +5,8 @@
  * Ajouter logique de selection des nouvelles dimensions
  */
 
+import { Spinner } from 'spin.js';
+
 Vue.config.productionTip = false;
 
 // Creation de l'application
