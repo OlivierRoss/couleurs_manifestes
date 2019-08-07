@@ -5,7 +5,9 @@
  * Ajouter logique de selection des nouvelles dimensions
  */
 
-import { Spinner } from 'spin.js';
+//import { Spinner } from 'spin.js';
+var VueTouch = require('vue-touch');
+Vue.use(VueTouch, {name: 'v-touch'});
 
 Vue.config.productionTip = false;
 
@@ -13,13 +15,13 @@ Vue.config.productionTip = false;
 function lancer_couleurs_manifestes () {
   new Vue({
     el: '#container-application',
-    template: `<div id="container-application">
+    template: `<v-touch id="container-application" v-on:tap="alert('ici')">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" />
         <oeuvre v-else-if="ecran == 'oeuvre'" :infos="oeuvre_active" />
         <erreur v-else :message="message_erreur" />
       </transition>
-    </div>`,
+    </v-touch>`,
     data: {
       ecran: 'accueil',
       oeuvres: [],
