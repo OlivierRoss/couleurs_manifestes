@@ -1,3 +1,3 @@
-Vue.component('interactions', {
+export default {
   template: '<footer>Footer</footer>'
-});
+};

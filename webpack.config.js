@@ -1,3 +1,8 @@
+/*
+ * TODO
+ * ajouter support pour sass
+ */
+
 const path = require('path');
 var webpack = require('webpack');
 
@@ -18,6 +23,15 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        include: [ path.resolve(__dirname, "sass") ],
+        use: [
+          "style-loader", // creates style nodes from JS strings
+          "css-loader", // translates CSS into CommonJS
+          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+        ]
       }
     ]
   },

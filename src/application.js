@@ -5,7 +5,15 @@
  * Ajouter logique de selection des nouvelles dimensions
  */
 
-//import { Spinner } from 'spin.js';
+import Oeuvre from "./elements/oeuvre.js";
+import Accueil from "./elements/accueil.js";
+import Erreur from "./elements/erreur.js";
+
+require('../sass/mobile.scss');
+require('../sass/oeuvre.scss');
+//require('../sass/erreur.scss');
+require('../sass/accueil.scss');
+
 var VueTouch = require('vue-touch');
 Vue.use(VueTouch, {name: 'v-touch'}); //https://github.com/vuejs/vue-touch/tree/next
 
@@ -15,7 +23,12 @@ Vue.config.productionTip = false;
 function lancer_couleurs_manifestes () {
   new Vue({
     el: '#container-application',
-    template: `<v-touch id="container-application" v-on:tap="alert('ici')">
+    components: {
+      'oeuvre': Oeuvre,
+      'accueil': Accueil,
+      'erreur': Erreur,
+    },
+    template: `<v-touch id="container-application" v-on:tap="">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" />
         <oeuvre v-else-if="ecran == 'oeuvre'" :infos="oeuvre_active" />

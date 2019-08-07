@@ -1,4 +1,4 @@
-Vue.component('accueil', {
+export default {
   props: ["passer_valeur_initiale"],
   template: `<section class="accueil flex"> <img v-on:click="selection_initiale" src="/images/logo_cm.jpg"> </section>`,
 
@@ -8,4 +8,4 @@ Vue.component('accueil', {
     }
   }
 
-});
+};
