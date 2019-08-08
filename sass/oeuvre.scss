@@ -1,32 +1,39 @@
-.oeuvre {
+.oeuvres {
   width: 100%;
-  height: 90%;
+  height: 100%;
 
-  text-align: center;
+  .oeuvre {
+    width: 100%;
+    height: 90%;
 
-  header {
-    height: 10%;
+    text-align: center;
 
-    display: flex;
-    justify-content: space-between;
+    header {
+      height: 10%;
 
-    & > * {
-      align-self: center;
+      display: flex;
+      justify-content: space-between;
+
+      & > * {
+        align-self: center;
+      }
+
+      .nom-oeuvre {
+        font-weight: bold;
+      }
+
+      .dimension-precedente, .dimension-suivante {
+        padding: 10px;
+      }
     }
 
-    .nom-oeuvre {
-      font-weight: bold;
+    .contenu-dimension {
+      height: 85%;
+      overflow-x:hidden;
+      overflow-y: scroll;
+      margin: 10px 20px;
     }
 
-    .dimension-precedente, .dimension-suivante {
-      padding: 10px;
-    }
-  }
-
-  .contenu-dimension {
-    height: 85%;
-    overflow: scroll;
-    margin: 10px 20px;
   }
 
 }

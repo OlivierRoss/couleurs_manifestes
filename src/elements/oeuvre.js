@@ -1,14 +1,7 @@
-import Interactions from "./interactions.js";
-
 require("../../sass/oeuvre.scss");
-require("../../sass/interactions.scss");
 
 export default {
   props: ['infos'],
-
-  components: {
-    'interactions': Interactions
-  },
 
   template: `
     <section class="oeuvre">
@@ -21,7 +14,6 @@ export default {
     <div class="dimension-suivante" v-on:click="dimension_suivante">{{ infos.nom_dimension_suivante }}</div>
     </header>
     <div class="contenu-dimension" v-touch:swipe="swipe">{{ infos.valeur_dimension_active }}</div>
-    <interactions />
     </section>
   `,
 

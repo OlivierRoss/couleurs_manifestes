@@ -8,6 +8,7 @@
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
 import Erreur from "./elements/erreur.js";
+import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
 require('../sass/accueil.scss');
@@ -24,11 +25,15 @@ function lancer_couleurs_manifestes () {
       'oeuvre': Oeuvre,
       'accueil': Accueil,
       'erreur': Erreur,
+      'interactions': Interactions
     },
     template: `<div id="container-application">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_oeuvre_initiale" />
-        <oeuvre v-else-if="ecran == 'oeuvre'" :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
+        <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
+          <oeuvre :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
+          <interactions v-on:update-oeuvre="update_oeuvre" />
+        </section>
         <erreur v-else :message="message_erreur" />
       </transition>
     </div>`,
@@ -79,8 +84,7 @@ function lancer_couleurs_manifestes () {
 
       // Comportement
       determiner_oeuvre_initiale: function (valeur) {
-        this.oeuvre_active = this.oeuvres[valeur];
-        this.dimension_active = this.list_dimensions(this.oeuvre_active)[0];
+        this.set_oeuvre_active(valeur);
         this.charger_application();
       },
       update_dimension: function (dimension) { 
@@ -91,6 +95,10 @@ function lancer_couleurs_manifestes () {
           this.dimension_active = this.dimension_prec;
         }
       },
+      update_oeuvre: function (id_oeuvre) {
+        id_oeuvre = id_oeuvre || Math.floor(Math.random() * this.oeuvres.length);
+        this.set_oeuvre_active(id_oeuvre);
+      },
 
       // Utils
       oeuvres_presentes: function () {
@@ -98,6 +106,10 @@ function lancer_couleurs_manifestes () {
       },
       list_dimensions: function (oeuvre) {
         return Object.keys(oeuvre.dimensions);
+      },
+      set_oeuvre_active: function (id_oeuvre, dimension = 0) {
+        this.oeuvre_active = this.oeuvres[id_oeuvre];
+        this.dimension_active = this.list_dimensions(this.oeuvre_active)[dimension];
       }
     },
 
