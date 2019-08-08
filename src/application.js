@@ -85,7 +85,7 @@ function lancer_couleurs_manifestes () {
       // Comportement
       determiner_valeur_initiale: function (valeur) {
         this.valeur_initiale = valeur;
-        this.dimension_active = 0;
+        this.dimension_active = this.list_dimensions[0];
         this.charger_application();
       },
       update_dimension: function (dimension) { 
@@ -93,53 +93,52 @@ function lancer_couleurs_manifestes () {
           this.dimension_active = this.dimension_suiv;
         }
         else {
-          this.dimension_active = this.dimension_prev;
+          this.dimension_active = this.dimension_prec;
         }
-      },
-      get_dimension: function (index) {
-        return this.oeuvre_active.dimensions[index];
-      },
-      set_dimension_active: function (index) {
-        this.dimension_active = index;
       },
 
       // Utils
       oeuvres_presentes: function () {
         return this.oeuvres.length > 0;
+      },
+      list_dimensions: function (oeuvre) {
+        return Object.keys(oeuvre.dimensions);
       }
     },
 
     computed: {
       get_oeuvre_active_infos: function () {
         return {
-          nom: this.oeuvre_active.dimensions[0].valeur,
-          artiste: this.oeuvre_active.dimensions[2].valeur,
-          nom_dimension_precedente: this.get_dimension(this.dimension_prev).nom,
-          nom_dimension_suivante: this.get_dimension(this.dimension_suiv).nom,
-          nom_dimension_active: this.get_nom_dimension_active,
-          valeur_dimension_active: this.get_valeur_dimension_active
+          nom: this.oeuvre_active.dimensions.titre,
+          artiste: this.oeuvre_active.dimensions.artiste,
+          nom_dimension_precedente: this.dimension_prec,
+          nom_dimension_suivante: this.dimension_suiv,
+          nom_dimension_active: this.dimension_active,
+          valeur_dimension_active: this.oeuvre_active.dimensions[this.dimension_active]
         }
       },
-      get_nom_dimension_active: function () {
-        return this.oeuvre_active.dimensions[this.dimension_active].nom;
-      },
-      get_valeur_dimension_active: function () {
-        return this.oeuvre_active.dimensions[this.dimension_active].valeur;
-      },
-      dimension_prev: function () {
-        if(this.dimension_active > 0) {
-          return this.dimension_active - 1;
+      dimension_prec: function () {
+        var dimensions = this.list_dimensions(this.oeuvre_active);
+        var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
+
+        console.log(index_actif);
+        if(index_actif > 0) {
+          return dimensions[index_actif - 1];
         }
         else {
-          return this.oeuvre_active.dimensions.length - 1;
+          return dimensions[dimensions.length - 1];
         }
       },
       dimension_suiv: function () {
-        if(this.dimension_active < this.oeuvre_active.dimensions.length - 1) {
-          return this.dimension_active + 1;
+        var dimensions = this.list_dimensions(this.oeuvre_active);
+        var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
+
+        console.log(index_actif);
+        if(index_actif < dimensions.length - 1) {
+          return dimensions[index_actif + 1];
         }
         else {
-          return 0;
+          return dimensions[0];
         }
       }
     }
