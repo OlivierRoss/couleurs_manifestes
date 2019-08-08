@@ -28,7 +28,7 @@ function lancer_couleurs_manifestes () {
     },
     template: `<div id="container-application">
       <transition appear name="fade" mode="out-in">
-        <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" />
+        <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_oeuvre_initiale" />
         <oeuvre v-else-if="ecran == 'oeuvre'" :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
         <erreur v-else :message="message_erreur" />
       </transition>
@@ -38,17 +38,13 @@ function lancer_couleurs_manifestes () {
       oeuvres: [],
       oeuvre_active: null,
       dimension_active: null,
-      valeur_initiale: null,
       message_erreur: "Donnees indisponibles"
     },
     // Charger les oeuvres
     created: function () {
       var me = this;
       fetch("/oeuvres").then((data) => {return data.json();} ) // passage des parametres
-        .then((res) => { 
-          me.oeuvres = res;
-          me.oeuvre_active= me.oeuvres[1];
-        });
+        .then((res) => { me.oeuvres = res; });
     },
     methods: {
 
@@ -83,9 +79,9 @@ function lancer_couleurs_manifestes () {
       },
 
       // Comportement
-      determiner_valeur_initiale: function (valeur) {
-        this.valeur_initiale = valeur;
-        this.dimension_active = this.list_dimensions[0];
+      determiner_oeuvre_initiale: function (valeur) {
+        this.oeuvre_active = this.oeuvres[valeur];
+        this.dimension_active = this.list_dimensions(this.oeuvre_active)[0];
         this.charger_application();
       },
       update_dimension: function (dimension) { 
@@ -108,20 +104,20 @@ function lancer_couleurs_manifestes () {
 
     computed: {
       get_oeuvre_active_infos: function () {
+        let dim_actives = this.oeuvre_active.dimensions;
         return {
-          nom: this.oeuvre_active.dimensions.titre,
-          artiste: this.oeuvre_active.dimensions.artiste,
+          nom: dim_actives.titre.valeur,
+          artiste: dim_actives.artiste.valeur,
           nom_dimension_precedente: this.dimension_prec,
           nom_dimension_suivante: this.dimension_suiv,
-          nom_dimension_active: this.dimension_active,
-          valeur_dimension_active: this.oeuvre_active.dimensions[this.dimension_active]
+          nom_dimension_active: this.dimension_active.nom,
+          valeur_dimension_active: dim_actives[this.dimension_active].valeur
         }
       },
       dimension_prec: function () {
         var dimensions = this.list_dimensions(this.oeuvre_active);
         var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
 
-        console.log(index_actif);
         if(index_actif > 0) {
           return dimensions[index_actif - 1];
         }
@@ -133,7 +129,6 @@ function lancer_couleurs_manifestes () {
         var dimensions = this.list_dimensions(this.oeuvre_active);
         var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
 
-        console.log(index_actif);
         if(index_actif < dimensions.length - 1) {
           return dimensions[index_actif + 1];
         }
