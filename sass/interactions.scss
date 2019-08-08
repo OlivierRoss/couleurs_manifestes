@@ -1,5 +1,24 @@
 .footer-oeuvre {
-  justify-content: space-evenly !important;
+
+  padding: 0 5%;
+  .menu-principal {
+    justify-content: space-around !important;
+  }
+  .selection {
+    justify-content: space-between !important;
+
+    .input-container {
+        width: 80%;
+    }
+
+    input {
+      width: 100%;
+      background-color: #DDDDDD;
+      padding: 5px;
+      border-radius: 15px;
+      margin-top: 2px;
+    }
+  }
 
   img {
     width: 50px;
