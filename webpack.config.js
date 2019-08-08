@@ -8,7 +8,7 @@ var webpack = require('webpack');
 
 module.exports = {
   target: 'web',
-  entry: './src/application.js',
+  entry: ['whatwg-fetch', './src/application.js'], // whatwg-fetch : utilisation de fetch dans le code
   output: {
     filename: 'application.js',
     path: path.resolve(__dirname, 'public/javascripts')

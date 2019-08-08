@@ -12,9 +12,8 @@ import Erreur from "./elements/erreur.js";
 require('../sass/mobile.scss');
 require('../sass/accueil.scss');
 
-var VueTouch = require('vue-touch');
-Vue.use(VueTouch, {name: 'v-touch'}); //https://github.com/vuejs/vue-touch/tree/next
-
+import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
+Vue.use(Vue2TouchEvents);
 Vue.config.productionTip = false;
 
 // Creation de l'application

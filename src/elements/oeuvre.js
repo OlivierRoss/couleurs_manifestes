@@ -1,8 +1,5 @@
 import Interactions from "./interactions.js";
 
-var VueTouch = require('vue-touch');
-Vue.use(VueTouch, {name: 'v-touch'}); //https://github.com/vuejs/vue-touch/tree/next
-
 require("../../sass/oeuvre.scss");
 require("../../sass/interactions.scss");
 
@@ -14,7 +11,7 @@ export default {
   },
 
   template: `
-    <v-touch class="oeuvre" v-on:swipeleft="dimension_precedente" v-on:swiperight="dimension_suivante">
+    <section class="oeuvre">
     <header>
     <div class="dimension-precedente" v-on:click="dimension_precedente">{{ infos.nom_dimension_precedente }} </div>
     <div class="informations-oeuvre">
@@ -23,12 +20,19 @@ export default {
     </div>
     <div class="dimension-suivante" v-on:click="dimension_suivante">{{ infos.nom_dimension_suivante }}</div>
     </header>
-    <div class="contenu-dimension">{{ infos.valeur_dimension_active }}</div>
+    <div class="contenu-dimension" v-touch:swipe="swipe">{{ infos.valeur_dimension_active }}</div>
     <interactions />
-    </v-touch>
+    </section>
   `,
 
   methods: {
+    swipe: function (direction){
+      if(direction == 'left'){
+        this.dimension_precedente();
+      } else if (direction == 'right') {
+        this.dimension_suivante();
+      }
+    },
     dimension_precedente: function () {
       this.$emit('update-dimension', 0);
     },
