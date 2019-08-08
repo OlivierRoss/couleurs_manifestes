@@ -26,13 +26,13 @@ function lancer_couleurs_manifestes () {
       'accueil': Accueil,
       'erreur': Erreur,
     },
-    template: `<v-touch id="container-application" v-on:tap="">
+    template: `<div id="container-application">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_valeur_initiale" />
         <oeuvre v-else-if="ecran == 'oeuvre'" :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
         <erreur v-else :message="message_erreur" />
       </transition>
-    </v-touch>`,
+    </div>`,
     data: {
       ecran: 'accueil',
       oeuvres: [],
@@ -113,6 +113,7 @@ function lancer_couleurs_manifestes () {
       get_oeuvre_active_infos: function () {
         return {
           nom: this.oeuvre_active.dimensions[0].valeur,
+          artiste: this.oeuvre_active.dimensions[2].valeur,
           nom_dimension_precedente: this.get_dimension(this.dimension_prev).nom,
           nom_dimension_suivante: this.get_dimension(this.dimension_suiv).nom,
           nom_dimension_active: this.get_nom_dimension_active,

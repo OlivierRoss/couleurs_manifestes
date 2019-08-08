@@ -1,5 +1,8 @@
 import Interactions from "./interactions.js";
 
+var VueTouch = require('vue-touch');
+Vue.use(VueTouch, {name: 'v-touch'}); //https://github.com/vuejs/vue-touch/tree/next
+
 require("../../sass/oeuvre.scss");
 require("../../sass/interactions.scss");
 
@@ -11,15 +14,18 @@ export default {
   },
 
   template: `
-    <section class="oeuvre">
+    <v-touch class="oeuvre" v-on:swipeleft="dimension_precedente" v-on:swiperight="dimension_suivante">
     <header>
     <div class="dimension-precedente" v-on:click="dimension_precedente">{{ infos.nom_dimension_precedente }} </div>
-    <div class="nom-oeuvre">{{ infos.nom }}</div>
+    <div class="informations-oeuvre">
+      <h2>{{ infos.nom }}</h2>
+      <h3>{{ infos.artiste }}</h3>
+    </div>
     <div class="dimension-suivante" v-on:click="dimension_suivante">{{ infos.nom_dimension_suivante }}</div>
     </header>
     <div class="contenu-dimension">{{ infos.valeur_dimension_active }}</div>
     <interactions />
-    </section>
+    </v-touch>
   `,
 
   methods: {
