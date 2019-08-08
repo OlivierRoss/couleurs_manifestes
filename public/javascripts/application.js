@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".accueil {\\n  width: 100vw;\\n  height: 100vh;\\n  text-align: center;\\n  display: flex;\\n  justify-content: center; }\\n  .accueil > img {\\n    align-self: center; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./sass/accueil.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".accueil {\\n  width: 100vw;\\n  height: 100vh;\\n  text-align: center;\\n  display: flex;\\n  justify-content: center; }\\n  .accueil > img {\\n    align-self: center;\\n    width: 50%; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./sass/accueil.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
 
 /***/ }),
 
