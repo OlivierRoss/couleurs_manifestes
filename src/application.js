@@ -5,6 +5,8 @@
  * Ajouter logique de selection des nouvelles dimensions
  */
 
+import AES from 'crypto-js/aes';
+
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
 import Erreur from "./elements/erreur.js";
@@ -37,6 +39,8 @@ function lancer_couleurs_manifestes () {
       </transition>
     </div>`,
     data: {
+      clef_encryption: "couleurs_manifestes",
+      parcours: [],
       ecran: 'accueil',
       oeuvres: [],
       oeuvre_active: null,
@@ -75,8 +79,8 @@ function lancer_couleurs_manifestes () {
         this.ecran = "oeuvre";
       },
       partager: function () {
-        // TODO ouvrir page /p/HASH
-        window.location.href = "/p/43tqreahtrju654e5";
+        let parcours_encrypte = AES.encrypt(JSON.stringify(this.parcours), this.clef_encryption);
+        window.location.href = "/p/" + parcours_encrypte;
       },
       afficher_erreur: function (message) {
         if(message) {
@@ -87,7 +91,7 @@ function lancer_couleurs_manifestes () {
 
       // Comportement
       determiner_oeuvre_initiale: function (valeur) {
-        this.set_oeuvre_active(valeur);
+        this.update_oeuvre(valeur);
         this.charger_application();
       },
       update_dimension: function (dimension) { 
@@ -97,10 +101,18 @@ function lancer_couleurs_manifestes () {
         else {
           this.dimension_active = this.dimension_prec;
         }
+        this.update_parcours();
       },
-      update_oeuvre: function (id_oeuvre) {
+      update_oeuvre: function (id_oeuvre, dimension = 0) {
+        // Fonctionnalite aleatoire
         id_oeuvre = id_oeuvre || Math.floor(Math.random() * this.oeuvres.length);
-        this.set_oeuvre_active(id_oeuvre);
+        this.oeuvre_active = this.oeuvres[id_oeuvre];
+        this.dimension_active = this.list_dimensions(this.oeuvre_active)[dimension];
+        this.update_parcours();
+      },
+      update_parcours: function () {
+        // TODO choisir identifiant unique des oeuvres
+        this.parcours.push([this.oeuvre_active.id, this.dimension_active].join("#"))
       },
 
       // Utils
@@ -109,10 +121,6 @@ function lancer_couleurs_manifestes () {
       },
       list_dimensions: function (oeuvre) {
         return Object.keys(oeuvre.dimensions);
-      },
-      set_oeuvre_active: function (id_oeuvre, dimension = 0) {
-        this.oeuvre_active = this.oeuvres[id_oeuvre];
-        this.dimension_active = this.list_dimensions(this.oeuvre_active)[dimension];
       }
     },
 

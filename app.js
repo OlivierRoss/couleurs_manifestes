@@ -1,3 +1,6 @@
+// TODO inclure statistiques d'utilisation
+// (Savoir quelles oeuvres sont les plus populaires, dimensions, etc)
+
 require('dotenv').config()
 var Promise = require("bluebird");
 var createError = require('http-errors');

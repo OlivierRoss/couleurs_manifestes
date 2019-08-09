@@ -6,12 +6,10 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/p/:parcours', function(req, res, next) {
-  // TODO Decrypter le parcours
-  var donnees_parcours = {donnees: req.params.parcours};
-
-  res.render('partager', { parcours: JSON.stringify(donnees_parcours)});
+router.get(/\/p\/.*/, function(req, res, next) {
+  res.render('partager');
 });
+
 //////////// API ///////////////
 
 /* GET oeuvres. */
