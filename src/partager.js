@@ -10,14 +10,20 @@ function affichier_page_partager () {
   new Vue({
     el: '#container-partager',
     components: {},
-    template: `<div id="container-partager"> <h1>Partager</h1></div>`,
+    template: `
+      <div id="container-partager">
+        <h1>Partager</h1>
+        <ul>
+          <li v-for="etape in parcours">{{ etape }}</li>
+        </ul>
+      </div>
+    `,
     data: {
       clef_encryption: 'couleurs_manifestes'
     },
     created: function () {
       let parcours_encrypte = window.location.href.match(/^http.*\/p\/(.*)/)[1];
-      console.log(parcours_encrypte, parcours_encrypte.length);
-      this.parcours = Crypto.AES.decrypt(parcours_encrypte, this.clef_encryption).toString(Crypto.enc.Utf8);
+      this.parcours = JSON.parse(Crypto.AES.decrypt(parcours_encrypte, this.clef_encryption).toString(Crypto.enc.Utf8));
     },
     methods: {},
     computed: {} 
