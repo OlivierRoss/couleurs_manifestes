@@ -1,26 +1,40 @@
 .footer-oeuvre {
 
+  position: relative;
   padding: 0 5%;
-  .menu-principal {
-    justify-content: space-around !important;
+
+  .icone {
+    transition: left 1s;
+    position: absolute;
   }
-  .selection {
-    justify-content: space-between !important;
 
-    .input-container {
-        width: 80%;
-    }
+  .diese {
+    left: calc(25% - 25px);
+  }
 
-    input {
-      width: 100%;
-      background-color: #DDDDDD;
-      padding: 5px;
-      border-radius: 15px;
-      margin-top: 2px;
-    }
+  .question {
+    left: calc(50% - 25px);
+  }
+
+  .partager {
+    left: calc(75% - 25px);
   }
 
   img {
     width: 50px;
+  }
+
+  .gauche {
+    left: calc(5% - 25px);
+  }
+
+  .input-container {
+    position: absolute;
+    left: 25%;
+    width: 70%;
+
+    input {
+      width: 100%;
+    }
   }
 }

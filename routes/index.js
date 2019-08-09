@@ -21,4 +21,13 @@ router.get('/oeuvres', (req, res, next) => {
   });
 });
 
+router.get('/oeuvres_brutes.json', (req, res, next) => {
+  const OeuvresManager = require("../lib/data_fetcher.js");
+  manager = new OeuvresManager;
+  manager.fetch_oeuvres().then((oeuvres) => {
+    res.send(oeuvres);
+  });
+});
+
+
 module.exports = router;
