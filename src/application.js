@@ -11,7 +11,6 @@ import Erreur from "./elements/erreur.js";
 import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
-require('../sass/accueil.scss');
 
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
@@ -32,7 +31,7 @@ function lancer_couleurs_manifestes () {
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_oeuvre_initiale" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
           <oeuvre :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
-          <interactions v-on:update-oeuvre="update_oeuvre" />
+          <interactions v-on:update-oeuvre="update_oeuvre" v-on:partager="partager"/>
         </section>
         <erreur v-else :message="message_erreur" />
       </transition>
@@ -74,6 +73,10 @@ function lancer_couleurs_manifestes () {
       // Affichage
       afficher_oeuvre: function () {
         this.ecran = "oeuvre";
+      },
+      partager: function () {
+        // TODO ouvrir page /p/HASH
+        window.location.href = "/p/43tqreahtrju654e5";
       },
       afficher_erreur: function (message) {
         if(message) {

@@ -1,16 +1,14 @@
-/*
- * TODO
- * ajouter support pour sass
- */
-
 const path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
   target: 'web',
-  entry: ['whatwg-fetch', './src/application.js'], // whatwg-fetch : utilisation de fetch dans le code
+  entry: {
+    application: ['whatwg-fetch', './src/application.js'], // whatwg-fetch : utilisation de fetch dans le code
+    partager: './src/partager.js'
+  },
   output: {
-    filename: 'application.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'public/javascripts')
   },
   module: {

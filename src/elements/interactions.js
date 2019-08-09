@@ -7,7 +7,7 @@ export default {
       <div v-if="mode == 'general'" class="flex menu-principal">
         <div v-on:click="mode_selection"><img src="/images/diese.svg" /></div>
         <div v-on:click="oeuvre_aleatoire"><img src="/images/question.svg" /></div>
-        <div><img src="/images/partager.svg" /></div>
+        <div v-on:click="partager"><img src="/images/partager.svg" /></div>
       </div>
       <div v-if="mode == 'selection'" class="flex selection">
         <div v-on:click="mode_general"><img src="/images/diese.svg" /></div>
@@ -34,6 +34,9 @@ export default {
     },
     selectionner: function (event) {
       this.$emit('update-oeuvre', event.target.value);
+    },
+    partager: function () {
+      this.$emit('partager');
     }
   }
 };

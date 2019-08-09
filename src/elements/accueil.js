@@ -1,3 +1,5 @@
+require('../../sass/accueil.scss');
+
 export default {
   props: ["passer_valeur_initiale"],
   template: `
