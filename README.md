@@ -16,5 +16,13 @@ Pour se connecter à l'api sheets :
 8. curl https://couleurs-manifestes.herokuapp.com/
 
 ## Dev
-1. npm start
-2. gulp transpile
+1. docker-compose up
+2. npm run build
+
+## Docs
+* Setup mongo
+  * https://www.w3schools.com/nodejs/nodejs_mongodb.asp
+* Docker compose
+  * https://devcenter.heroku.com/articles/local-development-with-docker-compose
+  * https://docs.docker.com/compose/gettingstarted/
+

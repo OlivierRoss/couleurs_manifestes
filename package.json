@@ -6,7 +6,8 @@
     "start": "nodemon ./bin/www",
     "babel": "npx babel --watch src --out-dir public/javascripts",
     "sass": "node-sass -w sass/ -o public/stylesheets/",
-    "build": "webpack --watch --config webpack.config.js"
+    "build": "webpack --watch --config webpack.config.js",
+    "build-once": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -26,6 +27,7 @@
     "google-auth-library": "^4.2.5",
     "googleapis": "^41.0.0",
     "http-errors": "~1.6.3",
+    "mongodb": "^3.3.0-beta2",
     "morgan": "~1.9.1",
     "node-sass-middleware": "^0.11.0",
     "nodemon": "^1.19.1",
