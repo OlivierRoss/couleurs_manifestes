@@ -32,7 +32,7 @@ function lancer_couleurs_manifestes () {
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_oeuvre_initiale" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
-          <oeuvre :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" :dimension_active="dimension_active"/>
+          <oeuvre :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" v-on:update-oeuvre="update_oeuvre" :dimension_active="dimension_active"/>
           <interactions v-on:update-oeuvre="update_oeuvre" v-on:partager="partager"/>
         </section>
         <erreur v-else :message="message_erreur" />
@@ -133,7 +133,8 @@ function lancer_couleurs_manifestes () {
           nom_dimension_precedente: this.dimension_prec,
           nom_dimension_suivante: this.dimension_suiv,
           nom_dimension_active: this.dimension_active.nom,
-          valeur_dimension_active: dim_actives[this.dimension_active].valeur
+          valeur_dimension_active: dim_actives[this.dimension_active].valeur,
+          liens: dim_actives[this.dimension_active].liens
         }
       },
       dimension_prec: function () {

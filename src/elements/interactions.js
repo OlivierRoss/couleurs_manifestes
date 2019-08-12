@@ -11,7 +11,7 @@ export default {
   //https://jqueryui.com/autocomplete/#combobox
   template: `
     <footer class="footer-oeuvre">
-      <div class="flex menu-principal">
+      <div class="menu-principal">
         <div v-on:click="mode_selection = !mode_selection" :class="['icone', 'diese', {gauche: mode_selection}]">
           <img src="/images/diese.svg" />
         </div>

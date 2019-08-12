@@ -1,11 +1,13 @@
 .footer-oeuvre {
+  background-color: #BBB;
+  height: 15%;
 
   position: relative;
-  padding: 0 5%;
 
   .icone {
     transition: left 1s;
     position: absolute;
+    top: calc(50% - 25px);
   }
 
   .diese {

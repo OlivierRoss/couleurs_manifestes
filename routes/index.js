@@ -14,11 +14,16 @@ router.get(/\/p\/.*/, function(req, res, next) {
 
 /* GET oeuvres. */
 router.get('/oeuvres', (req, res, next) => {
+  try {
+
   const OeuvresManager = require("../lib/data_fetcher.js");
   manager = new OeuvresManager;
   manager.get_list().then((oeuvres) => {
     res.send(oeuvres);
   });
+  } catch (err ) {
+console.log(err);
+  }
 });
 
 router.get('/oeuvres_brutes.json', (req, res, next) => {
