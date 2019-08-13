@@ -5,7 +5,7 @@ Vue.use(Vue2TouchEvents);
 Vue.config.productionTip = false;
 
 // Creation de l'application
-function affichier_page_partager () {
+function afficher_page_partager () {
   new Vue({
     el: '#container-partager',
     components: {},
@@ -21,11 +21,11 @@ function affichier_page_partager () {
       clef_encryption: 'couleurs_manifestes'
     },
     created: function () {
-      this.parcours = parcours; 
+      this.parcours = parcours.parcours; 
     },
     methods: {},
     computed: {} 
   });
 }
 
-window.onload = affichier_page_partager; 
+window.onload = afficher_page_partager; 

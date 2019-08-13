@@ -89,7 +89,9 @@ function lancer_couleurs_manifestes () {
         }).then((data) => { return data.json(); })
         
           // Charger la nouvelle page
-          .then((res) => { window.location.href = "/p/" + res.page_parcours; });
+          .then((res) => { 
+            window.location.href = "/p/" + res.page_parcours; 
+          });
       },
       afficher_erreur: function (message) {
         if(message) {

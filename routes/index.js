@@ -50,7 +50,8 @@ router.post('/parcours', (request, response) => {
       var clef = hash(request.body);
       var parcours = {
         id: clef,
-        parcours: request.body
+        parcours: request.body,
+        timestamp: + new Date()
       };
       
       client.db(process.env.MONGO_DB).collection("parcours").insertOne(parcours, (err, res) => {
@@ -65,6 +66,11 @@ router.post('/parcours', (request, response) => {
 
 function hash (obj) {
   return crypto.createHash(process.env.HASH_ALGO).update(JSON.stringify(obj)).digest('hex');
+}
+
+function is_sane (obj) {
+  return true; // TODO structure voulue
+  return JSON.stringify(obj).match(/\{/)
 }
 
 module.exports = router;
