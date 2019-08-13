@@ -5,8 +5,6 @@
  * Ajouter logique de selection des nouvelles dimensions
  */
 
-import AES from 'crypto-js/aes';
-
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
 import Erreur from "./elements/erreur.js";
@@ -50,7 +48,7 @@ function lancer_couleurs_manifestes () {
     // Charger les oeuvres
     created: function () {
       var me = this;
-      fetch("/oeuvres").then((data) => {return data.json();} ) // passage des parametres
+      fetch("/oeuvres").then((data) => {return data.json();} )
         .then((res) => { me.oeuvres = res; });
     },
     methods: {
@@ -79,8 +77,19 @@ function lancer_couleurs_manifestes () {
         this.ecran = "oeuvre";
       },
       partager: function () {
-        let parcours_encrypte = AES.encrypt(JSON.stringify(this.parcours), this.clef_encryption);
-        window.location.href = "/p/" + parcours_encrypte;
+
+        // Sauvegarder le parcours
+        fetch("/parcours", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.parcours)
+        }).then((data) => { return data.json(); })
+        
+          // Charger la nouvelle page
+          .then((res) => { window.location.href = "/p/" + res.page_parcours; });
       },
       afficher_erreur: function (message) {
         if(message) {

@@ -1,6 +1,5 @@
 require('../sass/partager.scss');
 
-import Crypto from 'crypto-js';
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 Vue.config.productionTip = false;
@@ -22,8 +21,7 @@ function affichier_page_partager () {
       clef_encryption: 'couleurs_manifestes'
     },
     created: function () {
-      let parcours_encrypte = window.location.href.match(/^http.*\/p\/(.*)/)[1];
-      this.parcours = JSON.parse(Crypto.AES.decrypt(parcours_encrypte, this.clef_encryption).toString(Crypto.enc.Utf8));
+      this.parcours = parcours; 
     },
     methods: {},
     computed: {} 
