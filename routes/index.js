@@ -1,3 +1,6 @@
+// TODO
+// Refact pour sortir toute la logique d'ici
+
 const mongo = require('mongodb').MongoClient;
 const crypto = require('crypto');
 const OeuvresManager = require("../lib/data_fetcher.js");
@@ -12,9 +15,8 @@ router.get('/', function(req, res, next) {
 
 router.get(/\/p\/\w{32}/, function(req, res, next) {
 
-  mongo.connect('mongodb://' + process.env.MONGO_INSTANCE, (err, client) => {
-    var parcours = client.db(process.env.MONGO_DB).collection('parcours').findOne({}, (err, parcours) => {
-      console.log(parcours);
+  mongo.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, (err, client) => {
+    var parcours = client.db(process.env.MONGO_DB).collection('parcours').findOne({id: req.url.split('/')[2]}, (err, parcours) => {
       res.render('partager', {
         parcours: "var parcours = " + JSON.stringify(parcours)
       });
@@ -42,7 +44,7 @@ router.post('/parcours', (request, response) => {
   };
 
   // Connexion
-  mongo.connect('mongodb://' + process.env.MONGO_INSTANCE, (err, client) => {
+  mongo.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, (err, client) => {
     if(err) { console.err(err); }
 
     // Enregistrement du parcours

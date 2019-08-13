@@ -1,24 +1,20 @@
 // TODO inclure statistiques d'utilisation
 // (Savoir quelles oeuvres sont les plus populaires, dimensions, etc)
+// Ajouter Sentry
 
-require('dotenv').config()
+if(process.env.NODE_ENV != 'production'){
+  require('dotenv').config()
+}
 var Promise = require("bluebird");
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
-//var winston = require('winston'); TODO : utiliser
-
-// TODO Activer seulement en production
-//const Sentry = require('@sentry/node');
-//Sentry.init({ dsn: 'https://cbd37e3223d8414a93121911083d1190@sentry.io/1505617'  });
 
 var indexRouter = require('./routes/index');
 
 var app = express();
-// TODO Activer seulement en production
-//app.use(Sentry.Handlers.requestHandler());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
-// TODO Activer seulement en production
-//app.use(Sentry.Handlers.errorHandler());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
