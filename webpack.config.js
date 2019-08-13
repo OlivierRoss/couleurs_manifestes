@@ -4,8 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   target: 'web',
   entry: {
-    application: ['whatwg-fetch', './src/application.js'], // whatwg-fetch : utilisation de fetch dans le code
-    partager: './src/partager.js'
+    application: ['whatwg-fetch', './frontend/application.js'], // whatwg-fetch : utilisation de fetch dans le code
+    partager: './frontend/partager.js'
   },
   output: {
     filename: '[name].js',
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [ path.resolve(__dirname, "src") ],
+        include: [ path.resolve(__dirname, "frontend") ],
         use: {
           loader: 'babel-loader',
           options: {

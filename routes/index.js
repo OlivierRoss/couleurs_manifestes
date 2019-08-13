@@ -3,7 +3,7 @@
 
 const mongo = require('mongodb').MongoClient;
 const crypto = require('crypto');
-const OeuvresManager = require("../lib/data_fetcher.js");
+const OeuvresManager = require("../backend/data_fetcher.js");
 
 var express = require('express');
 var router = express.Router();

@@ -2,6 +2,7 @@
 // (Savoir quelles oeuvres sont les plus populaires, dimensions, etc)
 // Ajouter Sentry
 // Creer un objet vue qui pourra etre appele directement de l'app ou par l'api /p/....
+// Ajouter un favicone
 
 if(process.env.NODE_ENV != 'production'){
   require('dotenv').config()
