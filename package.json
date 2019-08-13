@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm ./bin/www",
+    "start": "node ./bin/www",
     "start-dev": "nodemon ./bin/www",
     "babel": "npx babel --watch src --out-dir public/javascripts",
     "sass": "node-sass -w sass/ -o public/stylesheets/",
