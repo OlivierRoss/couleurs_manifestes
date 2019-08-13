@@ -1,6 +1,7 @@
 // TODO inclure statistiques d'utilisation
 // (Savoir quelles oeuvres sont les plus populaires, dimensions, etc)
 // Ajouter Sentry
+// Creer un objet vue qui pourra etre appele directement de l'app ou par l'api /p/....
 
 if(process.env.NODE_ENV != 'production'){
   require('dotenv').config()
@@ -9,7 +10,6 @@ var Promise = require("bluebird");
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 
 var indexRouter = require('./routes/index');
@@ -23,7 +23,6 @@ app.set('view engine', 'pug');
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
