@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   if(req.cookies.hash_parcours){
     parcours.load(req.cookies.hash_parcours).then((parcours_charge) => {
       res.render('index', {
-        parcours: "var parcours = " + JSON.stringify(parcours_charge)
+        parcours: "window['parcours']= " + JSON.stringify(parcours_charge)
       });
     });
   }
@@ -28,7 +28,7 @@ router.get(/\/p\/\w{32}/, function(req, res) {
     res.cookie('hash_parcours', hash, { maxAge: process.env.COOKIE_MAX_AGE || 360000 }); 
 
     res.render('parcours', {
-      parcours: "var parcours = " + JSON.stringify(parcours_charge)
+      parcours: "window.parcours = " + JSON.stringify(parcours_charge)
     });
   });
 });

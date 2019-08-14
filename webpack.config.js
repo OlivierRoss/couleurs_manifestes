@@ -1,5 +1,6 @@
 const path = require('path');
-var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   target: 'web',
@@ -37,5 +38,8 @@ module.exports = {
   stats: {
     colors: true
   },
-  mode: 'development'
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
+  }
+//  mode: 'production'
 };

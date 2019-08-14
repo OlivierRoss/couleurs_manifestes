@@ -54,9 +54,9 @@ function lancer_couleurs_manifestes () {
           this.oeuvres = res;
           
           // Recharger le parcours
-          if(parcours) {
+          if(window.parcours) {
             // Ramener le parcours
-            this.parcours = parcours.parcours;
+            this.parcours = window.parcours.parcours;
 
             // Extraire informations
             let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");

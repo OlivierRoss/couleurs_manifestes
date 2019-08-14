@@ -5,8 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "start-dev": "nodemon ./bin/www",
-    "build": "webpack --watch --config webpack.config.js",
-    "build-once": "webpack --config webpack.config.js"
+    "build": "webpack --watch --mode development --config webpack.config.js",
+    "build-once": "webpack --mode production --config webpack.config.js"
   },
   "dependencies": {
     "bluebird": "^3.5.5",
@@ -23,7 +23,6 @@
     "vue2-touch-events": "^2.0.0"
   },
   "devDependencies": {
-    "dotenv": "^8.0.0",
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
@@ -31,10 +30,12 @@
     "babel-loader": "^8.0.6",
     "core-js": "^3.1.4",
     "css-loader": "^3.2.0",
+    "dotenv": "^8.0.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "whatwg-fetch": "^3.0.0"
