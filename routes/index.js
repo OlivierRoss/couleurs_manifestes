@@ -7,11 +7,26 @@ const statistiques = require("../backend/statistiques.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index');
+  if(req.cookies.hash_parcours){
+    parcours.load(req.cookies.hash_parcours).then((parcours_charge) => {
+      res.render('index', {
+        parcours: "var parcours = " + JSON.stringify(parcours_charge)
+      });
+    });
+  }
+  else {
+    res.render('index');
+  }
 });
 
 router.get(/\/p\/\w{32}/, function(req, res) {
-  parcours.load(req.url.split('/')[2]).then((parcours_charge) => {
+  let hash = req.url.split('/')[2];
+
+  parcours.load(hash).then((parcours_charge) => {
+
+    // Au cas ou l'utilisateur reviendrait a l'application
+    res.cookie('hash_parcours', hash, { maxAge: process.env.COOKIE_MAX_AGE || 360000 }); 
+
     res.render('parcours', {
       parcours: "var parcours = " + JSON.stringify(parcours_charge)
     });

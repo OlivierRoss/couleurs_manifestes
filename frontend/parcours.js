@@ -10,7 +10,7 @@ function afficher_page_partager () {
         <ul>
           <li v-for="etape in parcours">{{ etape }}</li>
         </ul>
-        <button value="back">
+        <button v-on:click="window.location.href = '/'">Retour</button>
       </div>
     `,
     created: function () {

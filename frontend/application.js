@@ -46,26 +46,46 @@ function lancer_couleurs_manifestes () {
       dimension_active: null,
       message_erreur: "Donnees indisponibles"
     },
-    // Charger les oeuvres
     created: function () {
-      var me = this;
+
+      // Charger les oeuvres
       fetch("/oeuvres").then((data) => {return data.json();} )
-        .then((res) => { me.oeuvres = res; });
+        .then((res) => { 
+          this.oeuvres = res;
+          
+          // Recharger le parcours
+          if(parcours) {
+            // Ramener le parcours
+            this.parcours = parcours.parcours;
+
+            // Extraire informations
+            let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
+            this.oeuvre_active = this.oeuvres[dernier_affichage[0]];
+            this.dimension_active = dernier_affichage[1];
+
+            // Afficher
+            this.afficher_oeuvre();
+          }
+        });
     },
     methods: {
 
       // Chargement
       charger_application: function (event) {
+        // TODO utiliser des promesses ici, pas de setTimeout
 
         // Afficher l'application
-        if( this.oeuvres_presentes() ) { this.afficher_oeuvre(); }
+        if( this.oeuvres_presentes() ) { 
+          this.afficher_oeuvre(); 
+        }
 
         // Attendre quelques secondes encore
         else {
           setTimeout(() => {
 
             // Afficher l'application
-            if( this._oeuvres_presentes() ) { this.afficher_oeuvre(); }
+            console.log(1);
+            if( this.oeuvres_presentes() ) { this.afficher_oeuvre(); }
 
             // Afficher erreur
             else { this.afficher_erreur(); }
@@ -88,16 +108,14 @@ function lancer_couleurs_manifestes () {
           },
           body: JSON.stringify(this.parcours)
         }).then((data) => { return data.json(); })
-        
-          // Charger la nouvelle page
+
+        // Charger la nouvelle page
           .then((res) => { 
             window.location.href = "/p/" + res.page_parcours; 
           });
       },
       afficher_erreur: function (message) {
-        if(message) {
-          this.message_erreur = message;
-        }
+        if(message) { this.message_erreur = message; }
         this.ecran = "erreur";
       },
 
