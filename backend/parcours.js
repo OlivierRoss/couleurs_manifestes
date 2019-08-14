@@ -7,14 +7,14 @@ exports.save = (obj) => {
 
     if(!is_sane(obj)) {
       let err = 'Parcours mal formate'; // TODO Creer une liste des erreurs
-      console.err(err);
+      console.error(err);
       reject(err)
     };
 
     // Connexion
     mongo.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, (err, client) => {
       if(err) { 
-        console.err(err);
+        console.error(err);
         reject(err);
       }
 
@@ -27,9 +27,9 @@ exports.save = (obj) => {
           timestamp: + new Date()
         };
 
-        client.db(process.env.MONGO_DB).collection("parcours").insertOne(parcours, (err, res) => {
+        client.db(process.env.MONGO_DB).collection("parcours").save(parcours, (err, res) => {
           if(err) { 
-            console.err(err);
+            console.error(err);
             reject(err);
           }
           else {
@@ -49,13 +49,13 @@ exports.load = (hash) => {
     mongo.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, (err, client) => {
 
       if(err) {
-        console.err(err);
+        console.error(err);
         reject(err);
       }
       else {
         client.db(process.env.MONGO_DB).collection('parcours').findOne({_id: hash}, (err, parcours) => {
           if(err) {
-            console.err(err);
+            console.error(err);
             reject(err);
           }
           else {

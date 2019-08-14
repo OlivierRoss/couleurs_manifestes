@@ -12,9 +12,10 @@ import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
 
+// TODO Tester si ce serait plus rapide de servir Vue a partir du serveur
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
-Vue.config.productionTip = false;
+//Vue.config.productionTip = false;
 
 // Creation de l'application
 function lancer_couleurs_manifestes () {

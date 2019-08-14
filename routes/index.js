@@ -3,7 +3,7 @@ var router = express.Router();
 
 const oeuvres = require("../backend/oeuvres.js");
 const parcours = require("../backend/parcours.js");
-//const statistiques = require("../backend/statistiques.js");
+const statistiques = require("../backend/statistiques.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 
 router.get(/\/p\/\w{32}/, function(req, res) {
   parcours.load(req.url.split('/')[2]).then((parcours_charge) => {
-    res.render('partager', {
+    res.render('parcours', {
       parcours: "var parcours = " + JSON.stringify(parcours_charge)
     });
   });

@@ -5,7 +5,7 @@ module.exports = {
   target: 'web',
   entry: {
     application: ['whatwg-fetch', './frontend/application.js'], // whatwg-fetch : utilisation de fetch dans le code
-    partager: './frontend/partager.js'
+    parcours: './frontend/parcours.js'
   },
   output: {
     filename: '[name].js',
