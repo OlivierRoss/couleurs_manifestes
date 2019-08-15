@@ -7,7 +7,7 @@ const {auth} = require('google-auth-library');
 const fs = require('fs');
 const DONNEES = process.cwd() + process.env.DOSSIER_DONNEES + process.env.FICHIER_DONNEES;
 
-exports.get_list = (force_api = false) => {
+function get (force_api = false) {
 
   // À partir d'un fichier local
   if(fs.existsSync(DONNEES) && !force_api) {
@@ -21,48 +21,20 @@ exports.get_list = (force_api = false) => {
       });
     });
   }
-  // Aller chercher oeuvres sur Google
   else {
-    console.log("Oeuvres from API");
-    return this.fetch_oeuvres().then((oeuvres_brutes) => {
-
-      // Transformer lignes en objets manipulables
-      var oeuvres_ordonnees = oeuvres_brutes.slice(1).map((informations_oeuvre, index_oeuvre) => {
-        var oeuvre_ordonnee = {
-          id: index_oeuvre,// TODO mettre a jour selon nomenclature du MBAS
-          dimensions: {}
-        };
-        informations_oeuvre.forEach((attribut, index) => {
-          let nom_dimension = oeuvres_brutes[0][index].toLowerCase().replace(/[^a-zA-Z0-9]/g,'_');
-          oeuvre_ordonnee.dimensions[nom_dimension] = {
-            nom: oeuvres_brutes[0][index],
-            valeur: attribut,
-            liens: []
-          };
-        });
-        return oeuvre_ordonnee;
-      }).filter((oeuvre) => { return oeuvre.dimensions.nac.valeur != ""; });
-
-      // Une fois les oeuvres ordonnees, creer les liens
-      var oeuvres_liees = this.lier(oeuvres_ordonnees);
-
-      // Enregistrer les oeuvres liees dans la cache
-      this.to_cache(oeuvres_liees);
-
-      return oeuvres_liees;
-    });
+    return this.fetch_oeuvres().then((oeuvres) => { return oeuvres; });
   }
 }
 
-exports.fetch_oeuvres = () => {
+function fetch () {
 
+  // Aller chercher configuration en mm temps
   return new Promise ((resolve, reject) => {
     // Obtention des authorisations
     get_googleapi_client_auth().then((client) => {
 
       // Call a l'api
-      sheets.spreadsheets.values.get(
-        {
+      sheets.spreadsheets.values.get({
           auth: client,
           spreadsheetId: process.env.SHEET_OEUVRES,
           range: process.env.RANGE_OEUVRES
@@ -72,12 +44,37 @@ exports.fetch_oeuvres = () => {
             console.error('The API returned an error.', err);
             reject(err);
           }
-          // Retour des donnees de l'api
-          resolve(res.data.values);
+
+          let oeuvres_brutes = res.data.values;
+          var oeuvres_ordonnees = oeuvres_brutes.slice(1).map((informations_oeuvre, index_oeuvre) => {
+            var oeuvre_ordonnee = {
+              id: index_oeuvre,
+              dimensions: {}
+            };
+            informations_oeuvre.forEach((attribut, index) => {
+              let id_dimension = oeuvres_brutes[0][index].toLowerCase().replace(/[^a-z0-9]/g,'_');
+              oeuvre_ordonnee.dimensions[id_dimension] = {
+                id: id_dimension,
+                nom: oeuvres_brutes[0][index],
+                valeur: attribut,
+                liens: []
+              };
+            });
+            return oeuvre_ordonnee;
+          }).filter((oeuvre) => { return oeuvre.dimensions.nac.valeur != ""; });
+
+          var oeuvres_liees = lier(oeuvres_ordonnees);
+
+          to_cache(oeuvres_liees);
+
+          resolve(oeuvres_liees);
         });
     });
   });
 }
+
+exports.get = get;
+exports.fetch = fetch;
 
 function lier (oeuvres_ordonnees) {
   oeuvres_ordonnees.forEach((oeuvre, index) => {

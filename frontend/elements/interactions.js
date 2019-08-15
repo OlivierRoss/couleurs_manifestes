@@ -42,10 +42,10 @@ export default {
 
   methods: {
     oeuvre_aleatoire: function () {
-      this.$emit('update-oeuvre', null);
+      this.$emit('set-actif', { id_oeuvre: -1 });
     },
     selectionner: function (event) {
-      this.$emit('update-oeuvre', event.target.value);
+      this.$emit('set-actif', { id_oeuvre: event.target.value });
     },
     partager: function () {
       this.$emit('partager');

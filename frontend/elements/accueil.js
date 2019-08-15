@@ -14,7 +14,7 @@ export default {
 
   methods: {
     selection_initiale: function (event) {
-      this.passer_valeur_initiale(10); // TODO retourner la valeur qui lancera l'application
+      this.$emit('charger-application', 10); // TODO retourner la valeur qui lancera l'application
     }
   }
 

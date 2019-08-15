@@ -13,9 +13,9 @@ import Interactions from "./elements/interactions.js";
 require('../sass/mobile.scss');
 
 // TODO Tester si ce serait plus rapide de servir Vue a partir du serveur
+
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
-//Vue.config.productionTip = false;
 
 // Creation de l'application
 function lancer_couleurs_manifestes () {
@@ -29,12 +29,12 @@ function lancer_couleurs_manifestes () {
     },
     template: `<div id="container-application">
       <transition appear name="fade" mode="out-in">
-        <accueil v-if="ecran == 'accueil'" :passer_valeur_initiale="this.determiner_oeuvre_initiale" />
+        <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
-          <oeuvre :infos="get_oeuvre_active_infos" v-on:update-dimension="update_dimension" v-on:update-oeuvre="update_oeuvre" :dimension_active="dimension_active"/>
-          <interactions v-on:update-oeuvre="update_oeuvre" v-on:partager="partager"/>
+          <oeuvre v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" />
+          <interactions v-on:set-actif="set_actif" v-on:partager="partager" />
         </section>
-        <erreur v-else :message="message_erreur" />
+        <erreur v-else v-bind:message="message_erreur" />
       </transition>
     </div>`,
     data: {
@@ -49,53 +49,74 @@ function lancer_couleurs_manifestes () {
     created: function () {
 
       // Charger les oeuvres
-      fetch("/oeuvres").then((data) => {return data.json();} )
-        .then((res) => { 
-          this.oeuvres = res;
+      this.get_oeuvres()
+        .then(() => { 
           
           // Recharger le parcours
           if(window.parcours) {
-            // Ramener le parcours
             this.parcours = window.parcours.parcours;
-
-            // Extraire informations
-            let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
-            this.oeuvre_active = this.oeuvres[dernier_affichage[0]];
-            this.dimension_active = dernier_affichage[1];
-
-            // Afficher
-            this.afficher_oeuvre();
+            this.charger_application();
           }
         });
     },
     methods: {
 
       // Chargement
-      charger_application: function (event) {
-        // TODO utiliser des promesses ici, pas de setTimeout
+      charger_application: function (seed) {
 
-        // Afficher l'application
-        if( this.oeuvres_presentes() ) { 
-          this.afficher_oeuvre(); 
+        // Parcours actif
+        if(this.parcours.length > 0) {
+          let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
+          this.set_actif({
+            id_oeuvre: dernier_affichage[0],
+            id_dimension: dernier_affichage[1],
+            skip_update_parcours: true
+          });
         }
 
-        // Attendre quelques secondes encore
+        // Nouvelle utilisation
         else {
-          setTimeout(() => {
-
-            // Afficher l'application
-            console.log(1);
-            if( this.oeuvres_presentes() ) { this.afficher_oeuvre(); }
-
-            // Afficher erreur
-            else { this.afficher_erreur(); }
-          }, 2500);
+          // TODO utiliser le seed ici
+          this.set_actif( { id_oeuvre: -1, skip_update_parcours: true });
         }
+
+        this.afficher_oeuvre(); 
+      },
+      get_oeuvres: function () {
+        return new Promise ((resolve, reject) => {
+          if(this.oeuvres.length > 0) {
+            resolve(this.oeuvres);
+          }
+          else {
+            fetch("/oeuvres")
+              .then((res) => {
+                if(!res.ok){
+                  console.error(response.statusText);
+                  reject(response.statusText);
+                }
+                else {
+                  return res.json();
+                }
+              })
+              .then((oeuvres) => { 
+                this.oeuvres = oeuvres;
+                resolve(this.oeuvres);
+              })
+              .catch((err) => {
+                console.error(err);
+                reject(err);
+              });
+          }
+        });
       },
 
       // Affichage
       afficher_oeuvre: function () {
         this.ecran = "oeuvre";
+      },
+      afficher_erreur: function (message) {
+        if(message) { this.message_erreur = message; }
+        this.ecran = "erreur";
       },
       partager: function () {
 
@@ -114,41 +135,33 @@ function lancer_couleurs_manifestes () {
             window.location.href = "/p/" + res.page_parcours; 
           });
       },
-      afficher_erreur: function (message) {
-        if(message) { this.message_erreur = message; }
-        this.ecran = "erreur";
-      },
 
       // Comportement
-      determiner_oeuvre_initiale: function (valeur) {
-        this.update_oeuvre(valeur);
-        this.charger_application();
-      },
-      update_dimension: function (dimension) { 
-        if(dimension > 0 ) {
-          this.dimension_active = this.dimension_suiv;
+      set_actif: function (opts) {
+        if(this.oeuvre_active)
+        console.log(this.oeuvre_active.id, opts.id_oeuvre);
+
+        // Oeuvre active
+        if(opts.id_oeuvre) {
+
+          // TODO Selectionner random dans les liens
+          if(opts.id_oeuvre < 0) {
+            this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * this.oeuvres.length)];
+            this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] });
+          }
+          else {
+            this.oeuvre_active = this.oeuvres[opts.id_oeuvre];
+          }
         }
-        else {
-          this.dimension_active = this.dimension_prec;
-        }
-        this.update_parcours();
-      },
-      update_oeuvre: function (id_oeuvre, dimension = 0) {
-        // Fonctionnalite aleatoire
-        id_oeuvre = id_oeuvre || Math.floor(Math.random() * this.oeuvres.length);
-        this.oeuvre_active = this.oeuvres[id_oeuvre];
-        this.dimension_active = this.list_dimensions(this.oeuvre_active)[dimension];
-        this.update_parcours();
-      },
-      update_parcours: function () {
-        // TODO choisir identifiant unique des oeuvres
-        this.parcours.push([this.oeuvre_active.id, this.dimension_active].join("#"))
+        
+        // Dimension active
+        if(opts.id_dimension) this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
+
+        // Update parcours
+        if(!opts.skip_update_parcours) this.parcours.push([this.oeuvre_active.id, this.dimension_active.id].join("#"));
       },
 
       // Utils
-      oeuvres_presentes: function () {
-        return this.oeuvres.length > 0;
-      },
       list_dimensions: function (oeuvre) {
         return Object.keys(oeuvre.dimensions);
       }
@@ -156,38 +169,22 @@ function lancer_couleurs_manifestes () {
 
     computed: {
       get_oeuvre_active_infos: function () {
-        let dim_actives = this.oeuvre_active.dimensions;
         return {
-          nom: dim_actives.titre.valeur,
-          artiste: dim_actives.artiste.valeur,
-          nom_dimension_precedente: this.dimension_prec,
-          nom_dimension_suivante: this.dimension_suiv,
-          nom_dimension_active: this.dimension_active.nom,
-          valeur_dimension_active: dim_actives[this.dimension_active].valeur,
-          liens: dim_actives[this.dimension_active].liens
+          oeuvre: this.oeuvre_active,
+          dimension_precedente: this.dimension_precedente,
+          dimension_active: this.dimension_active,
+          dimension_suivante: this.dimension_suivante
         }
       },
-      dimension_prec: function () {
-        var dimensions = this.list_dimensions(this.oeuvre_active);
-        var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
-
-        if(index_actif > 0) {
-          return dimensions[index_actif - 1];
-        }
-        else {
-          return dimensions[dimensions.length - 1];
-        }
+      dimension_precedente: function () {
+        var noms_dimensions = this.list_dimensions(this.oeuvre_active);
+        var index_actif = noms_dimensions.findIndex((dim) => { return dim == this.dimension_active.id; });
+        return this.oeuvre_active.dimensions[noms_dimensions[(index_actif > 0) ? index_actif - 1 : noms_dimensions.length - 1]];
       },
-      dimension_suiv: function () {
-        var dimensions = this.list_dimensions(this.oeuvre_active);
-        var index_actif = dimensions.findIndex((dim) => { return dim == this.dimension_active; });
-
-        if(index_actif < dimensions.length - 1) {
-          return dimensions[index_actif + 1];
-        }
-        else {
-          return dimensions[0];
-        }
+      dimension_suivante: function () {
+        var noms_dimensions = this.list_dimensions(this.oeuvre_active);
+        var index_actif = noms_dimensions.findIndex((dim) => { return dim == this.dimension_active.id; });
+        return this.oeuvre_active.dimensions[noms_dimensions[(index_actif < noms_dimensions.length - 1) ? index_actif + 1 : 0]];
       }
     }
   });

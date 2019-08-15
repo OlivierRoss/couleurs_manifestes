@@ -36,9 +36,15 @@ router.get(/\/p\/\w{32}/, function(req, res) {
 //////////// API ///////////////
 
 /* GET oeuvres. */
-router.get('/oeuvres', (req, res, next) => {
-  oeuvres.get_list().then((oeuvres) => {
+router.get('/oeuvres', (req, res) => {
+  oeuvres.get().then((oeuvres) => {
     res.send(oeuvres);
+  });
+});
+
+router.get('/update_oeuvres', (req, res) => {
+  oeuvres.fetch().then(() => {
+    res.send('ok');
   });
 });
 
