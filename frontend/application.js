@@ -12,8 +12,6 @@ import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
 
-// TODO Tester si ce serait plus rapide de servir Vue a partir du serveur
-
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
@@ -32,7 +30,7 @@ function lancer_couleurs_manifestes () {
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
           <oeuvre v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" />
-          <interactions v-on:set-actif="set_actif" v-on:partager="partager" />
+          <interactions v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" v-on:partager="partager" />
         </section>
         <erreur v-else v-bind:message="message_erreur" />
       </transition>
@@ -78,6 +76,7 @@ function lancer_couleurs_manifestes () {
         else {
           // TODO utiliser le seed ici
           this.set_actif( { id_oeuvre: -1, skip_update_parcours: true });
+          this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] } );
         }
 
         this.afficher_oeuvre(); 
@@ -88,7 +87,7 @@ function lancer_couleurs_manifestes () {
             resolve(this.oeuvres);
           }
           else {
-            fetch("/oeuvres")
+            fetch("/oeuvres.json")
               .then((res) => {
                 if(!res.ok){
                   console.error(response.statusText);
@@ -138,24 +137,36 @@ function lancer_couleurs_manifestes () {
 
       // Comportement
       set_actif: function (opts) {
-        if(this.oeuvre_active)
-        console.log(this.oeuvre_active.id, opts.id_oeuvre);
 
         // Oeuvre active
         if(opts.id_oeuvre) {
 
-          // TODO Selectionner random dans les liens
+          // Cas aleatoire
           if(opts.id_oeuvre < 0) {
+            // TODO mecanisme pour garder ou non la meme dimension
             this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * this.oeuvres.length)];
-            this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] });
           }
+
+          // Navigation
           else {
+            // TODO mecanisme pour garder ou non la meme dimension
+            let ancienne_oeuvre = this.oeuvre_active;
             this.oeuvre_active = this.oeuvres[opts.id_oeuvre];
+            if(!opts.id_dimension) {
+              this.set_actif({ id_dimension: this.list_dimensions(this.oeuvre_active)[0], skip_update_parcours: true });
+            }
           }
         }
         
         // Dimension active
-        if(opts.id_dimension) this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
+        if(opts.id_dimension) {
+          if(opts.id_dimension == 0) {
+            this.dimension_active= this.oeuvre_active.dimensions[this.list_dimensions(this.oeuvre_active)[0]];
+          }
+          else {
+            this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
+          }
+        }
 
         // Update parcours
         if(!opts.skip_update_parcours) this.parcours.push([this.oeuvre_active.id, this.dimension_active.id].join("#"));
@@ -179,11 +190,13 @@ function lancer_couleurs_manifestes () {
       dimension_precedente: function () {
         var noms_dimensions = this.list_dimensions(this.oeuvre_active);
         var index_actif = noms_dimensions.findIndex((dim) => { return dim == this.dimension_active.id; });
+
         return this.oeuvre_active.dimensions[noms_dimensions[(index_actif > 0) ? index_actif - 1 : noms_dimensions.length - 1]];
       },
       dimension_suivante: function () {
         var noms_dimensions = this.list_dimensions(this.oeuvre_active);
         var index_actif = noms_dimensions.findIndex((dim) => { return dim == this.dimension_active.id; });
+
         return this.oeuvre_active.dimensions[noms_dimensions[(index_actif < noms_dimensions.length - 1) ? index_actif + 1 : 0]];
       }
     }

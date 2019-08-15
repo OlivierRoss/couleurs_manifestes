@@ -8,6 +8,7 @@
 require("../../sass/interactions.scss");
 
 export default {
+  props: ['infos'],
   //https://jqueryui.com/autocomplete/#combobox
   template: `
     <footer class="footer-oeuvre">
@@ -42,10 +43,16 @@ export default {
 
   methods: {
     oeuvre_aleatoire: function () {
-      this.$emit('set-actif', { id_oeuvre: -1 });
+      this.$emit('set-actif', { 
+        id_oeuvre: this.infos.dimension_active.liens[0].id, // TODO ajouter random
+        id_dimension: this.infos.dimension_active.id 
+      });
     },
     selectionner: function (event) {
-      this.$emit('set-actif', { id_oeuvre: event.target.value });
+      this.$emit('set-actif', { 
+        id_oeuvre: parseInt(event.target.value),
+        id_dimension: 0
+      });
     },
     partager: function () {
       this.$emit('partager');

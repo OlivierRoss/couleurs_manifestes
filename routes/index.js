@@ -36,7 +36,7 @@ router.get(/\/p\/\w{32}/, function(req, res) {
 //////////// API ///////////////
 
 /* GET oeuvres. */
-router.get('/oeuvres', (req, res) => {
+router.get('/oeuvres.json', (req, res) => {
   oeuvres.get().then((oeuvres) => {
     res.send(oeuvres);
   });
