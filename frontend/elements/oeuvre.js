@@ -21,9 +21,6 @@ export default {
       <div class="contenu-dimension" v-touch:swipe="swipe">{{ infos.dimension_active.valeur + infos.dimension_active.id }}</div>
     </section>
   `,
-  updated: function () {
-  },
-
   methods: {
     update_oeuvre: function (event) {
       this.$emit('set-actif', { 

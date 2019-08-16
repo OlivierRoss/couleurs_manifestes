@@ -43,7 +43,7 @@ router.get('/oeuvres.json', (req, res) => {
 });
 
 router.get('/update_oeuvres', (req, res) => {
-  oeuvres.fetch().then(() => {
+  oeuvres.fetch_oeuvres().then(() => {
     res.send('ok');
   });
 });

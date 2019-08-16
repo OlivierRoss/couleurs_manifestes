@@ -141,31 +141,19 @@ function lancer_couleurs_manifestes () {
         // Oeuvre active
         if(opts.id_oeuvre) {
 
-          // Cas aleatoire
-          if(opts.id_oeuvre < 0) {
-            // TODO mecanisme pour garder ou non la meme dimension
-            this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * this.oeuvres.length)];
-          }
+          // Mettre a jour l'oeuvre
+          this.oeuvre_active = this.oeuvres[(opts.id_oeuvre < 0) ? (Math.floor(Math.random() * this.oeuvres.length)) : opts.id_oeuvre];
 
-          // Navigation
-          else {
-            // TODO mecanisme pour garder ou non la meme dimension
-            let ancienne_oeuvre = this.oeuvre_active;
-            this.oeuvre_active = this.oeuvres[opts.id_oeuvre];
-            if(!opts.id_dimension) {
-              this.set_actif({ id_dimension: this.list_dimensions(this.oeuvre_active)[0], skip_update_parcours: true });
-            }
-          }
+          // Mettre a jour la dimension
+          let id_dim = opts.id_dimension || this.premiere_dimension(this.oeuvre_active).id;
+          let index_dim = this.list_dimensions(this.oeuvre_active).findIndex((dim) => { return id_dim == dim });
+
+          this.dimension_active = this.oeuvre_active.dimensions[index_dim >= 0 ? id_dim : this.premiere_dimension(this.oeuvre_active).id];
         }
         
         // Dimension active
-        if(opts.id_dimension) {
-          if(opts.id_dimension == 0) {
-            this.dimension_active= this.oeuvre_active.dimensions[this.list_dimensions(this.oeuvre_active)[0]];
-          }
-          else {
-            this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
-          }
+        else if(opts.id_dimension) {
+          this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
         }
 
         // Update parcours
@@ -175,6 +163,9 @@ function lancer_couleurs_manifestes () {
       // Utils
       list_dimensions: function (oeuvre) {
         return Object.keys(oeuvre.dimensions);
+      },
+      premiere_dimension: function (oeuvre) {
+        return oeuvre.dimensions[this.list_dimensions(oeuvre)[0]];
       }
     },
 

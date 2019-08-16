@@ -1,6 +1,5 @@
 /*
- * TODO
- * Voir les methodes ici : https://vuejs.org/v2/guide/transitions.html#Staggering-List-Transitions
+ * TODO Voir les methodes ici : https://vuejs.org/v2/guide/transitions.html#Staggering-List-Transitions
  * pour de l'inspiration concernant le peaufinage des transitions
  */
 
@@ -43,15 +42,15 @@ export default {
 
   methods: {
     oeuvre_aleatoire: function () {
+      let liens = this.infos.dimension_active.liens;
       this.$emit('set-actif', { 
-        id_oeuvre: this.infos.dimension_active.liens[0].id, // TODO ajouter random
+        id_oeuvre: liens[Math.floor(Math.random() * liens.length)].id,
         id_dimension: this.infos.dimension_active.id 
       });
     },
     selectionner: function (event) {
       this.$emit('set-actif', { 
-        id_oeuvre: parseInt(event.target.value),
-        id_dimension: 0
+        id_oeuvre: parseInt(event.target.value)
       });
     },
     partager: function () {
