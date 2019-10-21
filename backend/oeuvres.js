@@ -23,7 +23,8 @@ function get (force_api = false) {
     }
 
     // De l'API
-    else { fetch_oeuvres().then((oeuvres) => { resolve(oeuvres); }); }
+    else { 
+      fetch_oeuvres().then((oeuvres) => { resolve(oeuvres); }); }
   });
 }
 
@@ -61,7 +62,7 @@ function fetch_oeuvres () {
               };
             });
             return oeuvre_ordonnee;
-          }).filter((oeuvre) => { return oeuvre.dimensions.nac.valeur != ""; });
+          }).filter((oeuvre) => { return !!oeuvre.dimensions.nac/*.valeur != "";*/ });
 
           var oeuvres_liees = lier(oeuvres_ordonnees);
 
