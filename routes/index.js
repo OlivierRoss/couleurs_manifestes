@@ -28,7 +28,7 @@ router.get(/\/p\/\w{32}/, function(req, res) {
 
     // Au cas ou l'utilisateur reviendrait a l'application
     req.session.hash_parcours = hash;
-    req.session.cookie.maxAge = process.env.COOKIE_MAX_AGE || 360000;
+    req.session.cookie.maxAge = parseInt(process.env.COOKIE_MAX_AGE) || 360000;
 
     res.render('parcours', {
       parcours: "window.parcours = " + JSON.stringify(parcours_charge)
