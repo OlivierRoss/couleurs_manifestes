@@ -6,7 +6,8 @@ module.exports = {
   target: 'web',
   entry: {
     application: ['whatwg-fetch', './frontend/application.js'], // whatwg-fetch : utilisation de fetch dans le code
-    parcours: './frontend/parcours.js'
+    parcours: './frontend/parcours.js',
+    login: './frontend/login.js'
   },
   output: {
     filename: '[name].js',

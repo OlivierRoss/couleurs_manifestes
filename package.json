@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "nodemon -L ./bin/www",
     "start-dev": "nodemon ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js"
@@ -20,6 +20,8 @@
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.5",
     "morgan": "~1.9.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pug": "~2.0.4",
     "vue2-touch-events": "^2.0.0"
   },

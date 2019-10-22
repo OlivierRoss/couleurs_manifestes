@@ -13,6 +13,8 @@ var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+var passport = require('passport');
 
 var indexRouter = require('./routes/index');
 
@@ -28,6 +30,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
+// BD
+mongoose.connect(process.env.MONGODB_URI);
+if(process.env.NODE_ENV != 'production'){
+  mongoose.set('debug', true);
+}
+
+// Login
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport');
+
+// Routes
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

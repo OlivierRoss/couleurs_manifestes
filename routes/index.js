@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 const oeuvres = require("../backend/oeuvres.js");
 const parcours = require("../backend/parcours.js");
@@ -54,5 +55,18 @@ router.post('/parcours', (request, response) => {
     response.send(clef);
   })
 });
+
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
+/*
+  (req, res) => {
+    console.log(res);
+      res.render('/');
+  })
+);
+*/
 
 module.exports = router;
