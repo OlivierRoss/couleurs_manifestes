@@ -8,8 +8,9 @@ const statistiques = require("../backend/statistiques.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  if(req.cookies.hash_parcours){
-    parcours.load(req.cookies.hash_parcours).then((parcours_charge) => {
+  // Si pas de cookie de session : creer
+  if(req.session && req.session.hash_parcours){
+    parcours.load(req.session.hash_parcours).then((parcours_charge) => {
       res.render('index', {
         parcours: "window['parcours']= " + JSON.stringify(parcours_charge)
       });
@@ -26,7 +27,8 @@ router.get(/\/p\/\w{32}/, function(req, res) {
   parcours.load(hash).then((parcours_charge) => {
 
     // Au cas ou l'utilisateur reviendrait a l'application
-    res.cookie('hash_parcours', hash, { maxAge: process.env.COOKIE_MAX_AGE || 360000 }); 
+    req.session.hash_parcours = hash;
+    req.session.cookie.maxAge = process.env.COOKIE_MAX_AGE || 360000;
 
     res.render('parcours', {
       parcours: "window.parcours = " + JSON.stringify(parcours_charge)
@@ -61,12 +63,6 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-/*
-  (req, res) => {
-    console.log(res);
-      res.render('/');
-  })
-);
-*/
+router.get('/statistiques', passport.authenticate('local', { successRedirect: '/statistiques', failureRedirect: '/login' }));
 
 module.exports = router;

@@ -12,8 +12,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
 var passport = require('passport');
 
 var indexRouter = require('./routes/index');
@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
+app.use(session({secret: process.env.SECRET_SESSION, saveUninitialized: true, resave: false}))
 
 // BD
 mongoose.connect(process.env.MONGODB_URI);
