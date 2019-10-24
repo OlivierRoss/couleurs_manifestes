@@ -22,11 +22,7 @@ function afficher_page_partager () {
         FB.ui({
           method: 'feed',
           quote: 'test 12',
-          display: 'dialog',
-          caption: 'Caption',
-          description: 'description',
           link: 'http://mbas.qc.ca/en/home/'
-
         }, function(response){});
       }
     }
