@@ -25,4 +25,5 @@ Pour se connecter à l'api sheets :
 * Docker compose
   * https://devcenter.heroku.com/articles/local-development-with-docker-compose
   * https://docs.docker.com/compose/gettingstarted/
-
+* FB
+  * Ne pas oublier de creer une application FB, de mettre des liens pour les politiques de confidentialite et d'utiliser l'ID d'APP

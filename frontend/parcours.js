@@ -11,10 +11,24 @@ function afficher_page_partager () {
           <li v-for="etape in parcours">{{ etape }}</li>
         </ul>
         <button v-on:click="window.location.href = '/'">Retour</button>
+        <button v-on:click="afficher_feed">Partager</button>
       </div>
     `,
     created: function () {
       this.parcours = parcours.parcours; // Defini dans window.
+    },
+    methods: {
+      afficher_feed: function () {
+        FB.ui({
+          method: 'feed',
+          quote: 'test 12',
+          display: 'dialog',
+          caption: 'Caption',
+          description: 'description',
+          link: 'http://mbas.qc.ca/en/home/'
+
+        }, function(response){});
+      }
     }
   });
 }
