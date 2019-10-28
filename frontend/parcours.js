@@ -21,8 +21,8 @@ function afficher_page_partager () {
       afficher_feed: function () {
         FB.ui({
           method: 'feed',
-          quote: 'test 12',
-          link: 'http://mbas.qc.ca/en/home/'
+          quote: 'J\'ai vu ' + this.parcours.length + ' oeuvres et dimensions',
+          link: 'http://mbas.qc.ca/'
         }, function(response){});
       }
     }

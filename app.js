@@ -15,6 +15,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
+var flash = require('express-flash-messages')
 
 var indexRouter = require('./routes/index');
 
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: process.env.SECRET_SESSION, saveUninitialized: true, resave: false}))
+app.use(flash());
 
 // BD
 mongoose.connect(process.env.MONGODB_URI);

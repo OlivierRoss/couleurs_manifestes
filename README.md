@@ -5,15 +5,16 @@ Pour se connecter à l'api sheets :
 * Connexion avec "googleapis"
 * Api sheets
 
-## Étapes de déploiement
+## Étapes de test
 1. docker build -t cm_0 . :: Créer l'application
 2. docker run -d -p 12345:3000 cm_0 :: Tester l'application
 3. docker container stop PID :: Arrêter l'application
-4. heroku login
-5. heroku container:login
-6. heroku container:push web --app couleurs-manifestes
-7. heroku container:release web --app couleurs-manifestes
-8. curl https://couleurs-manifestes.herokuapp.com/
+
+## Étapes de déploiement
+1. heroku login
+2. heroku container:login
+3. heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes
+4. curl https://couleurs-manifestes.herokuapp.com/
 
 ## Dev
 1. docker-compose up

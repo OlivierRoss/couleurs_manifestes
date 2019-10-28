@@ -59,10 +59,15 @@ router.post('/parcours', (request, response) => {
 });
 
 router.get('/login', (req, res) => {
+  req.flash('notify', 'avant login');
   res.render('login');
 });
 
-router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-router.get('/statistiques', passport.authenticate('local', { successRedirect: '/statistiques', failureRedirect: '/login' }));
+router.post('/login', passport.authenticate('local', { successRedirect: '/statistiques', failureRedirect: '/login' }));
+router.get('/statistiques', (req, res) => {
+  console.log(req);
+  console.log(req.isAuthenticated());
+  res.render('statistiques');
+});
 
 module.exports = router;

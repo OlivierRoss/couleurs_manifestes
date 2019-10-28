@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -L ./bin/www",
-    "start-dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "start-dev": "nodemon -L --ignore public/ --ignore frontend/ ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
-    "build-once": "webpack --mode production --config webpack.config.js"
+    "build-once": "webpack --mode production --config webpack.config.js",
+    "deploy": "heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
   },
   "dependencies": {
     "bluebird": "^3.7.1",
@@ -14,6 +15,7 @@
     "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-flash-messages": "^0.1.1",
     "express-session": "^1.17.0",
     "google-auth-library": "^4.2.5",
     "googleapis": "^41.0.0",
