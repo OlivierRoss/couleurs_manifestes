@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var ua-parser = require('ua-parser-js');
+var ua_parser = require('ua-parser-js');
 
 import isLoggedIn from '../lib/authentication';
 
