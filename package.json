@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start-dev": "nodemon -L --ignore public/ --ignore frontend/ ./bin/www",
+    "start": "node -r esm ./bin/www",
+    "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js",
     "deploy": "heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
@@ -14,6 +14,7 @@
     "constantinople": "^4.0.1",
     "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
+    "esm": "^3.2.25",
     "express": "~4.16.1",
     "express-flash-messages": "^0.1.1",
     "express-session": "^1.17.0",
@@ -26,6 +27,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pug": "~2.0.4",
+    "ua-parser-js": "^0.7.20",
     "vue2-touch-events": "^2.0.0"
   },
   "devDependencies": {

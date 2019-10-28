@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var ua-parser = require('ua-parser-js');
+
+import isLoggedIn from '../lib/authentication';
 
 const oeuvres = require("../backend/oeuvres.js");
 const parcours = require("../backend/parcours.js");
@@ -8,7 +11,8 @@ const statistiques = require("../backend/statistiques.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  // Si pas de cookie de session : creer
+  
+  // S'il y avait un cookie
   if(req.session && req.session.hash_parcours){
     parcours.load(req.session.hash_parcours).then((parcours_charge) => {
       res.render('index', {
@@ -17,6 +21,9 @@ router.get('/', function(req, res) {
     });
   }
   else {
+    // TODO
+    // Sauvegarder debut session avec ua-parser;
+
     res.render('index');
   }
 });
@@ -59,14 +66,12 @@ router.post('/parcours', (request, response) => {
 });
 
 router.get('/login', (req, res) => {
-  req.flash('notify', 'avant login');
   res.render('login');
 });
 
 router.post('/login', passport.authenticate('local', { successRedirect: '/statistiques', failureRedirect: '/login' }));
-router.get('/statistiques', (req, res) => {
-  console.log(req);
-  console.log(req.isAuthenticated());
+
+router.get('/statistiques', isLoggedIn, (req, res) => {
   res.render('statistiques');
 });
 
