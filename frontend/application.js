@@ -117,6 +117,8 @@ function lancer_couleurs_manifestes () {
         if(message) { this.message_erreur = message; }
         this.ecran = "erreur";
       },
+
+      // Historique
       partager: function () {
 
         // Sauvegarder le parcours
@@ -133,6 +135,18 @@ function lancer_couleurs_manifestes () {
           .then((res) => { 
             window.location.href = "/p/" + res.page_parcours; 
           });
+      },
+
+      // Statistiques
+      sauver_interaction: function () {
+        fetch("/interaction", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({oeuvre: this.oeuvre_active.id, dimension: this.dimension_active.id, timestamp: Date.now()})
+        });
       },
 
       // Comportement
@@ -157,7 +171,12 @@ function lancer_couleurs_manifestes () {
         }
 
         // Update parcours
-        if(!opts.skip_update_parcours) this.parcours.push([this.oeuvre_active.id, this.dimension_active.id].join("#"));
+        if(!opts.skip_update_parcours) {
+          this.parcours.push([this.oeuvre_active.id, this.dimension_active.id].join("#"));
+
+          // Sauver nouvel etat
+          this.sauver_interaction();
+        }
       },
 
       // Utils

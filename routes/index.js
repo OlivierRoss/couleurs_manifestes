@@ -9,7 +9,7 @@ const oeuvres = require("../backend/oeuvres.js");
 const parcours = require("../backend/parcours.js");
 const statistiques = require("../backend/statistiques.js");
 
-/* GET home page. */
+/* APPLICATION */
 router.get('/', function(req, res) {
   
   // S'il y avait un cookie
@@ -21,13 +21,25 @@ router.get('/', function(req, res) {
     });
   }
   else {
-    // TODO
-    // Sauvegarder debut session avec ua-parser;
-
+    // TODO Sauvegarder debut session avec ua-parser;
     res.render('index');
   }
 });
 
+// Donnees
+router.get('/oeuvres.json', (req, res) => {
+  oeuvres.get().then((oeuvres) => {
+    res.send(oeuvres);
+  });
+});
+
+router.get('/update_oeuvres', (req, res) => {
+  oeuvres.fetch_oeuvres().then(() => {
+    res.send('ok');
+  });
+});
+
+/* STATISTIQUES */
 router.get(/\/p\/\w{32}/, function(req, res) {
   let hash = req.url.split('/')[2];
 
@@ -43,36 +55,35 @@ router.get(/\/p\/\w{32}/, function(req, res) {
   });
 });
 
-//////////// API ///////////////
-
-/* GET oeuvres. */
-router.get('/oeuvres.json', (req, res) => {
-  oeuvres.get().then((oeuvres) => {
-    res.send(oeuvres);
-  });
-});
-
-router.get('/update_oeuvres', (req, res) => {
-  oeuvres.fetch_oeuvres().then(() => {
-    res.send('ok');
-  });
-});
-
-/* POST Sauvegarder parcours */
 router.post('/parcours', (request, response) => {
   parcours.save(request.body).then((clef) => {
     response.send(clef);
-  })
+  });
 });
 
+router.post('/interaction', (request, response) => {
+  statistiques.log_interaction({
+    session_id: request.sessionID,
+    oeuvre: request.body.oeuvre,
+    dimension: request.body.dimension,
+    timestamp: request.body.timestamp
+  }).then(() => {
+    response.status(200).end();
+  }).catch((e) => {
+    console.log(e);
+    response.status(500).end();
+  });
+});
+
+router.get('/statistiques', isLoggedIn, (req, res) => {
+  res.render('statistiques');
+});
+
+/* AUTHENTIFICATION */
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
 router.post('/login', passport.authenticate('local', { successRedirect: '/statistiques', failureRedirect: '/login' }));
-
-router.get('/statistiques', isLoggedIn, (req, res) => {
-  res.render('statistiques');
-});
 
 module.exports = router;
