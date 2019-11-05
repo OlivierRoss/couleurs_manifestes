@@ -9,8 +9,8 @@ export default {
         <div class="dimension-precedente" v-on:click="update_dimension" :data-id-dimension='infos.dimension_precedente.id'>{{ infos.dimension_precedente.nom }}</div>
         <transition name="fade">
           <div class="informations-oeuvre">
-            <h2>{{ infos.oeuvre.nom || 'Nom' }}</h2>
-            <h3>{{ infos.oeuvre.artiste || 'Artiste' }}</h3>
+            <h2>{{ infos.oeuvre.dimensions.titre.valeur || 'Nom' }}</h2>
+            <h3>{{ infos.oeuvre.dimensions.artiste.valeur || 'Artiste' }}</h3>
           </div>
         </transition>
         <div class="dimension-suivante" v-on:click="update_dimension" :data-id-dimension='infos.dimension_suivante.id'>{{ infos.dimension_suivante.nom }}</div>
