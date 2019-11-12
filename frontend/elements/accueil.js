@@ -33,7 +33,7 @@ export default {
   `,
   methods: {
     selection_initiale: function (oeuvre) {
-      this.$emit('charger-application', 10); // TODO retourner la valeur qui lancera l'application
+      this.$emit('charger-application', oeuvre);
     },
     selection_numero: function () {
       this.toggleInputNumero();

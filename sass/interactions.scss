@@ -1,33 +1,24 @@
+@import 'sass/couleurs';
+
 .footer-oeuvre {
-  background-color: #BBB;
-  height: 15%;
+  height: 15vh;
 
   position: relative;
 
+  .menu-principal {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    border-top: 3px solid $gris;
+  }
+
   .icone {
-    transition: left 1s;
-    position: absolute;
-    top: calc(50% - 25px);
-  }
+    opacity: 0.35;
 
-  .diese {
-    left: calc(25% - 25px);
-  }
-
-  .question {
-    left: calc(50% - 25px);
-  }
-
-  .partager {
-    left: calc(75% - 25px);
-  }
-
-  img {
-    width: 50px;
-  }
-
-  .gauche {
-    left: calc(5% - 25px);
+    img {
+      width: 40px;
+    }
   }
 
   .input-container {

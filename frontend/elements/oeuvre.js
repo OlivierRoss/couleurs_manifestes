@@ -15,10 +15,11 @@ export default {
         </transition>
         <div class="dimension-suivante" v-on:click="update_dimension" :data-id-dimension='infos.dimension_suivante.id'>{{ infos.dimension_suivante.nom }}</div>
       </header>
+      <div class="contenu-dimension" v-touch:swipe="swipe">{{ infos.dimension_active.valeur }}</div>
+      <div class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
       <div class="liens flex">
-        <div v-for="lien in infos.dimension_active.liens" v-on:click="update_oeuvre" :data-id-oeuvre="lien.id"> {{ lien.titre }} </div>
+        <div v-for="lien in infos.dimension_active.liens" v-on:click="update_oeuvre" :data-id-oeuvre="lien.id" class="lien"> {{ lien.titre }} </div>
       </div>
-      <div class="contenu-dimension" v-touch:swipe="swipe">{{ infos.dimension_active.valeur + infos.dimension_active.id }}</div>
     </section>
   `,
   methods: {

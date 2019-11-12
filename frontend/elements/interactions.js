@@ -1,9 +1,3 @@
-/*
- * TODO Voir les methodes ici : https://vuejs.org/v2/guide/transitions.html#Staggering-List-Transitions
- * pour de l'inspiration concernant le peaufinage des transitions
- */
-
-
 require("../../sass/interactions.scss");
 
 export default {
@@ -12,24 +6,19 @@ export default {
   template: `
     <footer class="footer-oeuvre">
       <div class="menu-principal">
-        <div v-on:click="mode_selection = !mode_selection" :class="['icone', 'diese', {gauche: mode_selection}]">
-          <img src="/images/diese.svg" />
+        <div class="icone">
+          <img src="/images/Visuels/Autre/coma_loupe-footer.svg" />
         </div>
-        <transition :duration="{enter: 2500, leave: 500 }" name="fade">
-          <div v-show="!mode_selection" v-on:click="oeuvre_aleatoire" class="icone question">
-            <img src="/images/question.svg" />
-          </div>
-        </transition>
-        <transition :duration="{enter: 2500, leave: 500 }" name="fade">
-          <div v-show="!mode_selection" v-on:click="partager" class="icone partager">
-            <img src="/images/partager.svg" />
-          </div>
-        </transition>
-        <transition :duration="{enter: 2500, leave: 500 }" name="fade">
-          <div v-show="mode_selection" :class="['input-container', {droite: mode_selection}]">
-            <input v-on:change="selectionner" type="number" />
-          </div>
-        </transition>
+        <div class="icone">
+          <img src="/images/Visuels/Autre/coma_des-footer.svg" />
+        </div>
+        <div class="icone">
+          <img src="/images/Visuels/Autre/coma_partage-footer.svg" />
+        </div>
+        <div class="icone">
+          <img src="/images/Visuels/Autre/coma_info-footer.svg" />
+        </div>
+      </div>
       </div>
     </footer>
   `,

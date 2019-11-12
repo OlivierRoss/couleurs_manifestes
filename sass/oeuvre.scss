@@ -1,22 +1,22 @@
+@import 'sass/couleurs';
+
 .oeuvres {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 85vh;
 
   .oeuvre {
     width: 100%;
-    height: 85%;
+    height: 100%;
 
     text-align: center;
 
     header {
-      background-color: #BBB;
-
-      height: 10%;
+      height: 15%;
 
       display: flex;
       justify-content: space-between;
 
-      & > * {
+      > * {
         align-self: center;
       }
 
@@ -32,18 +32,52 @@
       }
     }
 
-    .liens {
-      justify-content: space-around;
-      height: 5%;
-      background-color: #555;
-      color: white;
-    }
-
     .contenu-dimension {
-      height: 80%;
+      height: 70%;
       overflow-x:hidden;
       overflow-y: scroll;
-      margin: 10px 20px;
+    }
+
+    .affichage-liens {
+      height: 5%;
+
+      .texte {
+        text-align: left;
+        width: 100%;
+        padding: 10px;
+        border-top: 3px dotted $gris;
+      }
+
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      font-family: apercu;
+      font-weight: lighter;
+      text-transform: uppercase;
+      color: $gris;
+    } 
+
+    .liens {
+      height: 10%;
+      justify-content: space-around;
+      border-top: 3px solid $gris;
+
+      .lien {
+        width: 50%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: apercu;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        &:first-of-type {
+          border-right: 3px solid $gris; 
+        }
+      }
+
     }
 
   }
