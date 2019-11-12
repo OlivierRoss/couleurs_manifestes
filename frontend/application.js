@@ -1,10 +1,3 @@
-/*
- * TODO 
- * Ajouter logique de selection de la premiere oeuvre
- * Ajouter logique de selection des nouvelles oeuvres
- * Ajouter logique de selection des nouvelles dimensions
- */
-
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
 import Erreur from "./elements/erreur.js";

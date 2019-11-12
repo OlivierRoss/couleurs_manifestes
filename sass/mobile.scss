@@ -1,12 +1,36 @@
+@font-face {
+  font-family: apercu;
+  src: url('/fonts/apercu_regular.otf');
+}
+
+@font-face {
+  font-family: apercu;
+  src: url('/fonts/apercu_light_033.otf');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: apercu;
+  src: url('/fonts/apercu_bold.otf');
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6, p, blockquote, pre
+{
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: apercu;
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #container-application {
