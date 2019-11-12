@@ -44,12 +44,11 @@
       .texte {
         text-align: left;
         width: 100%;
-        padding: 10px;
+        padding-left: 10px;
         border-top: 3px dotted $gris;
       }
 
       display: flex;
-      justify-content: left;
       align-items: center;
       font-family: apercu;
       font-weight: lighter;
@@ -67,11 +66,12 @@
         height: 100%;
 
         display: flex;
-        justify-content: center;
+        text-align: left;
         align-items: center;
         font-family: apercu;
         font-weight: bold;
         text-transform: uppercase;
+        padding-left: 10px;
 
         &:first-of-type {
           border-right: 3px solid $gris; 
