@@ -7,7 +7,7 @@
     "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js",
-    "deploy": "heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
+    "deploy": "time heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
   },
   "dependencies": {
     "bluebird": "^3.7.1",

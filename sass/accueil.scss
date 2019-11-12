@@ -2,21 +2,32 @@
   background-image: url('/images/bg.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
+
   width: 100vw;
   height: 100vh;
 
   h1 {
+    position: relative;
     padding-top: 10vh;
     width: 80vw;
     margin: 0 auto;
   }
 
   h2 {
+    position: relative;
     font-family: apercu;
     font-weight: lighter;
     margin-top: 9vh;
     text-align: center;
     font-size: 1em;
+  }
+
+  #video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   
   #icones-accueil {
@@ -54,11 +65,11 @@
   }
 
   #input-debut {
-    display: none;
+    position: relative;
     margin: 0 auto;
     margin-top: 5vh;
     width: 75vw; 
-    height: 5vh;
+    height: 7vh;
   }
 
 }
