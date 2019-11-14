@@ -28,7 +28,6 @@ export default {
 
   data: function () {
     return {
-      mode_selection: false,
       loupe: {
         actif: false
       },
@@ -47,14 +46,24 @@ export default {
   methods: {
     toggle: function(nom) {
       if(!this[nom].actif) {
+        // Reset tous
+        for(var icone in this._data) {
+          this.$refs['panneau_' + icone].style.display = "none";
+          this.$refs["container_icone_" + icone].style.opacity = 0.35;
+          this[icone].actif = false;
+        }
+
+        // Rendre actif
         this.$refs['panneau_' + nom].style.display = "block";
         this.$refs["container_icone_" + nom].style.opacity = 1;
+        this[nom].actif = true;
       }
+      // Rendre inactif
       else {
         this.$refs['panneau_' + nom].style.display = "none";
         this.$refs["container_icone_" + nom].style.opacity = 0.35;
+        this[nom].actif = false;
       }
-      this[nom].actif = !this[nom].actif;
     },
     oeuvre_aleatoire: function () {
       let liens = this.infos.dimension_active.liens;
