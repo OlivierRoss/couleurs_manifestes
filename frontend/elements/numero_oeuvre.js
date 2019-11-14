@@ -13,6 +13,7 @@ export default {
       </form>
       <div v-on:click="nouvelle_oeuvre" class="bouton-numero-oeuvre">
         <div class="container-fleche">
+          <img src="/images/Visuels/Accueil/coma_fleche.svg">
         </div>
       </div>
     </div>
