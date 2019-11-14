@@ -36,29 +36,23 @@
           float: right;
           width: calc(100% - 62px);
           height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
 
           .nom-oeuvre {
-            height: 50%;
-            display: flex;
-            align-items: end;
-
-            font-size: 0.9em;
-            padding-left: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            padding: 0 20px;
           }
 
           .nom-artiste {
-            height: 50%;
-            display: flex;
-            align-items: start;
-
             font-size: 0.8em;
             font-weight: lighter;
-            padding-left: 20px;
+            padding: 0 20px;
+            text-transform: uppercase;
           }
-
         }
-
-        
       }
 
       #dimensions {
@@ -72,17 +66,17 @@
         .dimension {
           font-size: 0.9em;
           font-weight: bold;
+          text-transform: uppercase;
+
           border-radius: 50px;
-          background-color: $gris;
-          color: white;
+          padding: 5px 15px;
 
-          padding: 2px 5px;
-
-          .inactif {
+          &.inactif {
             border: 1px solid $gris;
+            color: $noir;
           }
 
-          .actif {
+          &.actif {
             border: 0;
           }
         }

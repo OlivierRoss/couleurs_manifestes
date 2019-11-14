@@ -11,17 +11,13 @@ export default {
             <img src="/images/Visuels/Autre/coma_icone-general.svg">
           </div>
           <div class="informations">
-            <h2 class="nom-oeuvre">{{ infos.oeuvre.dimensions.titre.valeur || 'Nom' }}</h2>
-            <h3 class="nom-artiste">{{ infos.oeuvre.dimensions.artiste.valeur || 'Artiste' }}</h3>
+            <span class="nom-oeuvre">{{ infos.oeuvre.dimensions.titre.valeur || 'Nom' }}</span><br>
+            <span class="nom-artiste">{{ infos.oeuvre.dimensions.artiste.valeur || 'Artiste' }}</span>
           </div>
         </div>
         <div id="dimensions">
-          <div v-for="dimension in infos.oeuvre.dimensions" class="dimension" :data-id-dimension="dimension.id">{{ dimension.nom }}</div>
+          <div v-for="dimension in infos.oeuvre.dimensions" v-on:click="update_dimension" class="dimension inactif" :data-id-dimension="dimension.id">{{ dimension.nom }}</div>
         </div>
-        <!--
-        <div class="dimension-precedente" v-on:click="update_dimension" :data-id-dimension='infos.dimension_precedente.id'>{{ infos.dimension_precedente.nom }}</div>
-        <div class="dimension-suivante" v-on:click="update_dimension" :data-id-dimension='infos.dimension_suivante.id'>{{ infos.dimension_suivante.nom }}</div>
-        -->
       </header>
       <div class="contenu-dimension" v-touch:swipe="swipe">
         <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
