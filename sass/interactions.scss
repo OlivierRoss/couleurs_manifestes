@@ -1,6 +1,7 @@
 @import 'sass/couleurs';
 
 .footer-oeuvre {
+  font-family: apercu;
   height: 15vh;
 
   position: relative;
@@ -30,7 +31,21 @@
     border-top: 3px solid $gris;
   }
 
+  #panneau-loupe {
+    #info-loupe {
+      height: 40%;
+    }
+
+    .numero {
+      height: 60%;
+    }
+  }
+
   #panneau-partage {
+    text-align: center;
+    line-height: 250%;
+    font-weight: bold;
+
     height: 85vh;
     margin-top: calc(-100vh - 3px);
     border: 0;
@@ -38,12 +53,36 @@
     background-image: url('/images/bg.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+
+    img {
+      width: 80%;
+      margin: 0 auto;
+    }
   }
 
   #panneau-info {
     height: 55vh;
     margin-top: calc(-70vh - 6px);
-    border: 0;
+    overflow: auto;
   }
 
+  #logos-expo {
+    margin: 10%;
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    
+    img {
+      height: 100%;
+    }
+  }
+
+  #texte-sommaire {
+    font-weight: bold;
+    margin: 0 10%;
+  }
+
+  #texte-descriptif {
+    margin: 5% 10%;
+  }
 }

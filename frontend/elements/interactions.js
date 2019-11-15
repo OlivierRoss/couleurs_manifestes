@@ -1,7 +1,12 @@
+import NumeroOeuvre from "./numero_oeuvre.js";
+
 require("../../sass/interactions.scss");
 
 export default {
-  props: ['infos'],
+  props: ['infos', 'parcours', 'temps_debut'],
+  components: {
+    numero_oeuvre: NumeroOeuvre
+  },
   template: `
     <footer class="footer-oeuvre">
       <div class="menu-principal">
@@ -19,10 +24,39 @@ export default {
         </div>
       </div>
       <div id="flou"></div>
-      <div id="panneau-loupe" ref="panneau_loupe" class="panneau-interaction"> </div>
-      <div id="panneau-aleatoire" ref="panneau_aleatoire" class="panneau-interaction"> </div>
-      <div id="panneau-partage" ref="panneau_partage" class="panneau-interaction"> </div>
-      <div id="panneau-info" ref="panneau_info" class="panneau-interaction"> </div>
+      <div id="panneau-loupe" ref="panneau_loupe" class="panneau-interaction">
+        <div id="info-loupe">Entrer le # de l'oeuvre</div>
+        <div class="numero">
+          <numero_oeuvre />
+        </div>
+      </div>
+      <div id="panneau-aleatoire" ref="panneau_aleatoire" class="panneau-interaction">
+        <numero_oeuvre />
+      </div>
+      <div id="panneau-partage" ref="panneau_partage" class="panneau-interaction">
+        <img src="/images/Visuels/Accueil/coma_logo-accueil.svg">
+        <p>
+          Lors de ma visite<br>
+          j'ai vu {{ this.nombre_oeuvres }} oeuvres
+          par 8 artistes.<br>
+          j'ai étudié 5 courants<br>
+          artistiques se déclinant<br> 
+          en 4 couleurs.<br>
+          Le tout en {{ this.temps_parcours }} minutes
+        </p>
+      </div>
+      <div id="panneau-info" ref="panneau_info" class="panneau-interaction">
+        <div id="logos-expo">
+          <img src="/images/Visuels/Autre/coma_logo-info.svg">
+          <img src="/images/Visuels/Autre/coma_logo-mbas.svg">
+        </div>
+          <p id="texte-sommaire">
+            Une exposition thématique dynamique et accessible à tous qui met en valeur un corpus varié de plus de 60 œuvres de notre collection.
+          </p>
+          <p id="texte-descriptif">
+    La couleur n’est pas seulement une donnée perceptive, elle peut aussi être porteuse de sens et d’une symbolique. On retrouve dans la collection du Musée des œuvres dont les couleurs ont parfois une résonnance historique, politique, sociale, ou une signification personnelle propre à l’artiste ou à ceux et celles qui les observent.
+          </p>
+      </div>
     </footer>
   `,
 
@@ -45,6 +79,7 @@ export default {
 
   methods: {
     toggle: function(nom) {
+      console.log(this.parcours)
       if(!this[nom].actif) {
         // Reset tous
         for(var icone in this._data) {
@@ -79,6 +114,15 @@ export default {
     },
     partager: function () {
       this.$emit('partager');
+    }
+  },
+
+  computed: {
+    nombre_oeuvres: function () {
+      return this.parcours.length;
+    },
+    temps_parcours: function () {
+      return Date.now() - this.temps_debut; 
     }
   }
 };

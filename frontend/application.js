@@ -23,13 +23,14 @@ function lancer_couleurs_manifestes () {
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
           <oeuvre v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" />
-          <interactions v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" v-on:partager="partager" />
+          <interactions v-bind:infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" />
         </section>
         <erreur v-else v-bind:message="message_erreur" />
       </transition>
     </div>`,
     data: {
       clef_encryption: "couleurs_manifestes",
+      debut_parcours: null,
       parcours: [],
       ecran: 'accueil',
       oeuvres: [],
@@ -49,6 +50,8 @@ function lancer_couleurs_manifestes () {
             this.charger_application();
           }
         });
+
+      this.debut_parcours = Date.now();
     },
     methods: {
 
