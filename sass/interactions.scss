@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+    height: calc(100% - 3px);
     border-top: 3px solid $gris;
   }
 
