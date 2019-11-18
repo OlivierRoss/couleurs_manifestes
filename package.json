@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node -r esm ./bin/www",
-    "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ ./bin/www",
+    "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ --ignore donnees/ ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js",
     "deploy": "time heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"

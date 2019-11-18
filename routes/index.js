@@ -33,8 +33,8 @@ router.get('/oeuvres.json', (req, res) => {
   });
 });
 
-router.get('/update_oeuvres', (req, res) => {
-  oeuvres.fetch_oeuvres().then(() => {
+router.get('/update', (req, res) => {
+  oeuvres.update().then(() => {
     res.send('ok');
   });
 });

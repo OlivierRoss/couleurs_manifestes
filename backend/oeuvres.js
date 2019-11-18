@@ -26,85 +26,103 @@ function get (force_api = false) {
 
     // De l'API
     else { 
-      fetch_oeuvres().then((oeuvres) => { resolve(oeuvres); }); }
+      update().then((oeuvres) => { resolve(oeuvres); }); }
   });
 }
 
-function fetch_oeuvres () {
+function update () {
+  return extract()
+    .then(transform)
+    .then(filtrer)
+    .then(link)
+    .then(save);
+}
 
+function extract () {
   return new Promise ((resolve, reject) => {
 
     // Obtention des authorisations
     get_googleapi_client_auth().then((client) => {
 
-      sheets.spreadsheets.values.get({
-        auth: client,
-        spreadsheetId: process.env.SHEET_OEUVRES,
-        range: process.env.RANGE_OEUVRES
-      },
+      sheets.spreadsheets.values.get(
+        {
+          auth: client,
+          spreadsheetId: process.env.SHEET_OEUVRES,
+          range: process.env.RANGE_OEUVRES
+        },
         (err, res) => {
           if (err) {
             console.error('The API returned an error.', err);
             reject(err);
           }
-
-          let oeuvres_brutes = res.data.values;
-          var oeuvres_ordonnees = oeuvres_brutes.slice(1).map((informations_oeuvre, index_oeuvre) => {
-            var oeuvre_ordonnee = {
-              dimensions: {}
-            };
-            informations_oeuvre.forEach((attribut, index) => {
-              let id_dimension = nom_dimension_to_id(oeuvres_brutes[0][index]);
-
-              // Pour les dimensions a afficher
-              //if(config.dimensions_a_afficher.includes(id_dimension)){
-                oeuvre_ordonnee.dimensions[id_dimension] = {
-                  id: id_dimension,
-                  nom: oeuvres_brutes[0][index],
-                  valeur: attribut,
-                  liens: []
-                };
-              //}
-            });
-            return oeuvre_ordonnee;
-          }).filter((oeuvre) => { return !!oeuvre.dimensions.nac/*.valeur != "";*/ });
-
-          var oeuvres_liees = lier(oeuvres_ordonnees);
-
-          to_cache(oeuvres_liees);
-
-          resolve(oeuvres_liees);
+          else { resolve(res.data.values); }
         });
     });
   });
 }
 
-exports.get = get;
-exports.fetch_oeuvres = fetch_oeuvres;
+function transform (donnees) {
 
-function lier (oeuvres_ordonnees) {
+  // TODO Supprimer titre et artiste des dimensions
+  return donnees.slice(1).map((ligne) => {
+    var oeuvre = {
+      dimensions: {}
+    };
+
+    // Extraction des dimensions
+    ligne.forEach((val_dim, index) => {
+      let nom_dim = donnees[0][index];
+      let id_dim = nom_dimension_to_id(nom_dim);
+
+      // Cas speciaux
+      if(id_dim == 'titre') oeuvre.titre = val_dim;
+      if(id_dim == 'artiste') oeuvre.artiste = val_dim;
+
+      // Filtrer les dimensions a afficher
+      if(!config.dimensions_a_afficher.includes(id_dim)) return;
+
+      // Sauvegarde des dimensions
+      oeuvre.dimensions[id_dim] = {
+        id: id_dim,
+        nom: nom_dim,
+        valeur: val_dim,
+        liens: []
+      };
+    });
+
+    return oeuvre;
+  });
+}
+
+function filtrer (oeuvres) {
+  return oeuvres.filter((oeuvre) => { return !!oeuvre.dimensions.nac });
+}
+
+function link (oeuvres_filtrees) {
+
+  // TODO lier oeuvres et non dimensions
+  // TODO Associer une valeur au lien selon nombre de points de contact
 
   // Attribuer des ids a chaque oeuvre
-  oeuvres_ordonnees.forEach((oeuvre, index) => {
-    oeuvre.id = index;
-  });
+  // TODO Utiliser les numeros de l'expo
+  oeuvres_filtrees.forEach((oeuvre, index) => { oeuvre.id = index; });
 
   // Creer les liens
-  oeuvres_ordonnees.forEach((oeuvre, index) => {
+  oeuvres_filtrees.forEach((oeuvre, index) => {
 
     // TODO Inserer la logique de la creation de liens entre les oeuvres
     var index_prec_tmp = Math.max(index - 1, 0);
-    var index_suiv_tmp = Math.min(index + 1, oeuvres_ordonnees.length - 1);
+    var index_suiv_tmp = Math.min(index + 1, oeuvres_filtrees.length - 1);
 
     for(var dimension in oeuvre.dimensions) {
-      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_ordonnees[index_prec_tmp].id, titre: oeuvres_ordonnees[index_prec_tmp].dimensions.titre.valeur } );
-      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_ordonnees[index_suiv_tmp].id, titre: oeuvres_ordonnees[index_suiv_tmp].dimensions.titre.valeur } );
+      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_filtrees[index_prec_tmp].id } );
+      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_filtrees[index_suiv_tmp].id } );
     }
   });
-  return oeuvres_ordonnees;
+  return oeuvres_filtrees;
 }
 
-function to_cache (oeuvres) {
+function save (oeuvres_liees) {
 
   // Creer le dossier s'il n'existe pas
   if(!fs.existsSync(process.cwd() + process.env.DOSSIER_DONNEES)) {
@@ -112,10 +130,15 @@ function to_cache (oeuvres) {
   }
 
   // Ecriture des donnees
-  fs.writeFile(DONNEES, JSON.stringify(oeuvres), function(err) {
+  fs.writeFile(DONNEES, JSON.stringify(oeuvres_liees), function(err) {
     if(err) { return console.log(err); }
-  }); 
+  });
+
+  return oeuvres_liees;
 }
+
+exports.get = get;
+exports.update = update;
 
 function get_googleapi_client_auth(response) {
   return auth.getClient({ scopes: scopes });
