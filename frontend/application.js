@@ -22,8 +22,8 @@ function lancer_couleurs_manifestes () {
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" />
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
-          <oeuvre v-bind:infos="get_oeuvre_active_infos" v-on:set-actif="set_actif" />
-          <interactions v-bind:infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" />
+          <oeuvre :infos="get_oeuvre_active_infos" :couleur="this.couleur_active" :src_logo="this.logo_app" v-on:set-actif="set_actif" />
+          <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" />
         </section>
         <erreur v-else v-bind:message="message_erreur" />
       </transition>
@@ -185,6 +185,14 @@ function lancer_couleurs_manifestes () {
     },
 
     computed: {
+      couleur_active: function () {
+        // TODO Calculer avec id oeuvre
+        return "bleu";
+      },
+      logo_app: function () {
+        // TODO Calculer avec id oeuvre
+        return "/images/Visuels/Autre/coma_icone-general.svg";
+      },
       get_oeuvre_active_infos: function () {
         return {
           oeuvre: this.oeuvre_active,

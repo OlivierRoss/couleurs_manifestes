@@ -20,15 +20,43 @@
         .logo {
           float: left;
           width: 60px;
+          height: 100%;
+
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100%;
+          flex-direction: column;
+
           border-right: 2px solid $gris;
 
           img {
             display: block;
             width: 50%;
+          }
+
+          .blanc {
+            color: $blanc;
+            background-color: $noir;
+          }
+
+          .noir {
+            color: $noir;
+          }
+
+          .gris {
+            color: $gris;
+          }
+
+          .rouge {
+            color: $rouge;
+          }
+
+          .jaune {
+            color: $jaune;
+          }
+
+          .bleu {
+            color: $bleu;
           }
         }
 
@@ -79,6 +107,36 @@
           &.actif {
             border: 0;
           }
+        }
+
+        .blanc {
+          color: $noir;
+          background-color: $blanc;
+        }
+
+        .noir {
+          color: $blanc;
+          background-color: $noir;
+        }
+
+        .gris {
+          color: $blanc;
+          background-color: $gris;
+        }
+
+        .rouge {
+          color: $blanc;
+          background-color: $rouge;
+        }
+
+        .jaune {
+          color: $blanc;
+          background-color: $jaune;
+        }
+
+        .bleu {
+          color: $blanc;
+          background-color: $bleu;
         }
       }
     }

@@ -1,11 +1,13 @@
 import NumeroOeuvre from "./numero_oeuvre.js";
+import OeuvreAleatoire from "./oeuvre_aleatoire.js";
 
 require('../../sass/accueil.scss');
 
 export default {
   props: ["passer_valeur_initiale"],
   components: {
-    numero_oeuvre: NumeroOeuvre
+    numero_oeuvre: NumeroOeuvre,
+    oeuvre_aleatoire: OeuvreAleatoire
   },
   template: `
     <section class="accueil">
@@ -19,7 +21,7 @@ export default {
           <img src="/images/Visuels/Accueil/coma_loupe-accueil.svg">
           <p class="texte-nav">Entrer<br> le # d'une<br> oeuvre</p>
         </div>
-        <div class="option-nav" v-on:click="selection_aleatoire">
+        <div class="option-nav" v-on:click.stop="selection_aleatoire">
           <img src="/images/Visuels/Accueil/coma_des-accueil.svg">
           <p class="texte-nav">Choisir une oeuvre aléatoire</p>
         </div>
@@ -28,7 +30,8 @@ export default {
           <p class="texte-nav">En savoir plus sur cet outil</p>
         </div>
       </div>
-      <div id="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" /></div>
+      <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" /></div>
+      <div class="input-debut" ref="input_debut_aleatoire" style="display: none;"><oeuvre_aleatoire v-on:nouvelle-oeuvre-aleatoire="selection_initiale" /></div>
     </section>
   `,
   methods: {
@@ -39,16 +42,25 @@ export default {
       this.toggleInputNumero();
     },
     selection_aleatoire: function () {
-      this.toggleInputNumero();
+      this.toggleInputAleatoire();
     },
     toggleInputNumero: function () {
-      var val = this.$refs.input_debut.style.display;
-      if(val == "none") {
-        this.$refs.input_debut.style.display = 'block';
-        this.$children[0].focus_couleur();
-      }
+    var val = this.$refs.input_debut.style.display;
+    if(val == "none") {
+      this.$refs.input_debut.style.display = 'block';
+      this.$children[0].focus_couleur();
+    }
       else {
         this.$refs.input_debut.style.display = 'none';
+      }
+    },
+    toggleInputAleatoire: function () {
+      var val = this.$refs.input_debut_aleatoire.style.display;
+      if(val == "none") {
+        this.$refs.input_debut_aleatoire.style.display = 'block';
+      }
+      else {
+        this.$refs.input_debut_aleatoire.style.display = 'none';
       }
     }
   }

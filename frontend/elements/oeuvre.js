@@ -1,14 +1,15 @@
 require("../../sass/oeuvre.scss");
 
 export default {
-  props: ['infos'],
+  props: ['infos', 'src_logo', 'couleur'],
 
   template: `
     <section class="oeuvre">
       <header>
         <div id="entete">
           <div class="logo">
-            <img src="/images/Visuels/Autre/coma_icone-general.svg">
+            <img :src="src_logo">
+            <span :class="couleur">{{ infos.oeuvre.id }}</span>
           </div>
           <div class="informations">
             <span class="nom-oeuvre">{{ infos.oeuvre.dimensions.titre.valeur || 'Nom' }}</span><br>
@@ -38,9 +39,18 @@ export default {
     },
     update_dimension: function (event) {
       this.$emit('set-actif', { id_dimension: event.target.getAttribute('data-id-dimension') });
+
+      // Reset styles
+      [].forEach.call(document.getElementById("dimensions").children, (child) => {
+        child.className = "dimension inactif";
+      });
+
+      // Rendre actif
+      event.target.classList.remove("inactif");
+      event.target.classList.add("actif");
+      event.target.classList.add("bleu");
     },
     swipe: function (direction){
-      // Attention qu'il n'y ait pas plusieurs oeuvres dans le DOM
       if(direction == 'left'){
         this.$emit('set-actif', { id_dimension: this.infos.dimension_precedente.id });
       } else if (direction == 'right') {

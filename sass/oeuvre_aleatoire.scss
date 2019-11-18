@@ -1,0 +1,49 @@
+@import 'sass/couleurs';
+
+.oeuvre_aleatoire {
+  border: 2px solid white;
+  border-radius: 50px;
+
+  width: 100%;
+  height: 100%;
+
+  #texte-explicatif {
+    font-family: apercu;
+    float: left;
+    width: 50%;
+    height: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bouton-oeuvre-aleatoire {
+    float: right;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container-fleche {
+      align-self: center;
+      background-image: linear-gradient(to right, $jaune, $rouge, $bleu);
+      width: 80%;
+      margin: 0 auto;
+      height: 80%;
+      border-radius: 50px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-height: 55%;
+      }
+    }
+  }
+
+}
