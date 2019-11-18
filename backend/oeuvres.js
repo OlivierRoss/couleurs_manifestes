@@ -7,6 +7,8 @@ const {auth} = require('google-auth-library');
 const fs = require('fs');
 const DONNEES = process.cwd() + process.env.DOSSIER_DONNEES + process.env.FICHIER_DONNEES;
 
+const config = require('../config/parametres');
+
 function get (force_api = false) {
 
   return new Promise((resolve, reject) => {
@@ -30,7 +32,6 @@ function get (force_api = false) {
 
 function fetch_oeuvres () {
 
-  // TODO Aller chercher configuration en mm temps
   return new Promise ((resolve, reject) => {
 
     // Obtention des authorisations
@@ -53,13 +54,17 @@ function fetch_oeuvres () {
               dimensions: {}
             };
             informations_oeuvre.forEach((attribut, index) => {
-              let id_dimension = oeuvres_brutes[0][index].toLowerCase().replace(/[^a-z0-9]/g,'_');
-              oeuvre_ordonnee.dimensions[id_dimension] = {
-                id: id_dimension,
-                nom: oeuvres_brutes[0][index],
-                valeur: attribut,
-                liens: []
-              };
+              let id_dimension = nom_dimension_to_id(oeuvres_brutes[0][index]);
+
+              // Pour les dimensions a afficher
+              //if(config.dimensions_a_afficher.includes(id_dimension)){
+                oeuvre_ordonnee.dimensions[id_dimension] = {
+                  id: id_dimension,
+                  nom: oeuvres_brutes[0][index],
+                  valeur: attribut,
+                  liens: []
+                };
+              //}
             });
             return oeuvre_ordonnee;
           }).filter((oeuvre) => { return !!oeuvre.dimensions.nac/*.valeur != "";*/ });
@@ -114,4 +119,8 @@ function to_cache (oeuvres) {
 
 function get_googleapi_client_auth(response) {
   return auth.getClient({ scopes: scopes });
+}
+
+function nom_dimension_to_id (nom) {
+  return nom.toLowerCase().replace(/[^a-z0-9]/g,'_');
 }

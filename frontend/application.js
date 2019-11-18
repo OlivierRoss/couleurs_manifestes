@@ -70,8 +70,7 @@ function lancer_couleurs_manifestes () {
 
         // Nouvelle utilisation
         else {
-          // TODO utiliser le seed ici
-          this.set_actif( { id_oeuvre: -1, skip_update_parcours: true });
+          this.set_actif( { id_oeuvre: seed ? seed : -1, skip_update_parcours: true });
           this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] } );
         }
 
