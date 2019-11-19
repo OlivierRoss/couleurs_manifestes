@@ -34,6 +34,7 @@ function update () {
   return extract()
     .then(transform)
     .then(filtrer)
+    .then(extract_hashtags)
     .then(link)
     .then(save);
 }
@@ -65,9 +66,7 @@ function transform (donnees) {
 
   // TODO Supprimer titre et artiste des dimensions
   return donnees.slice(1).map((ligne) => {
-    var oeuvre = {
-      dimensions: {}
-    };
+    var oeuvre = { dimensions: {}, liens: {}, hashtags: [], collisions: {} };
 
     // Extraction des dimensions
     ligne.forEach((val_dim, index) => {
@@ -85,8 +84,7 @@ function transform (donnees) {
       oeuvre.dimensions[id_dim] = {
         id: id_dim,
         nom: nom_dim,
-        valeur: val_dim,
-        liens: []
+        valeur: val_dim
       };
     });
 
@@ -98,43 +96,94 @@ function filtrer (oeuvres) {
   return oeuvres.filter((oeuvre) => { return !!oeuvre.dimensions.nac });
 }
 
-function link (oeuvres_filtrees) {
+function extract_hashtags (oeuvres) {
 
-  // TODO lier oeuvres et non dimensions
-  // TODO Associer une valeur au lien selon nombre de points de contact
+  function extraire_hastags (texte) {
+    return texte ? texte.match(/(#\w+)/g) : [];
+  }
+
+  // Extraction des hashtags
+  oeuvres.forEach((oeuvre) => {
+    for(var dimension in oeuvre.dimensions) {
+      var hashtags = extraire_hastags(oeuvre.dimensions[dimension].valeur);
+      if(hashtags && hashtags.length > 0) {
+        oeuvre.hashtags = oeuvre.hashtags.concat(hashtags);
+      }
+    }
+  });
+
+  return oeuvres;
+}
+
+function link (oeuvres) {
 
   // Attribuer des ids a chaque oeuvre
-  // TODO Utiliser les numeros de l'expo
-  oeuvres_filtrees.forEach((oeuvre, index) => { oeuvre.id = index; });
+  // TODO Utiliser les numeros de l'expo - devrait etre defini dans 'transform'
+  oeuvres.forEach((oeuvre, index) => { oeuvre.id = index; });
+
+  // Extraire les collisions
+  function nb_collisions (o1, o2) {
+    var hashtags_communs = [];
+
+    // Toutes les collisions
+    o1.hashtags.forEach((hashtag) => {
+      if(o2.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
+    })
+    o2.hashtags.forEach((hashtag) => {
+      if(o1.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
+    })
+
+    // Supprimer les doublons
+    function unique(value, index, self) { 
+      return self.indexOf(value) === index;
+    }
+
+    var collisions_uniques = hashtags_communs.filter(unique);
+    if(collisions_uniques.length > 0 ) console.log(collisions_uniques);
+
+    return collisions_uniques.length;
+  }
 
   // Creer les liens
-  oeuvres_filtrees.forEach((oeuvre, index) => {
+  for(var i = 0; i < oeuvres.length; i++) {
+    for(var j = i+1; j < oeuvres.length; j++) {
+      oeuvres[i].collisions[oeuvres[j].id] = nb_collisions(oeuvres[i], oeuvres[j]);
+    }
+  }
+  
+  // TODO Inserer la logique de la creation de liens entre les oeuvres
+  return oeuvres;
+  /*oeuvres.forEach((oeuvre, index) => {
 
-    // TODO Inserer la logique de la creation de liens entre les oeuvres
     var index_prec_tmp = Math.max(index - 1, 0);
     var index_suiv_tmp = Math.min(index + 1, oeuvres_filtrees.length - 1);
 
     for(var dimension in oeuvre.dimensions) {
-      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_filtrees[index_prec_tmp].id } );
-      oeuvre.dimensions[dimension].liens.push( { id: oeuvres_filtrees[index_suiv_tmp].id } );
+      oeuvre.liens.push( { id: oeuvres_filtrees[index_prec_tmp].id, rapprochement:  } );
+      oeuvre.liens.push( { id: oeuvres_filtrees[index_suiv_tmp].id } );
     }
   });
-  return oeuvres_filtrees;
+  return oeuvres_filtrees;*/
 }
 
-function save (oeuvres_liees) {
+function log (object) {
+  console.log(object);
+  return object;
+}
 
-  // Creer le dossier s'il n'existe pas
+function save (oeuvres) {
+
+  // Creer le dossier s' il n'existe pas
   if(!fs.existsSync(process.cwd() + process.env.DOSSIER_DONNEES)) {
     fs.mkdirSync(process.cwd() + process.env.DOSSIER_DONNEES);
   }
 
   // Ecriture des donnees
-  fs.writeFile(DONNEES, JSON.stringify(oeuvres_liees), function(err) {
+  fs.writeFile(DONNEES, JSON.stringify(oeuvres), function(err) {
     if(err) { return console.log(err); }
   });
 
-  return oeuvres_liees;
+  return oeuvres;
 }
 
 exports.get = get;
