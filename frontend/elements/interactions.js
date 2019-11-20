@@ -1,11 +1,13 @@
 import NumeroOeuvre from "./numero_oeuvre.js";
+import OeuvreAleatoire from "./oeuvre_aleatoire.js";
 
 require("../../sass/interactions.scss");
 
 export default {
   props: ['infos', 'parcours', 'temps_debut'],
   components: {
-    numero_oeuvre: NumeroOeuvre
+    numero_oeuvre: NumeroOeuvre,
+    oeuvre_aleatoire: OeuvreAleatoire
   },
   template: `
     <footer class="footer-oeuvre">
@@ -31,7 +33,9 @@ export default {
         </div>
       </div>
       <div id="panneau-aleatoire" ref="panneau_aleatoire" class="panneau-interaction">
-        <numero_oeuvre />
+        <div class="container-selecteur-oeuvre">
+          <oeuvre_aleatoire @nouvelle-oeuvre-aleatoire="oeuvre_aleatoire" text="Selection d'une oeuvre aleatoire ..." />
+        </div>
       </div>
       <div id="panneau-partage" ref="panneau_partage" class="panneau-interaction">
         <img src="/images/Visuels/Accueil/coma_logo-accueil.svg">
@@ -79,7 +83,6 @@ export default {
 
   methods: {
     toggle: function(nom) {
-      console.log(this.parcours)
       if(!this[nom].actif) {
         // Reset tous
         for(var icone in this._data) {
@@ -101,16 +104,10 @@ export default {
       }
     },
     oeuvre_aleatoire: function () {
-      let liens = this.infos.dimension_active.liens;
-      this.$emit('set-actif', { 
-        id_oeuvre: liens[Math.floor(Math.random() * liens.length)].id,
-        id_dimension: this.infos.dimension_active.id 
-      });
+      return this.$emit('set-actif', { id_oeuvre: -1 });
     },
     selectionner: function (event) {
-      this.$emit('set-actif', { 
-        id_oeuvre: parseInt(event.target.value)
-      });
+      this.$emit('set-actif', { id_oeuvre: parseInt(event.target.value) });
     },
     partager: function () {
       this.$emit('partager');

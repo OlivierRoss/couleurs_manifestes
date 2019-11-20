@@ -146,6 +146,7 @@ function lancer_couleurs_manifestes () {
 
       // Comportement
       set_actif: function (opts) {
+        console.log(this.oeuvre_active);
 
         // Oeuvre active
         if(opts.id_oeuvre) {
@@ -185,12 +186,10 @@ function lancer_couleurs_manifestes () {
 
     computed: {
       couleur_active: function () {
-        // TODO Calculer avec id oeuvre
-        return "bleu";
+        return this.oeuvre_active.id.split("-")[0];
       },
       logo_app: function () {
-        // TODO Calculer avec id oeuvre
-        return "/images/Visuels/Autre/coma_icone-general.svg";
+        return "/images/Visuels/Autre/coma_icone-" + this.couleur_active + ".svg";
       },
       get_oeuvre_active_infos: function () {
         return {

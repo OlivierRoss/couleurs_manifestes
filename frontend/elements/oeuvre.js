@@ -12,8 +12,8 @@ export default {
             <span :class="couleur">{{ infos.oeuvre.id }}</span>
           </div>
           <div class="informations">
-            <span class="nom-oeuvre">{{ infos.oeuvre.dimensions.titre.valeur || 'Nom' }}</span><br>
-            <span class="nom-artiste">{{ infos.oeuvre.dimensions.artiste.valeur || 'Artiste' }}</span>
+            <span class="nom-oeuvre">{{ infos.oeuvre.titre || 'Nom' }}</span><br>
+            <span class="nom-artiste">{{ infos.oeuvre.artiste || 'Artiste' }}</span>
           </div>
         </div>
         <div id="dimensions">
@@ -24,9 +24,9 @@ export default {
         <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
         <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>
       </div>
-      <div class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
-      <div class="liens flex">
-        <div v-for="lien in infos.dimension_active.liens" v-on:click="update_oeuvre" :data-id-oeuvre="lien.id" class="lien"> {{ lien.titre }} </div>
+      <div v-if="Object.keys(infos.oeuvre.collisions).length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
+      <div v-if="Object.keys(infos.oeuvre.collisions).length > 0" class="liens flex">
+        <div v-for="(lien, index) in infos.oeuvre.liens" v-if="(index < 2)" v-on:click="update_oeuvre" :data-id-oeuvre="lien.id" class="lien"> {{ lien.titre }} </div>
       </div>
     </section>
   `,
@@ -48,7 +48,7 @@ export default {
       // Rendre actif
       event.target.classList.remove("inactif");
       event.target.classList.add("actif");
-      event.target.classList.add("bleu");
+      event.target.classList.add(this.couleur);
     },
     swipe: function (direction){
       if(direction == 'left'){

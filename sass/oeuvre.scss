@@ -34,28 +34,19 @@
             width: 50%;
           }
 
-          .blanc {
-            color: $blanc;
-            background-color: $noir;
-          }
-
-          .noir {
+          .NB, .L, .V {
             color: $noir;
           }
 
-          .gris {
-            color: $gris;
-          }
-
-          .rouge {
+          .R {
             color: $rouge;
           }
 
-          .jaune {
+          .J {
             color: $jaune;
           }
 
-          .bleu {
+          .B {
             color: $bleu;
           }
         }
@@ -92,12 +83,12 @@
         flex-wrap: wrap;
 
         .dimension {
-          font-size: 0.9em;
+          font-size: 0.85em;
           font-weight: bold;
           text-transform: uppercase;
 
           border-radius: 50px;
-          padding: 5px 15px;
+          padding: 5px 10px;
 
           &.inactif {
             border: 1px solid $gris;
@@ -114,27 +105,22 @@
           background-color: $blanc;
         }
 
-        .noir {
+        .NB, .L, .V {
           color: $blanc;
           background-color: $noir;
         }
 
-        .gris {
-          color: $blanc;
-          background-color: $gris;
-        }
-
-        .rouge {
+        .R {
           color: $blanc;
           background-color: $rouge;
         }
 
-        .jaune {
+        .J {
           color: $blanc;
           background-color: $jaune;
         }
 
-        .bleu {
+        .B {
           color: $blanc;
           background-color: $bleu;
         }

@@ -74,6 +74,7 @@ function transform (donnees) {
       let id_dim = nom_dimension_to_id(nom_dim);
 
       // Cas speciaux
+      if(id_dim == 'id') oeuvre.id = val_dim;
       if(id_dim == 'titre') oeuvre.titre = val_dim;
       if(id_dim == 'artiste') oeuvre.artiste = val_dim;
 
@@ -93,7 +94,7 @@ function transform (donnees) {
 }
 
 function filtrer (oeuvres) {
-  return oeuvres.filter((oeuvre) => { return !!oeuvre.dimensions.nac });
+  return oeuvres.filter((oeuvre) => { return !!oeuvre.id });
 }
 
 function extract_hashtags (oeuvres) {
@@ -117,10 +118,6 @@ function extract_hashtags (oeuvres) {
 
 function link (oeuvres) {
 
-  // Attribuer des ids a chaque oeuvre
-  // TODO Utiliser les numeros de l'expo - devrait etre defini dans 'transform'
-  oeuvres.forEach((oeuvre, index) => { oeuvre.id = index; });
-
   // Extraire les collisions
   function nb_collisions (o1, o2) {
     var hashtags_communs = [];
@@ -139,7 +136,6 @@ function link (oeuvres) {
     }
 
     var collisions_uniques = hashtags_communs.filter(unique);
-    if(collisions_uniques.length > 0 ) console.log(collisions_uniques);
 
     return collisions_uniques.length;
   }
@@ -147,28 +143,14 @@ function link (oeuvres) {
   // Creer les liens
   for(var i = 0; i < oeuvres.length; i++) {
     for(var j = i+1; j < oeuvres.length; j++) {
-      oeuvres[i].collisions[oeuvres[j].id] = nb_collisions(oeuvres[i], oeuvres[j]);
+      var collisions = nb_collisions(oeuvres[i], oeuvres[j]);
+      if(collisions > 0) {
+        oeuvres[i].collisions[oeuvres[j].id] = collisions;
+      }
     }
   }
   
-  // TODO Inserer la logique de la creation de liens entre les oeuvres
   return oeuvres;
-  /*oeuvres.forEach((oeuvre, index) => {
-
-    var index_prec_tmp = Math.max(index - 1, 0);
-    var index_suiv_tmp = Math.min(index + 1, oeuvres_filtrees.length - 1);
-
-    for(var dimension in oeuvre.dimensions) {
-      oeuvre.liens.push( { id: oeuvres_filtrees[index_prec_tmp].id, rapprochement:  } );
-      oeuvre.liens.push( { id: oeuvres_filtrees[index_suiv_tmp].id } );
-    }
-  });
-  return oeuvres_filtrees;*/
-}
-
-function log (object) {
-  console.log(object);
-  return object;
 }
 
 function save (oeuvres) {
