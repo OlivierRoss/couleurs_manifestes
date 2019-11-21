@@ -3,6 +3,7 @@ const config = require('../../config/parametres');
 require('../../sass/numero_oeuvre.scss');
 
 export default {
+  props: ['oeuvres'],
   template: `
     <div class="numero_oeuvre">
       <form>
@@ -19,8 +20,8 @@ export default {
     </div>
   `,
   methods: {
-    nouvelle_oeuvre: function () {
-      this.$emit('nouvelle-oeuvre', this.$refs.couleur.value.toUpperCase() + '-' + this.$refs.numero.value);
+    nouvelle_oeuvre: function (oeuvre) {
+      this.$emit('nouvelle-oeuvre', oeuvre);
     },
     focus_couleur: function () {
       this.$refs.couleur.focus();
@@ -60,11 +61,24 @@ export default {
       // Charger l'application
       // TODO verifier que l'oeuvre existe
       if(event.keyCode == config.touches.ENTER) {
-        this.nouvelle_oeuvre();
+        this.test_oeuvre();
       }
     },
-    est_couleur_ok: function (couleur) {
-      return config.couleurs.includes(couleur);
+    test_oeuvre: function () {
+      let id_oeuvre = this.$refs.couleur.value.toUpperCase() + '-' + this.$refs.numero.value;
+      let oeuvre = this.oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre });
+
+      if(oeuvre) {
+        this.nouvelle_oeuvre(oeuvre);
+      }
+      else {
+        this.reset();
+      }
+    },
+    reset: function () {
+      this.$refs.couleur.value = "";
+      this.$refs.numero.value = "";
+      this.focus_couleur();
     }
   }
 };

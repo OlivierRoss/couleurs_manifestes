@@ -30,19 +30,13 @@ export default {
           <p class="texte-nav">En savoir plus sur cet outil</p>
         </div>
       </div>
-      <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" /></div>
+      <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" :oeuvres="oeuvres" /></div>
       <div class="input-debut" ref="input_debut_aleatoire" style="display: none;"><oeuvre_aleatoire v-on:nouvelle-oeuvre-aleatoire="selection_initiale" text="Oeuvre aleatoire"/></div>
     </section>
   `,
   methods: {
-    selection_initiale: function (nom_oeuvre) {
-      if(nom_oeuvre) {
-        var index_oeuvre = this.oeuvres.findIndex((oeuvre) => oeuvre.id == nom_oeuvre);
-        this.$emit('charger-application', index_oeuvre);
-      }
-      else {
-        this.$emit('charger-application');
-      }
+    selection_initiale: function (oeuvre) {
+      this.$emit('charger-application', oeuvre);
     },
     selection_numero: function () {
       this.toggleInputNumero();

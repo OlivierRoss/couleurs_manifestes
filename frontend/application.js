@@ -70,7 +70,7 @@ function lancer_couleurs_manifestes () {
 
         // Nouvelle utilisation
         else {
-          this.set_actif( { id_oeuvre: seed ? seed : -1, skip_update_parcours: true });
+          this.set_actif( { oeuvre: seed ? seed : -1, skip_update_parcours: true });
           this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] } );
         }
 
@@ -148,15 +148,14 @@ function lancer_couleurs_manifestes () {
       set_actif: function (opts) {
 
         // Oeuvre active
-        // TODO changer nom pour index
-        if(opts.id_oeuvre) {
+        if(opts.oeuvre) {
 
           // Mettre a jour l'oeuvre
-          if(opts.id_oeuvre == -1){
+          if(opts.oeuvre == -1){
             this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * this.oeuvres.length)];
           }
           else {
-            this.oeuvre_active = this.oeuvres[opts.id_oeuvre];
+            this.oeuvre_active = opts.oeuvre;
           }
 
           // Mettre a jour la dimension
