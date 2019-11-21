@@ -20,19 +20,48 @@ export default {
   `,
   methods: {
     nouvelle_oeuvre: function () {
-      this.$emit('nouvelle-oeuvre', this.$refs.couleur.value + '-' + this.$refs.numero.value);
+      this.$emit('nouvelle-oeuvre', this.$refs.couleur.value.toUpperCase() + '-' + this.$refs.numero.value);
     },
     focus_couleur: function () {
       this.$refs.couleur.focus();
     },
     test_couleur: function (event) {
-      var val = event.target.value;
-      if(val.length == 1) {
+      var val = event.target.value.toUpperCase();
+
+      // Si couleur valide
+      if(config.couleurs.includes(val)) {
         this.$refs.numero.focus();
+      }
+
+      // Deplacements
+      if(event.keyCode == config.touches.LEFT || event.keyCode == config.touches.RIGHT) return;
+
+      // Couleur valide ou debut
+      if(val.length == 2) {
+        if(config.couleurs.includes(val)) {
+          this.$refs.numero.focus();
+        }
+        else {
+          event.target.value = "";
+        }
       }
     },
     test_numero: function (event) {
       var val = event.target.value;
+
+      if(event.keyCode == config.touches.BACKSPACE) {
+        if(val.length == 0) {
+          var couleur = this.$refs.couleur;
+          couleur.value = couleur.value.substring(0, couleur.value.length - 1);
+          this.focus_couleur();
+        }
+      }
+
+      // Charger l'application
+      // TODO verifier que l'oeuvre existe
+      if(event.keyCode == config.touches.ENTER) {
+        this.nouvelle_oeuvre();
+      }
     },
     est_couleur_ok: function (couleur) {
       return config.couleurs.includes(couleur);

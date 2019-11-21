@@ -20,9 +20,9 @@ function lancer_couleurs_manifestes () {
     },
     template: `<div id="container-application">
       <transition appear name="fade" mode="out-in">
-        <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" />
+        <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" :oeuvres="oeuvres"/>
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
-          <oeuvre :infos="get_oeuvre_active_infos" :couleur="this.couleur_active" :src_logo="this.logo_app" v-on:set-actif="set_actif" />
+          <oeuvre :infos="get_oeuvre_active_infos" :couleur="couleur_active" :src_logo="logo_app" v-on:set-actif="set_actif" />
           <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" />
         </section>
         <erreur v-else v-bind:message="message_erreur" />
@@ -146,13 +146,18 @@ function lancer_couleurs_manifestes () {
 
       // Comportement
       set_actif: function (opts) {
-        console.log(this.oeuvre_active);
 
         // Oeuvre active
+        // TODO changer nom pour index
         if(opts.id_oeuvre) {
 
           // Mettre a jour l'oeuvre
-          this.oeuvre_active = this.oeuvres[(opts.id_oeuvre < 0) ? (Math.floor(Math.random() * this.oeuvres.length)) : opts.id_oeuvre];
+          if(opts.id_oeuvre == -1){
+            this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * this.oeuvres.length)];
+          }
+          else {
+            this.oeuvre_active = this.oeuvres[opts.id_oeuvre];
+          }
 
           // Mettre a jour la dimension
           let id_dim = opts.id_dimension || this.premiere_dimension(this.oeuvre_active).id;

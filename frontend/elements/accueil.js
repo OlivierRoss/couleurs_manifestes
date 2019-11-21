@@ -4,7 +4,7 @@ import OeuvreAleatoire from "./oeuvre_aleatoire.js";
 require('../../sass/accueil.scss');
 
 export default {
-  props: ["passer_valeur_initiale"],
+  props: ["oeuvres"],
   components: {
     numero_oeuvre: NumeroOeuvre,
     oeuvre_aleatoire: OeuvreAleatoire
@@ -35,8 +35,14 @@ export default {
     </section>
   `,
   methods: {
-    selection_initiale: function (oeuvre) {
-      this.$emit('charger-application', oeuvre);
+    selection_initiale: function (nom_oeuvre) {
+      if(nom_oeuvre) {
+        var index_oeuvre = this.oeuvres.findIndex((oeuvre) => oeuvre.id == nom_oeuvre);
+        this.$emit('charger-application', index_oeuvre);
+      }
+      else {
+        this.$emit('charger-application');
+      }
     },
     selection_numero: function () {
       this.toggleInputNumero();
