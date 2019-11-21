@@ -46,6 +46,6 @@ function hash (obj) {
 }
 
 function is_sane (arr) {
-  return arr.every((a) => { return a.match(/^\w+#\w+$/); });
+  return arr.every((a) => { return a.match(/^[\w-]+#\w+$/); });
 }
 

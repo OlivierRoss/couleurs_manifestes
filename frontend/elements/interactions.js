@@ -41,7 +41,7 @@ export default {
         </div>
       </div>
       <div id="panneau-partage" ref="panneau_partage" class="panneau-interaction">
-        <img src="/images/Visuels/Accueil/coma_logo-accueil.svg">
+        <img class="background-partage" src="/images/Visuels/Accueil/coma_logo-accueil.svg">
         <p>
           Lors de ma visite<br>
           j'ai vu {{ this.nombre_oeuvres }} oeuvres
@@ -51,6 +51,9 @@ export default {
           en 4 couleurs.<br>
           Le tout en {{ this.temps_parcours }} minutes
         </p>
+        <div class="partager">
+          <img src="/images/fb.jpg" @click="partager">
+        </div>
       </div>
       <div id="panneau-info" ref="panneau_info" class="panneau-interaction">
         <div id="logos-expo">
