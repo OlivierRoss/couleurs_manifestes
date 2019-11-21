@@ -34,33 +34,45 @@ export default {
       <div class="input-debut" ref="input_debut_aleatoire" style="display: none;"><oeuvre_aleatoire v-on:nouvelle-oeuvre-aleatoire="selection_initiale" text="Oeuvre aleatoire"/></div>
     </section>
   `,
+  data: () => {
+    return {
+      display_input_numero: 'none',
+      display_input_aleatoire: 'none'
+    }
+  },
   methods: {
     selection_initiale: function (oeuvre) {
       this.$emit('charger-application', oeuvre);
     },
     selection_numero: function () {
+      if(this.display_input_aleatoire == 'block') this.toggleInputAleatoire();
       this.toggleInputNumero();
     },
     selection_aleatoire: function () {
+      if(this.display_input_numero == 'block') this.toggleInputNumero();
       this.toggleInputAleatoire();
     },
     toggleInputNumero: function () {
-    var val = this.$refs.input_debut.style.display;
-    if(val == "none") {
-      this.$refs.input_debut.style.display = 'block';
-      this.$children[0].focus_couleur();
-    }
+      var val = this.$refs.input_debut.style.display;
+      if(val == "none") {
+        this.$refs.input_debut.style.display = 'block';
+        this.$children[0].focus_couleur();
+        this.display_input_numero = 'block';
+      }
       else {
         this.$refs.input_debut.style.display = 'none';
+        this.display_input_numero = 'none';
       }
     },
     toggleInputAleatoire: function () {
       var val = this.$refs.input_debut_aleatoire.style.display;
       if(val == "none") {
         this.$refs.input_debut_aleatoire.style.display = 'block';
+        this.display_input_aleatoire = 'block';
       }
       else {
         this.$refs.input_debut_aleatoire.style.display = 'none';
+        this.display_input_aleatoire = 'none';
       }
     }
   }

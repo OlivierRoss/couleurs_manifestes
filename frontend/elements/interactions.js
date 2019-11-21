@@ -107,7 +107,7 @@ export default {
       }
     },
     oeuvre_aleatoire: function () {
-      return this.$emit('set-actif', { oeuvre: -1 });
+      this.$emit('set-actif', { oeuvre: -1 });
     },
     selectionner: function (oeuvre) {
       this.$emit('set-actif', { oeuvre: oeuvre });

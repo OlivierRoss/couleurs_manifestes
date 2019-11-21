@@ -12,7 +12,7 @@ export default {
         <label for="numero">-</label>
         <input v-on:keyup="test_numero" ref="numero" type="text" id="numero" maxlength="2">
       </form>
-      <div v-on:click="nouvelle_oeuvre" class="bouton-numero-oeuvre">
+      <div v-on:click="test_oeuvre" class="bouton-numero-oeuvre">
         <div class="container-fleche">
           <img src="/images/Visuels/Accueil/coma_fleche.svg">
         </div>
