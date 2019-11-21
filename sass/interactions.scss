@@ -33,11 +33,27 @@
 
   #panneau-loupe {
     #info-loupe {
+      padding-left: 5%;
+      display: flex;
+      justify-content: left;
+      align-items: center;
       height: 40%;
+      img {
+        height: 70%;
+      }
+      .texte-info-loupe {
+        padding-left: 5%;
+      }
     }
 
     .numero {
-      height: 60%;
+      height: 50%;
+      width: 85%;
+      float: right;
+
+      .numero_oeuvre {
+        border: 0;
+      }
     }
   }
 

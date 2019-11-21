@@ -4,7 +4,7 @@ import OeuvreAleatoire from "./oeuvre_aleatoire.js";
 require("../../sass/interactions.scss");
 
 export default {
-  props: ['infos', 'parcours', 'temps_debut'],
+  props: ['infos', 'parcours', 'temps_debut', 'oeuvres'],
   components: {
     numero_oeuvre: NumeroOeuvre,
     oeuvre_aleatoire: OeuvreAleatoire
@@ -27,9 +27,12 @@ export default {
       </div>
       <div id="flou"></div>
       <div id="panneau-loupe" ref="panneau_loupe" class="panneau-interaction">
-        <div id="info-loupe">Entrer le # de l'oeuvre</div>
+        <div id="info-loupe">
+          <img src="/images/Visuels/Autre/coma_icone-NB.svg" />
+          <span class="texte-info-loupe">Entrer le # de l'oeuvre</span>
+        </div>
         <div class="numero">
-          <numero_oeuvre />
+          <numero_oeuvre @nouvelle-oeuvre="selectionner" :oeuvres="oeuvres" />
         </div>
       </div>
       <div id="panneau-aleatoire" ref="panneau_aleatoire" class="panneau-interaction">
@@ -104,10 +107,10 @@ export default {
       }
     },
     oeuvre_aleatoire: function () {
-      return this.$emit('set-actif', { id_oeuvre: -1 });
+      return this.$emit('set-actif', { oeuvre: -1 });
     },
-    selectionner: function (event) {
-      this.$emit('set-actif', { id_oeuvre: parseInt(event.target.value) });
+    selectionner: function (oeuvre) {
+      this.$emit('set-actif', { oeuvre: oeuvre });
     },
     partager: function () {
       this.$emit('partager');

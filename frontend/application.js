@@ -23,7 +23,7 @@ function lancer_couleurs_manifestes () {
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" :oeuvres="oeuvres"/>
         <section v-else-if="ecran == 'oeuvre'" class="oeuvres">
           <oeuvre :infos="get_oeuvre_active_infos" :couleur="couleur_active" :src_logo="logo_app" v-on:set-actif="set_actif" />
-          <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" />
+          <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" :oeuvres="oeuvres" />
         </section>
         <erreur v-else v-bind:message="message_erreur" />
       </transition>
