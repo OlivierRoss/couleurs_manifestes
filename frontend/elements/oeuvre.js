@@ -17,7 +17,12 @@ export default {
           </div>
         </div>
         <div id="dimensions">
-          <div v-for="dimension in infos.oeuvre.dimensions" v-on:click="update_dimension" class="dimension inactif" :data-id-dimension="dimension.id">{{ dimension.nom }}</div>
+          <div v-for="dimension in infos.oeuvre.dimensions" 
+              v-on:click="update_dimension" 
+              :class="[infos.dimension_active.id == dimension.id ? actif : inactif, couleur]" 
+              :data-id-dimension="dimension.id">
+                {{ dimension.nom }}
+          </div>
         </div>
       </header>
       <div class="contenu-dimension" v-touch:swipe="swipe">
@@ -30,6 +35,12 @@ export default {
       </div>
     </section>
   `,
+  data: () => {
+    return {
+      inactif: "dimension inactif",
+      actif: "dimension actif"
+    }
+  },
   methods: {
     update_oeuvre: function (event) {
       this.$emit('set-actif', { 
