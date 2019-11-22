@@ -1,3 +1,4 @@
 public/javascripts
 public/stylesheets
-donnees/
+donnees
+node_modules

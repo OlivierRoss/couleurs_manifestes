@@ -1,7 +1,7 @@
 require("../../sass/oeuvre.scss");
 
 export default {
-  props: ['infos', 'src_logo', 'couleur'],
+  props: ['infos', 'src_logo', 'couleur', 'oeuvres'],
 
   template: `
     <section class="oeuvre">
@@ -29,22 +29,22 @@ export default {
         <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
         <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>
       </div>
-      <div v-if="Object.keys(infos.oeuvre.collisions).length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
-      <div v-if="Object.keys(infos.oeuvre.collisions).length > 0" class="liens flex">
-        <div v-for="(lien, index) in infos.oeuvre.liens" v-if="(index < 2)" v-on:click="update_oeuvre" :data-id-oeuvre="lien.id" class="lien"> {{ lien.titre }} </div>
+      <div v-if="infos.dimension_active.collisions.length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
+      <div v-if="infos.dimension_active.collisions.length > 0" class="liens">
+        <div v-for="(oeuvre, index) in meilleurs_liens_dimension_active" v-if="(index < 2)" v-on:click="update_oeuvre(oeuvre)" class="lien"> {{ oeuvre.titre }} </div>
       </div>
     </section>
   `,
-  data: () => {
+  data: function () {
     return {
       inactif: "dimension inactif",
       actif: "dimension actif"
     }
   },
   methods: {
-    update_oeuvre: function (event) {
+    update_oeuvre: function (oeuvre) {
       this.$emit('set-actif', { 
-        id_oeuvre: parseInt(event.target.getAttribute('data-id-oeuvre')),
+        oeuvre: oeuvre,
         id_dimension: this.infos.dimension_active.id
       });
     },
@@ -67,6 +67,24 @@ export default {
       } else if (direction == 'right') {
         this.$emit('set-actif', { id_dimension: this.infos.dimension_suivante.id });
       }
+    }
+  },
+  computed: {
+    meilleurs_liens_dimension_active: function () {
+
+      function comparer_nb_collisions (o1, o2) {
+        if(o1[1] < o2[1]) return 1;
+        else if (o1[1] > o2[1]) return -1;
+        else return 0;
+      }
+      
+      var collisions_ordonnees = this.infos.dimension_active.collisions.sort(comparer_nb_collisions).slice(0, 2);
+
+      return collisions_ordonnees.map((collision) => {
+        return this.oeuvres.find((oeuvre) => {
+          return oeuvre.id == collision[0];
+        });
+      });
     }
   }
 };

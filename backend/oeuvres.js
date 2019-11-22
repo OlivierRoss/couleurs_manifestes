@@ -65,7 +65,7 @@ function extract () {
 function transform (donnees) {
 
   return donnees.slice(1).map((ligne) => {
-    var oeuvre = { dimensions: {}, hashtags: [], collisions: {} };
+    var oeuvre = { dimensions: {}, hashtags: [], collisions: [] };
 
     // Extraction des dimensions
     ligne.forEach((val_dim, index) => {
@@ -86,7 +86,7 @@ function transform (donnees) {
         nom: nom_dim,
         valeur: val_dim,
         hashtags: [],
-        collisions: {}
+        collisions:[] 
       };
     });
 
@@ -95,7 +95,7 @@ function transform (donnees) {
 }
 
 function filtrer (oeuvres) {
-  return oeuvres.filter((oeuvre) => { return !!oeuvre.id });
+  return oeuvres.filter((oeuvre) => { return !!oeuvre.id && Object.keys(oeuvre.dimensions).length > 0 });
 }
 
 function extract_hashtags (oeuvres) {
@@ -152,18 +152,18 @@ function link (oeuvres) {
       // Par oeuvres
       var collisions_oeuvres = nb_collisions(oeuvres[i], oeuvres[j]);
       if(collisions_oeuvres > 0) {
-        oeuvres[i].collisions[oeuvres[j].id] = collisions_oeuvres;
-        oeuvres[j].collisions[oeuvres[i].id] = collisions_oeuvres;
+        oeuvres[i].collisions.push([oeuvres[j].id, collisions_oeuvres]);
+        oeuvres[j].collisions.push([oeuvres[i].id, collisions_oeuvres]);
       }
-      
+
       // Par dimensions
       for(var dimension in oeuvres[i].dimensions) {
         // Si les dimensions matchent
         if(oeuvres[j].dimensions[dimension]){
           var collisions_dimension = nb_collisions(oeuvres[i].dimensions[dimension], oeuvres[j].dimensions[dimension]);
           if(collisions_dimension > 0) {
-            oeuvres[i].dimensions[dimension].collisions[oeuvres[j].id] = collisions_dimension;
-            oeuvres[j].dimensions[dimension].collisions[oeuvres[i].id] = collisions_dimension;
+            oeuvres[i].dimensions[dimension].collisions.push([oeuvres[j].id, collisions_dimension]);
+            oeuvres[j].dimensions[dimension].collisions.push([oeuvres[i].id, collisions_dimension]);
           }
         }
       }

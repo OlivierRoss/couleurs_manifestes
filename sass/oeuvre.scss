@@ -169,6 +169,8 @@
     } 
 
     .liens {
+      display: flex;
+
       height: 10%;
       justify-content: space-around;
       border-top: 3px solid $gris;
