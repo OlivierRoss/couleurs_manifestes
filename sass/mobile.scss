@@ -21,10 +21,48 @@ body, h1, h2, h3, h4, h5, h6, p, blockquote, pre
   padding: 0;
 }
 
-.flex {
+.info-notification {
+  position: fixed;
+  z-index: 10;
+
+  background-color: white;
+  width: 100%;
+  height: 5%;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+
+  font-family: apercu;
+}
+
+@media only screen and (orientation: landscape) {
+  #erreur-orientation {
+    display: flex !important;
+  }
+
+  #container-application {
+    display: none !important;
+  }
+}
+
+#erreur-orientation {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+  width: 50%;
+  margin: 0 auto;
+
+  font-family: apercu;
+  text-align: center;
+  font-size: 1.3em;
+  img {
+    margin-bottom: 10%;
+  }
 }
 
 #container-application {

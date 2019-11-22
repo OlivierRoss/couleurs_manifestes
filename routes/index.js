@@ -35,7 +35,8 @@ router.get('/oeuvres.json', (req, res) => {
 
 router.get('/update', (req, res) => {
   oeuvres.update().then(() => {
-    res.send('ok');
+    req.flash('notify', 'Oeuvres à jour');
+    res.render('index');
   });
 });
 

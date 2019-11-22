@@ -64,9 +64,8 @@ function extract () {
 
 function transform (donnees) {
 
-  // TODO Supprimer titre et artiste des dimensions
   return donnees.slice(1).map((ligne) => {
-    var oeuvre = { dimensions: {}, liens: {}, hashtags: [], collisions: {} };
+    var oeuvre = { dimensions: {}, hashtags: [], collisions: {} };
 
     // Extraction des dimensions
     ligne.forEach((val_dim, index) => {
@@ -85,7 +84,9 @@ function transform (donnees) {
       oeuvre.dimensions[id_dim] = {
         id: id_dim,
         nom: nom_dim,
-        valeur: val_dim
+        valeur: val_dim,
+        hashtags: [],
+        collisions: {}
       };
     });
 
@@ -108,7 +109,11 @@ function extract_hashtags (oeuvres) {
     for(var dimension in oeuvre.dimensions) {
       var hashtags = extraire_hastags(oeuvre.dimensions[dimension].valeur);
       if(hashtags && hashtags.length > 0) {
+        // Par oeuvre
         oeuvre.hashtags = oeuvre.hashtags.concat(hashtags);
+
+        // Par dimension
+        oeuvre.dimensions[dimension].hashtags = hashtags;
       }
     }
   });
@@ -119,15 +124,15 @@ function extract_hashtags (oeuvres) {
 function link (oeuvres) {
 
   // Extraire les collisions
-  function nb_collisions (o1, o2) {
+  function nb_collisions (objet1, objet2) {
     var hashtags_communs = [];
 
     // Toutes les collisions
-    o1.hashtags.forEach((hashtag) => {
-      if(o2.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
+    objet1.hashtags.forEach((hashtag) => {
+      if(objet2.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
     })
-    o2.hashtags.forEach((hashtag) => {
-      if(o1.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
+    objet2.hashtags.forEach((hashtag) => {
+      if(objet1.hashtags.includes(hashtag)) hashtags_communs.push(hashtag);
     })
 
     // Supprimer les doublons
@@ -140,16 +145,31 @@ function link (oeuvres) {
     return collisions_uniques.length;
   }
 
-  // Creer les liens
+  // Creer les liens par oeuvre
   for(var i = 0; i < oeuvres.length; i++) {
     for(var j = i+1; j < oeuvres.length; j++) {
-      var collisions = nb_collisions(oeuvres[i], oeuvres[j]);
-      if(collisions > 0) {
-        oeuvres[i].collisions[oeuvres[j].id] = collisions;
+      
+      // Par oeuvres
+      var collisions_oeuvres = nb_collisions(oeuvres[i], oeuvres[j]);
+      if(collisions_oeuvres > 0) {
+        oeuvres[i].collisions[oeuvres[j].id] = collisions_oeuvres;
+        oeuvres[j].collisions[oeuvres[i].id] = collisions_oeuvres;
+      }
+      
+      // Par dimensions
+      for(var dimension in oeuvres[i].dimensions) {
+        // Si les dimensions matchent
+        if(oeuvres[j].dimensions[dimension]){
+          var collisions_dimension = nb_collisions(oeuvres[i].dimensions[dimension], oeuvres[j].dimensions[dimension]);
+          if(collisions_dimension > 0) {
+            oeuvres[i].dimensions[dimension].collisions[oeuvres[j].id] = collisions_dimension;
+            oeuvres[j].dimensions[dimension].collisions[oeuvres[i].id] = collisions_dimension;
+          }
+        }
       }
     }
   }
-  
+
   return oeuvres;
 }
 

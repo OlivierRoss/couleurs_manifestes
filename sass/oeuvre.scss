@@ -106,7 +106,7 @@
           background-color: $blanc;
         }
 
-        .NB, .L, .V {
+        .NB, .L {
           color: $blanc;
           background-color: $noir;
         }
@@ -124,6 +124,11 @@
         .B {
           color: $blanc;
           background-color: $bleu;
+        }
+
+        .V {
+          color: $blanc;
+          background-color: $vert;
         }
       }
     }

@@ -18,7 +18,7 @@ html(lang="fr")
     - var messages = getMessages()
     if messages.notify
       each msg in messages.notify
-        .info= msg
+        .info-notification= msg
     if messages.error
       each msg in messages.error
         .error= msg
