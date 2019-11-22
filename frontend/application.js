@@ -8,6 +8,9 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
+//let vh = window.innerHeight * 0.01;
+//document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({

@@ -15,6 +15,11 @@
   font-weight: bold;
 }
 
+body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 body, h1, h2, h3, h4, h5, h6, p, blockquote, pre
 {
   margin: 0;

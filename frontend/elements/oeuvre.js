@@ -5,26 +5,24 @@ export default {
 
   template: `
     <section class="oeuvre">
-      <header>
-        <div id="entete">
-          <div class="logo">
-            <img :src="src_logo">
-            <span :class="couleur">{{ infos.oeuvre.id }}</span>
-          </div>
-          <div class="informations">
-            <span class="nom-oeuvre">{{ infos.oeuvre.titre || 'Nom' }}</span><br>
-            <span class="nom-artiste">{{ infos.oeuvre.artiste || 'Artiste' }}</span>
-          </div>
+      <div id="entete">
+        <div class="logo">
+          <img :src="src_logo">
+          <span :class="couleur">{{ infos.oeuvre.id }}</span>
         </div>
-        <div id="dimensions">
-          <div v-for="dimension in infos.oeuvre.dimensions" 
-              v-on:click="update_dimension" 
-              :class="[infos.dimension_active.id == dimension.id ? actif : inactif, couleur]" 
-              :data-id-dimension="dimension.id">
-                {{ dimension.nom }}
-          </div>
+        <div class="informations">
+          <span class="nom-oeuvre">{{ infos.oeuvre.titre || 'Nom' }}</span><br>
+          <span class="nom-artiste">{{ infos.oeuvre.artiste || 'Artiste' }}</span>
         </div>
-      </header>
+      </div>
+      <div id="dimensions">
+        <div v-for="dimension in infos.oeuvre.dimensions" 
+            v-on:click="update_dimension" 
+            :class="[infos.dimension_active.id == dimension.id ? actif : inactif, couleur]" 
+            :data-id-dimension="dimension.id">
+              {{ dimension.nom }}
+        </div>
+      </div>
       <div class="contenu-dimension" v-touch:swipe="swipe">
         <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
         <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>

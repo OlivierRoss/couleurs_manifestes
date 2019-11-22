@@ -10,132 +10,128 @@
 
     font-family: apercu;
 
-    header {
-      height: 30%;
+    #entete {
+      height: 15%;
+      border-bottom: 2px solid $gris;
 
-      #entete {
-        height: calc(50% - 2px);
-        border-bottom: 2px solid $gris;
-
-        .logo {
-          float: left;
-          width: 60px;
-          height: 100%;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-
-          border-right: 2px solid $gris;
-
-          img {
-            display: block;
-            width: 50%;
-          }
-
-          .NB, .L, .V {
-            color: $noir;
-          }
-
-          .R {
-            color: $rouge;
-          }
-
-          .J {
-            color: $jaune;
-          }
-
-          .B {
-            color: $bleu;
-          }
-        }
-
-        .informations {
-          float: right;
-          width: calc(100% - 62px);
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-
-          .nom-oeuvre {
-            font-size: 1em;
-            font-weight: bold;
-            padding: 0 20px;
-          }
-
-          .nom-artiste {
-            font-size: 0.8em;
-            font-weight: lighter;
-            padding: 0 20px;
-            text-transform: uppercase;
-          }
-        }
-      }
-
-      #dimensions {
-        height: 50%;
+      .logo {
+        float: left;
+        width: 60px;
+        height: 100%;
 
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
-        flex-wrap: wrap;
+        flex-direction: column;
 
-        .dimension {
-          font-size: 0.85em;
-          font-weight: bold;
-          text-transform: uppercase;
+        border-right: 2px solid $gris;
 
-          border-radius: 50px;
-          padding: 5px 10px;
-
-          &.inactif {
-            border: 1px solid $gris !important;
-            color: $noir !important;
-            background-color: transparent !important;
-          }
-
-          &.actif {
-            border: 0;
-          }
+        img {
+          display: block;
+          width: 50%;
         }
 
-        .blanc {
+        .NB, .L, .V {
           color: $noir;
-          background-color: $blanc;
-        }
-
-        .NB, .L {
-          color: $blanc;
-          background-color: $noir;
         }
 
         .R {
-          color: $blanc;
-          background-color: $rouge;
+          color: $rouge;
         }
 
         .J {
-          color: $blanc;
-          background-color: $jaune;
+          color: $jaune;
         }
 
         .B {
-          color: $blanc;
-          background-color: $bleu;
+          color: $bleu;
+        }
+      }
+
+      .informations {
+        float: right;
+        width: calc(100% - 62px);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .nom-oeuvre {
+          font-size: 1em;
+          font-weight: bold;
+          padding: 0 20px;
         }
 
-        .V {
-          color: $blanc;
-          background-color: $vert;
+        .nom-artiste {
+          font-size: 0.8em;
+          font-weight: lighter;
+          padding: 0 20px;
+          text-transform: uppercase;
         }
+      }
+    }
+
+    #dimensions {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 2px dotted $gris;
+      padding: 1% 0;
+
+      .dimension {
+        font-size: 0.85em;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        border-radius: 50px;
+        padding: 1% 2%;
+        margin: 1%;
+
+        &.inactif {
+          border: 1px solid $gris !important;
+          color: $noir !important;
+          background-color: transparent !important;
+        }
+
+        &.actif {
+          border: 0;
+        }
+      }
+
+      .blanc {
+        color: $noir;
+        background-color: $blanc;
+      }
+
+      .NB, .L {
+        color: $blanc;
+        background-color: $noir;
+      }
+
+      .R {
+        color: $blanc;
+        background-color: $rouge;
+      }
+
+      .J {
+        color: $blanc;
+        background-color: $jaune;
+      }
+
+      .B {
+        color: $blanc;
+        background-color: $bleu;
+      }
+
+      .V {
+        color: $blanc;
+        background-color: $vert;
       }
     }
 
     .contenu-dimension {
       height: calc(45% - 3px);
-      border-top: 3px dotted $gris;
 
       overflow-x:hidden;
       overflow-y: scroll;
