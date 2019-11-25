@@ -44,13 +44,15 @@ export default {
   mounted: function () {
     this.resize_contenu();
   },
+  updated: function () {
+    this.resize_contenu();
+  },
   methods: {
     update_oeuvre: function (oeuvre) {
       this.$emit('set-actif', { 
         oeuvre: oeuvre,
         id_dimension: this.infos.dimension_active.id
       });
-      Vue.nextTick(this.resize_contenu); // TODO Marche pas
     },
     update_dimension: function (event) {
       this.$emit('set-actif', { id_dimension: event.target.getAttribute('data-id-dimension') });
@@ -64,8 +66,6 @@ export default {
       event.target.classList.remove("inactif");
       event.target.classList.add("actif");
       event.target.classList.add(this.couleur);
-
-      Vue.nextTick(this.resize_contenu);
     },
     swipe: function (direction){
       if(direction == 'left'){
@@ -82,7 +82,7 @@ export default {
       var debut = contenu.offsetTop;
       var fin = decouverte ? decouverte.offsetTop : footer.offsetTop;
 
-      var padding = 0.05;
+      var padding = 0.06;
 
       contenu.style.height = (fin - debut) * (1 - padding) + "px"; 
     }

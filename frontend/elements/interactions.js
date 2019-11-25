@@ -111,9 +111,11 @@ export default {
     },
     oeuvre_aleatoire: function () {
       this.$emit('set-actif', { oeuvre: -1 });
+      this.toggle('aleatoire');
     },
     selectionner: function (oeuvre) {
       this.$emit('set-actif', { oeuvre: oeuvre });
+      this.toggle('loupe');
     },
     partager: function () {
       this.$emit('partager');
