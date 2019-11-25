@@ -36,8 +36,10 @@
   }
 
   #panneau-loupe {
+    min-height: 70px;
+
     #info-loupe {
-      padding-left: 5%;
+      padding-left: 10%;
       display: flex;
       justify-content: left;
       align-items: center;
@@ -52,8 +54,8 @@
 
     .numero {
       height: 50%;
-      width: 85%;
-      float: right;
+      width: 80%;
+      margin: 0 auto;
 
       .numero_oeuvre {
         border: 0;
@@ -83,6 +85,8 @@
     top: 0;
     height: 90%;
     border: 0;
+
+    overflow-y: scroll;
 
     background-image: url('/images/bg.jpg');
     background-repeat: no-repeat;

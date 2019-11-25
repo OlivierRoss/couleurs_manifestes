@@ -11,9 +11,9 @@ export default {
   },
   template: `
     <section class="accueil">
-      <!--<video id="video-background" autoplay loop>
-        <source src="/videos/intro.mp4" type="video/mp4">
-      </video>-->
+      <video id="video-background" autoplay loop>
+        <source src="/videos/intro_web.webm" type="video/webm">
+      </video>
       <h1><img id="logo-accueil" src="/images/Visuels/Accueil/coma_logo-accueil.svg" alt="Logo de l'application Couleurs Manifestes"></h1>
       <h2>POUR DÉBUTER</h2>
       <div id="icones-accueil">
