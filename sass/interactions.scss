@@ -3,6 +3,7 @@
 #footer {
   font-family: apercu;
   height: 10%;
+  min-height: 70px;
 
   position: relative;
 
@@ -36,14 +37,13 @@
   }
 
   #panneau-loupe {
-    min-height: 70px;
 
     #info-loupe {
       padding-left: 10%;
       display: flex;
       justify-content: left;
       align-items: center;
-      height: 40%;
+      height: 30%;
       img {
         height: 70%;
       }
@@ -53,13 +53,9 @@
     }
 
     .numero {
-      height: 50%;
+      height: 70%;
       width: 80%;
       margin: 0 auto;
-
-      .numero_oeuvre {
-        border: 0;
-      }
     }
   }
 

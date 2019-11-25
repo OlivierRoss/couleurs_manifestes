@@ -20,15 +20,15 @@ export default {
       <div id="icones-accueil">
         <div class="option-nav" v-on:click.stop="selection_numero">
           <img src="/images/Visuels/Accueil/coma_loupe-accueil.svg">
-          <p class="texte-nav">Entrer<br> le # d'une<br> oeuvre</p>
+          <p class="texte-nav">Entrer<br>le # d'une<br>oeuvre</p>
         </div>
         <div class="option-nav" v-on:click.stop="selection_aleatoire">
           <img src="/images/Visuels/Accueil/coma_des-accueil.svg">
-          <p class="texte-nav">Choisir une oeuvre aléatoire</p>
+          <p class="texte-nav">Choisir<br>une oeuvre<br>aléatoire</p>
         </div>
         <div class="option-nav">
           <img src="/images/Visuels/Accueil/coma_info-accueil.svg">
-          <p class="texte-nav">En savoir plus sur cet outil</p>
+          <p class="texte-nav">En savoir<br>plus sur<br>cet outil</p>
         </div>
       </div>
       <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" :oeuvres="oeuvres" /></div>
