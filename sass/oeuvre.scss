@@ -1,165 +1,166 @@
 @import 'sass/couleurs';
 
-.oeuvres {
-  width: 100vw;
-  height: 85vh;
+#oeuvre {
+  position: relative;
+  width: 100%;
+  height: 90%;
 
-  .oeuvre {
-    width: 100%;
-    height: 100%;
+  font-family: apercu;
 
-    font-family: apercu;
+  #entete {
+    height: 10%;
+    min-height: 60px;
+    border-bottom: 2px solid $gris;
 
-    #entete {
-      height: 15%;
-      border-bottom: 2px solid $gris;
+    .logo {
+      float: left;
+      width: 60px;
+      height: 100%;
 
-      .logo {
-        float: left;
-        width: 60px;
-        height: 100%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        border-right: 2px solid $gris;
-
-        img {
-          display: block;
-          width: 50%;
-        }
-
-        .NB, .L, .V {
-          color: $noir;
-        }
-
-        .R {
-          color: $rouge;
-        }
-
-        .J {
-          color: $jaune;
-        }
-
-        .B {
-          color: $bleu;
-        }
-      }
-
-      .informations {
-        float: right;
-        width: calc(100% - 62px);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .nom-oeuvre {
-          font-size: 1em;
-          font-weight: bold;
-          padding: 0 20px;
-        }
-
-        .nom-artiste {
-          font-size: 0.8em;
-          font-weight: lighter;
-          padding: 0 20px;
-          text-transform: uppercase;
-        }
-      }
-    }
-
-    #dimensions {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 2px dotted $gris;
-      padding: 1% 0;
+      flex-direction: column;
 
-      .dimension {
-        font-size: 0.85em;
-        font-weight: bold;
-        text-transform: uppercase;
+      border-right: 2px solid $gris;
 
-        border-radius: 50px;
-        padding: 1% 2%;
-        margin: 1%;
-
-        &.inactif {
-          border: 1px solid $gris !important;
-          color: $noir !important;
-          background-color: transparent !important;
-        }
-
-        &.actif {
-          border: 0;
-        }
+      img {
+        display: block;
+        width: 50%;
       }
 
-      .blanc {
+      .NB, .L, .V {
         color: $noir;
-        background-color: $blanc;
-      }
-
-      .NB, .L {
-        color: $blanc;
-        background-color: $noir;
       }
 
       .R {
-        color: $blanc;
-        background-color: $rouge;
+        color: $rouge;
       }
 
       .J {
-        color: $blanc;
-        background-color: $jaune;
+        color: $jaune;
       }
 
       .B {
-        color: $blanc;
-        background-color: $bleu;
-      }
-
-      .V {
-        color: $blanc;
-        background-color: $vert;
+        color: $bleu;
       }
     }
 
-    .contenu-dimension {
-      height: calc(45% - 3px);
+    .informations {
+      float: right;
+      width: calc(100% - 62px);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      overflow-x:hidden;
-      overflow-y: scroll;
+      font-size: small;
+      .nom-oeuvre {
+        font-weight: bold;
+        padding: 0 20px;
+      }
 
-      padding: 20px 30px;
-
-      text-align: left;
-
-      .nom-dimension {
+      .nom-artiste {
+        padding: 0 20px;
         text-transform: uppercase;
-        margin-bottom: 20px;
       }
     }
+  }
+
+  #dimensions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 2px dotted $gris;
+    padding: 1% 0;
+
+    .dimension {
+      font-size: small;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      border-radius: 50px;
+      padding: 1% 2%;
+      margin: 1%;
+
+      &.inactif {
+        border: 1px solid $gris !important;
+        color: $noir !important;
+        background-color: transparent !important;
+      }
+
+      &.actif {
+        border: 0;
+      }
+    }
+
+    .blanc {
+      color: $noir;
+      background-color: $blanc;
+    }
+
+    .NB, .L {
+      color: $blanc;
+      background-color: $noir;
+    }
+
+    .R {
+      color: $blanc;
+      background-color: $rouge;
+    }
+
+    .J {
+      color: $blanc;
+      background-color: $jaune;
+    }
+
+    .B {
+      color: $blanc;
+      background-color: $bleu;
+    }
+
+    .V {
+      color: $blanc;
+      background-color: $vert;
+    }
+  }
+
+  #contenu-dimension {
+    height: 50%; /* Attribuer dynamiquement */
+    padding: 2% 5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    text-align: left;
+    font-size: smaller;
+
+    .nom-dimension {
+      text-transform: uppercase;
+      margin: 0;
+      margin-bottom: 2%;
+    }
+  }
+
+  #decouverte {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: small;
 
     .affichage-liens {
-      height: calc(8% - 3px);
+      padding: 2% 0;
       border-top: 3px dotted $gris;
 
       .texte {
         text-align: left;
         width: 100%;
-        padding-left: 10px;
+        padding: 1% 2%;
       }
 
       display: flex;
       align-items: center;
       font-family: apercu;
-      font-weight: lighter;
       text-transform: uppercase;
       color: $gris;
     } 
@@ -167,30 +168,25 @@
     .liens {
       display: flex;
 
-      height: 10%;
       justify-content: space-around;
       border-top: 3px solid $gris;
 
       .lien {
-        width: 50%;
-        height: 100%;
+        max-width: 50%;
 
         display: flex;
         text-align: left;
         align-items: center;
         font-family: apercu;
-        font-size: 0.9em;
+        font-size: small;
         font-weight: bold;
         text-transform: uppercase;
-        padding-left: 10px;
+        padding: 1% 2%;
 
         &:first-of-type {
           border-right: 3px solid $gris; 
         }
       }
-
     }
-
   }
-
 }

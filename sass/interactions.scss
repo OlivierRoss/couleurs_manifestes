@@ -1,24 +1,27 @@
 @import 'sass/couleurs';
 
-.footer-oeuvre {
+#footer {
   font-family: apercu;
-  height: 15vh;
+  height: 10%;
 
   position: relative;
 
   .menu-principal {
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
     height: calc(100% - 3px);
     border-top: 3px solid $gris;
   }
 
   .icone {
     opacity: 0.35;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
-      width: 40px;
+      height: 75%;
     }
   }
 

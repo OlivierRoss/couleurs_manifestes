@@ -23,13 +23,15 @@ export default {
               {{ dimension.nom }}
         </div>
       </div>
-      <div class="contenu-dimension" v-touch:swipe="swipe">
+      <div id="contenu-dimension" v-touch:swipe="swipe">
         <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
         <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>
       </div>
-      <div v-if="infos.dimension_active.collisions.length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
-      <div v-if="infos.dimension_active.collisions.length > 0" class="liens">
-        <div v-for="(oeuvre, index) in meilleurs_liens_dimension_active" v-if="(index < 2)" v-on:click="update_oeuvre(oeuvre)" class="lien"> {{ oeuvre.titre }} </div>
+      <div id="decouverte">
+        <div v-if="infos.dimension_active.collisions.length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
+        <div v-if="infos.dimension_active.collisions.length > 0" class="liens">
+          <div v-for="(oeuvre, index) in meilleurs_liens_dimension_active" v-if="(index < 2)" v-on:click="update_oeuvre(oeuvre)" class="lien"> {{ oeuvre.titre }} </div>
+        </div>
       </div>
     </section>
   `,
@@ -39,12 +41,16 @@ export default {
       actif: "dimension actif"
     }
   },
+  mounted: function () {
+    this.resize_contenu();
+  },
   methods: {
     update_oeuvre: function (oeuvre) {
       this.$emit('set-actif', { 
         oeuvre: oeuvre,
         id_dimension: this.infos.dimension_active.id
       });
+      Vue.nextTick(this.resize_contenu); // TODO Marche pas
     },
     update_dimension: function (event) {
       this.$emit('set-actif', { id_dimension: event.target.getAttribute('data-id-dimension') });
@@ -58,6 +64,8 @@ export default {
       event.target.classList.remove("inactif");
       event.target.classList.add("actif");
       event.target.classList.add(this.couleur);
+
+      Vue.nextTick(this.resize_contenu);
     },
     swipe: function (direction){
       if(direction == 'left'){
@@ -65,6 +73,18 @@ export default {
       } else if (direction == 'right') {
         this.$emit('set-actif', { id_dimension: this.infos.dimension_suivante.id });
       }
+    },
+    resize_contenu: function () {
+      var contenu = document.getElementById('contenu-dimension');
+      var decouverte = document.getElementById('decouverte');
+      var footer = document.getElementById('footer');
+
+      var debut = contenu.offsetTop;
+      var fin = decouverte ? decouverte.offsetTop : footer.offsetTop;
+
+      var padding = 0.05;
+
+      contenu.style.height = (fin - debut) * (1 - padding) + "px"; 
     }
   },
   computed: {

@@ -10,7 +10,7 @@ export default {
     oeuvre_aleatoire: OeuvreAleatoire
   },
   template: `
-    <footer class="footer-oeuvre">
+    <footer id="footer">
       <div class="menu-principal">
         <div v-on:click="toggle('loupe')" class="icone" ref="container_icone_loupe">
           <img src="/images/Visuels/Autre/coma_loupe-footer.svg" />
