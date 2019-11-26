@@ -10,7 +10,7 @@ export default {
         <label for="couleur">#</label>
         <input v-on:keyup="test_couleur" ref="couleur" type="text" id="couleur" maxlength="2">
         <label for="numero">-</label>
-        <input v-on:keyup="test_numero" ref="numero" type="text" id="numero" maxlength="2">
+        <input v-on:keyup="test_numero" ref="numero" type="number" id="numero" maxlength="2">
       </form>
       <div v-on:click="test_oeuvre" class="bouton-numero-oeuvre">
         <div class="container-fleche">
@@ -26,6 +26,9 @@ export default {
     focus_couleur: function () {
       this.$refs.couleur.focus();
     },
+    focus_numero: function () {
+      this.$refs.numero.focus();
+    },
     test_couleur: function (event) {
       var val = event.target.value.toUpperCase();
 
@@ -40,7 +43,7 @@ export default {
       // Couleur valide ou debut
       if(val.length == 2) {
         if(config.couleurs.includes(val)) {
-          this.$refs.numero.focus();
+          this.focus_numero();
         }
         else {
           event.target.value = "";

@@ -30,15 +30,17 @@
   font-family: apercu;
 }
 
+/*
 @media only screen and (orientation: landscape) {
   #erreur-orientation {
-    display: flex !important;
+  display: flex !important;
   }
 
   #container-application {
     display: none !important;
   }
 }
+*/
 
 #erreur-orientation {
   display: none;
