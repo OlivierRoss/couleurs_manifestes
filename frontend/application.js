@@ -161,6 +161,9 @@ function lancer_couleurs_manifestes () {
             this.oeuvre_active = opts.oeuvre;
           }
 
+          // Noter le nombre de vues
+          this.oeuvre_active.vues = this.oeuvre_active.vues ? this.oeuvre_active.vues + 1 : 1;
+
           // Mettre a jour la dimension
           let id_dim = opts.id_dimension || this.premiere_dimension(this.oeuvre_active).id;
           let index_dim = this.list_dimensions(this.oeuvre_active).findIndex((dim) => { return id_dim == dim });

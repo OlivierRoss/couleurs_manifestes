@@ -90,18 +90,36 @@ export default {
   computed: {
     meilleurs_liens_dimension_active: function () {
 
-      function comparer_nb_collisions (o1, o2) {
-        if(o1[1] < o2[1]) return 1;
-        else if (o1[1] > o2[1]) return -1;
-        else return 0;
+      function comparer_vues_et_collisions (o1, o2) {
+
+        // Le minimum de vues
+        if(o1.vues < o2.vues) return -1;
+        else if(o1.vues > o2.vues) return 1;
+
+        // Le maximum de collisions
+        else {
+          if(o1.collisions < o2.collisions) return 1;
+          else if (o1.collisions > o2.collisions) return -1;
+          else return 0;
+        }
       }
       
-      var collisions_ordonnees = this.infos.dimension_active.collisions.sort(comparer_nb_collisions).slice(0, 2);
+      // Ponderation
+      var collisions_ponderees = this.infos.dimension_active.collisions.map((collision) => {
 
-      return collisions_ordonnees.map((collision) => {
-        return this.oeuvres.find((oeuvre) => {
-          return oeuvre.id == collision[0];
-        });
+        // Trouver l'oeuvre associee
+        var oeuvre = this.oeuvres.find((oeuvre) => { return oeuvre.id == collision[0]; });
+
+        return { oeuvre: oeuvre, collisions: collision[1], vues: oeuvre.vues || 0 };
+      });
+
+      // Ordonnancement
+      var collisions_ordonnees = collisions_ponderees.sort(comparer_vues_et_collisions);
+
+      console.log(collisions_ordonnees);
+      // Selection des deux meilleures
+      return collisions_ordonnees.slice(0, 2).map((collision) => {
+        return collision.oeuvre;
       });
     }
   }

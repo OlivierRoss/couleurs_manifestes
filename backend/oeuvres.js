@@ -80,6 +80,9 @@ function transform (donnees) {
       // Filtrer les dimensions a afficher
       if(!config.dimensions_a_afficher.includes(id_dim)) return;
 
+      // Supprimer les dimensions sans texte
+      if(!val_dim || val_dim.match(/^\s*$/)) return;
+
       // Sauvegarde des dimensions
       oeuvre.dimensions[id_dim] = {
         id: id_dim,
@@ -101,7 +104,7 @@ function filtrer (oeuvres) {
 function extract_hashtags (oeuvres) {
 
   function extraire_hastags (texte) {
-    return texte ? texte.match(/(#\w+)/g) : [];
+    return texte ? texte.match(/(#[A-zÀ-ú\d]+)/g) : [];
   }
 
   // Extraction des hashtags

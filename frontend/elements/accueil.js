@@ -56,11 +56,17 @@ export default {
     toggleInputNumero: function () {
       var val = this.$refs.input_debut.style.display;
       if(val == "none") {
+        document.getElementById("container-application").style.display = "block";
+        document.getElementById("erreur-orientation").style.display = "none";
+
         this.$refs.input_debut.style.display = 'block';
         this.$children[0].focus_couleur();
         this.display_input_numero = 'block';
       }
       else {
+        document.getElementById("container-application").style.display = "";
+        document.getElementById("erreur-orientation").style.display = "";
+
         this.$refs.input_debut.style.display = 'none';
         this.display_input_numero = 'none';
       }

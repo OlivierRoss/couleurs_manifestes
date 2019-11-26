@@ -98,12 +98,20 @@ export default {
         }
 
         // Rendre actif
+        if(nom == 'loupe') {
+          document.getElementById("container-application").style.display = "block";
+          document.getElementById("erreur-orientation").style.display = "none";
+        }
         this.$refs['panneau_' + nom].style.display = "block";
         this.$refs["container_icone_" + nom].style.opacity = 1;
         this[nom].actif = true;
       }
       // Rendre inactif
       else {
+        if(nom == 'loupe') {
+          document.getElementById("container-application").style.display = "";
+          document.getElementById("erreur-orientation").style.display = "";
+        }
         this.$refs['panneau_' + nom].style.display = "none";
         this.$refs["container_icone_" + nom].style.opacity = 0.35;
         this[nom].actif = false;
