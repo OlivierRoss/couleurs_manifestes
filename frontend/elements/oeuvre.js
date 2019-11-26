@@ -116,7 +116,6 @@ export default {
       // Ordonnancement
       var collisions_ordonnees = collisions_ponderees.sort(comparer_vues_et_collisions);
 
-      console.log(collisions_ordonnees);
       // Selection des deux meilleures
       return collisions_ordonnees.slice(0, 2).map((collision) => {
         return collision.oeuvre;

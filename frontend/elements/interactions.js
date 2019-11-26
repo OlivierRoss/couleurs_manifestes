@@ -61,10 +61,12 @@ export default {
           <img src="/images/Visuels/Autre/coma_logo-mbas.svg">
         </div>
           <p id="texte-sommaire">
-            Une exposition thématique dynamique et accessible à tous qui met en valeur un corpus varié de plus de 60 œuvres de notre collection.
+            L’intensité de Couleurs Manifestes se révèle dans le pouvoir d’interpellation, de transmission de sens et de symboliques de la couleur, vu à travers une cinquantaine d’oeuvres de la collection du Musée des beaux-arts de Sherbrooke.
           </p>
           <p id="texte-descriptif">
-    La couleur n’est pas seulement une donnée perceptive, elle peut aussi être porteuse de sens et d’une symbolique. On retrouve dans la collection du Musée des œuvres dont les couleurs ont parfois une résonnance historique, politique, sociale, ou une signification personnelle propre à l’artiste ou à ceux et celles qui les observent.
+            Que ce soient les «partisans» bleus, blancs et rouges de Serge Lemoyne, le poignant rouge carmin d’André Fournelle, les chauds ciels orangés de Peter Krausz ou la personnalité colorée d’Armand Vaillancourt, des oeuvres aux couleurs, techniques, matériaux et époques variés s’y trouvent en relation, sans contrainte chronologique. 
+            <br><br>
+            Jeu de correspondance de sens entre le contexte de production des oeuvres et leur contexte actuel de réception, Couleurs Manifestes vous convie dans un rapport dynamisé entre vous et le Musée.
           </p>
       </div>
     </footer>
