@@ -26,13 +26,25 @@ export default {
           <img src="/images/Visuels/Accueil/coma_des-accueil.svg">
           <p class="texte-nav">Choisir<br>une oeuvre<br>aléatoire</p>
         </div>
-        <div class="option-nav">
+        <div class="option-nav" @click.stop="afficher_texte_intro">
           <img src="/images/Visuels/Accueil/coma_info-accueil.svg">
           <p class="texte-nav">En savoir<br>plus sur<br>cet outil</p>
         </div>
       </div>
       <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" :oeuvres="oeuvres" /></div>
       <div class="input-debut" ref="input_debut_aleatoire" style="display: none;"><oeuvre_aleatoire v-on:nouvelle-oeuvre-aleatoire="selection_initiale" text="Oeuvre aleatoire"/></div>
+      <div id="texte-introduction" ref="texte_intro">
+        <img id="quitter" @click.stop="cacher_texte_intro" src="/images/quitter.jpg" alt="image quitter texte">
+        <h1><img src="/images/Visuels/Accueil/coma_logo-accueil.svg"></h1>
+        <p>
+            L’intensité de Couleurs Manifestes se révèle dans le pouvoir d’interpellation, de transmission de sens et de symboliques de la couleur, vu à travers une cinquantaine d’oeuvres de la collection du Musée des beaux-arts de Sherbrooke.
+          </p>
+          <p>
+            Que ce soient les «partisans» bleus, blancs et rouges de Serge Lemoyne, le poignant rouge carmin d’André Fournelle, les chauds ciels orangés de Peter Krausz ou la personnalité colorée d’Armand Vaillancourt, des oeuvres aux couleurs, techniques, matériaux et époques variés s’y trouvent en relation, sans contrainte chronologique. 
+            <br><br>
+            Jeu de correspondance de sens entre le contexte de production des oeuvres et leur contexte actuel de réception, Couleurs Manifestes vous convie dans un rapport dynamisé entre vous et le Musée.
+          </p>
+      </div>
     </section>
   `,
   data: () => {
@@ -81,6 +93,12 @@ export default {
         this.$refs.input_debut_aleatoire.style.display = 'none';
         this.display_input_aleatoire = 'none';
       }
+    },
+    afficher_texte_intro: function () {
+      this.$refs.texte_intro.style.display = "block";
+    },
+    cacher_texte_intro: function () {
+      this.$refs.texte_intro.style.display = "none";
     }
   }
 };

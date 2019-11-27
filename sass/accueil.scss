@@ -87,4 +87,24 @@
     }
   }
 
+  #texte-introduction {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+
+    background-color: white;
+    font-family: apercu;
+
+    img#quitter {
+      position: absolute;
+      top: 2%;
+      right: 2%;
+    }
+
+    p {
+      padding: 0 5%;
+    }
+  }
 }
