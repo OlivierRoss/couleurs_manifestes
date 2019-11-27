@@ -24,7 +24,7 @@ export default {
         </div>
       </div>
       <div id="contenu-dimension" v-touch:swipe="swipe">
-        <h2 class="nom-dimension">{{ infos.dimension_active.nom }}</h2>
+        <h2 class="nom-dimension" ref="nom_dimension">{{ infos.dimension_active.nom }}</h2>
         <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>
       </div>
       <div id="decouverte">
@@ -46,6 +46,9 @@ export default {
   },
   updated: function () {
     this.resize_contenu();
+    
+    // Scroll
+    this.$refs.nom_dimension.scrollIntoView(true);
   },
   methods: {
     update_oeuvre: function (oeuvre) {
@@ -103,7 +106,7 @@ export default {
           else return 0;
         }
       }
-      
+
       // Ponderation
       var collisions_ponderees = this.infos.dimension_active.collisions.map((collision) => {
 

@@ -8,7 +8,7 @@
   font-family: apercu;
 
   #entete {
-    height: 10%;
+    height: 15%;
     min-height: 60px;
     border-bottom: 2px solid $gris;
 
@@ -54,10 +54,12 @@
       flex-direction: column;
       justify-content: center;
 
-      font-size: small;
+      font-size: smaller;
+
       .nom-oeuvre {
         font-weight: bold;
         padding: 0 20px;
+        font-size: medium;
       }
 
       .nom-artiste {
@@ -161,7 +163,7 @@
       align-items: center;
       font-family: apercu;
       text-transform: uppercase;
-      color: $gris;
+      color: rgba(0,0,0,0.5);
     } 
 
     .liens {
@@ -182,8 +184,12 @@
         text-transform: uppercase;
         padding: 1% 2%;
 
-        &:first-of-type {
-          border-right: 3px solid $gris; 
+        &:nth-child(2) {
+          border-left: 3px solid $gris; 
+        }
+        
+        &:only-child {
+          justify-content: center;
         }
       }
     }

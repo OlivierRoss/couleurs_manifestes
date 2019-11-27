@@ -61,6 +61,9 @@ function lancer_couleurs_manifestes () {
       // Chargement
       charger_application: function (seed) {
 
+        // Ouvrir en plein ecran
+        openFullscreen(document.getElementById("container-application"));
+
         // Parcours actif
         if(this.parcours.length > 0) {
           let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
@@ -223,6 +226,18 @@ function lancer_couleurs_manifestes () {
       }
     }
   });
+}
+
+function openFullscreen(elem) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
 }
 
 window.onload = lancer_couleurs_manifestes;

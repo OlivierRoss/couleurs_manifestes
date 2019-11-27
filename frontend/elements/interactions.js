@@ -32,7 +32,7 @@ export default {
           <span class="texte-info-loupe">Entrer le # de l'oeuvre</span>
         </div>
         <div class="numero">
-          <numero_oeuvre @nouvelle-oeuvre="selectionner" :oeuvres="oeuvres" />
+          <numero_oeuvre ref="loupe" @nouvelle-oeuvre="selectionner" :oeuvres="oeuvres" />
         </div>
       </div>
       <div id="panneau-aleatoire" ref="panneau_aleatoire" class="panneau-interaction">
@@ -103,6 +103,7 @@ export default {
         if(nom == 'loupe') {
           document.getElementById("container-application").style.display = "block";
           document.getElementById("erreur-orientation").style.display = "none";
+          this.$children[0].focus_couleur(); // TODO ne fonctionne pas
         }
         this.$refs['panneau_' + nom].style.display = "block";
         this.$refs["container_icone_" + nom].style.opacity = 1;

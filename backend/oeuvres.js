@@ -118,6 +118,13 @@ function extract_hashtags (oeuvres) {
         // Par dimension
         oeuvre.dimensions[dimension].hashtags = hashtags;
       }
+
+      // Supprimer les hashtags de fin
+      var dim = oeuvre.dimensions[dimension];
+      var index_hashtags = dim.valeur.search(/#\s*\#\s*#\s*/);
+      if(index_hashtags != -1) {
+        dim.valeur = dim.valeur.substring(0, index_hashtags);
+      }
     }
   });
 

@@ -34,7 +34,7 @@ export default {
 
       // Si couleur valide
       if(config.couleurs.includes(val)) {
-        this.$refs.numero.focus();
+        this.focus_numero();
       }
 
       // Deplacements
