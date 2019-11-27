@@ -62,7 +62,7 @@ function lancer_couleurs_manifestes () {
       charger_application: function (seed) {
 
         // Ouvrir en plein ecran
-        openFullscreen(document.getElementById("container-application"));
+        //openFullscreen(document.getElementById("container-application"));
 
         // Parcours actif
         if(this.parcours.length > 0) {
