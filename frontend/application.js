@@ -177,6 +177,11 @@ function lancer_couleurs_manifestes () {
         // Dimension active
         else if(opts.id_dimension) {
           this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
+
+          // Si footer est charge
+          if(this.$children[1]) {
+            this.$children[1].cacher_panneaux();
+          }
         }
 
         // Update parcours

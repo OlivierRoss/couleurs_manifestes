@@ -90,14 +90,19 @@ export default {
   },
 
   methods: {
+    cacher_panneaux: function () {
+      for(var icone in this._data) {
+        this.$refs['panneau_' + icone].style.display = "none";
+        this.$refs["container_icone_" + icone].style.opacity = 0.35;
+        this[icone].actif = false;
+      }
+    },
     toggle: function(nom) {
+
       if(!this[nom].actif) {
-        // Reset tous
-        for(var icone in this._data) {
-          this.$refs['panneau_' + icone].style.display = "none";
-          this.$refs["container_icone_" + icone].style.opacity = 0.35;
-          this[icone].actif = false;
-        }
+
+        // Reset
+        this.cacher_panneaux();
 
         // Rendre actif
         if(nom == 'loupe') {
@@ -115,9 +120,7 @@ export default {
           document.getElementById("container-application").style.display = "";
           document.getElementById("erreur-orientation").style.display = "";
         }
-        this.$refs['panneau_' + nom].style.display = "none";
-        this.$refs["container_icone_" + nom].style.opacity = 0.35;
-        this[nom].actif = false;
+        return this.cacher_panneaux();
       }
     },
     oeuvre_aleatoire: function () {
