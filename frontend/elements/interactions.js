@@ -60,13 +60,16 @@ export default {
           <img src="/images/Visuels/Autre/coma_logo-info.svg">
           <img src="/images/Visuels/Autre/coma_logo-mbas.svg">
         </div>
-          <p id="texte-sommaire">
+          <p id="texte-sommaire" style="display: none;">
             L’intensité de Couleurs Manifestes se révèle dans le pouvoir d’interpellation, de transmission de sens et de symboliques de la couleur, vu à travers une cinquantaine d’oeuvres de la collection du Musée des beaux-arts de Sherbrooke.
           </p>
-          <p id="texte-descriptif">
+          <p style="display: none;">
             Que ce soient les «partisans» bleus, blancs et rouges de Serge Lemoyne, le poignant rouge carmin d’André Fournelle, les chauds ciels orangés de Peter Krausz ou la personnalité colorée d’Armand Vaillancourt, des oeuvres aux couleurs, techniques, matériaux et époques variés s’y trouvent en relation, sans contrainte chronologique. 
             <br><br>
             Jeu de correspondance de sens entre le contexte de production des oeuvres et leur contexte actuel de réception, Couleurs Manifestes vous convie dans un rapport dynamisé entre vous et le Musée.
+          </p>
+          <p id="texte-descriptif" >
+            L’application Couleurs Manifestes permet de créer un parcours personnalisé en entrant le numéro de l’oeuvre de votre choix (icône loupe), ou encore de faire une visite spontanée en utilisant le parcours généré aléatoirement (icône dés). Pour vous repérer dans l’espace trouvez les pastilles colorées numérotées situées dans le haut gauche de l’écran et correspondant à l’oeuvre en salle. Chaque oeuvre est identifiée à l’aide de la lettre de son champ coloré et d’un numéro. La salle d’exposition est divisée en 6 zones colorées: Jaune (J), Vert (V), Bleu (B), Rouge (R), Noir & Blanc(NB), en plus de l’espace central dédié à l’artiste Serge Lemoyne (L).
           </p>
       </div>
     </footer>
