@@ -1,14 +1,4 @@
-$font-size-small: smaller;
-$font-size-large: large;
-
-@media only screen and (min-height: 750px){
-  form {
-    font-size: $font-size-large !important;
-    input {
-      font-size: $font-size-large !important;
-    }
-  }
-}
+$font-size: large;
 
 .numero_oeuvre {
   width: 100%;
@@ -16,7 +6,7 @@ $font-size-large: large;
 
   form {
     font-family: apercu;
-    font-size: $font-size-small;
+    font-size: $font-size;
     font-weight: bold;
 
     height: 100%;
@@ -30,7 +20,7 @@ $font-size-large: large;
 
     input {
       font-family: apercu;
-      font-size: $font-size-small;
+      font-size: $font-size;
       font-weight: bold;
       text-transform: uppercase;
       text-align: center;
@@ -47,7 +37,7 @@ $font-size-large: large;
     }
 
     #numero {
-      width: 50%;
+      width: 30%;
     }
 
     /* Hide HTML5 Up and Down arrows. */

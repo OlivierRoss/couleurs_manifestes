@@ -78,16 +78,18 @@ export default {
       }
     },
     resize_contenu: function () {
-      var contenu = document.getElementById('contenu-dimension');
-      var decouverte = document.getElementById('decouverte');
-      var footer = document.getElementById('footer');
+      Vue.nextTick(function () {
+        var contenu = document.getElementById('contenu-dimension');
+        var decouverte = document.getElementById('decouverte');
+        var footer = document.getElementById('footer');
 
-      var debut = contenu.offsetTop;
-      var fin = decouverte ? decouverte.offsetTop : footer.offsetTop;
+        var debut = contenu.offsetTop;
+        var fin = decouverte ? decouverte.offsetTop : footer.offsetTop;
 
-      var padding = 0.06;
+        var padding = 0.06;
 
-      contenu.style.height = (fin - debut) * (1 - padding) + "px"; 
+        contenu.style.height = (fin - debut) * (1 - padding) + "px"; 
+      });
     }
   },
   computed: {

@@ -23,6 +23,7 @@ export default {
     nouvelle_oeuvre: function (oeuvre) {
       this.$emit('nouvelle-oeuvre', oeuvre);
       this.clear();
+      this.$refs.numero.blur();
     },
     focus_couleur: function () {
       this.$refs.couleur.focus();
