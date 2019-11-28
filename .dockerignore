@@ -2,5 +2,5 @@ public/javascripts
 public/stylesheets
 donnees
 node_modules
-.git/
+.git
 .gitignore
