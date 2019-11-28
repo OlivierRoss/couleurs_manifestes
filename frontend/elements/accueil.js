@@ -34,7 +34,7 @@ export default {
       <div class="input-debut" ref="input_debut" style="display: none;"><numero_oeuvre v-on:nouvelle-oeuvre="selection_initiale" :oeuvres="oeuvres" /></div>
       <div class="input-debut" ref="input_debut_aleatoire" style="display: none;"><oeuvre_aleatoire v-on:nouvelle-oeuvre-aleatoire="selection_initiale" text="Oeuvre aleatoire"/></div>
       <div id="texte-introduction" ref="texte_intro">
-        <img id="quitter" @click.stop="cacher_texte_intro" src="/images/quitter.jpg" alt="X">
+        <img id="quitter" @click.stop="cacher_texte_intro" src="/images/coma_fermer.svg" alt="X">
         <h1><img src="/images/Visuels/Accueil/coma_logo-accueil.svg"></h1>
         <p>
   L’application Couleurs Manifestes permet de créer un parcours personnalisé en entrant le numéro de l’oeuvre de votre choix (icône loupe), ou encore de faire une visite spontanée en utilisant le parcours généré aléatoirement (icône dés). Pour vous repérer dans l’espace trouvez les pastilles colorées numérotées situées dans le haut gauche de l’écran et correspondant à l’oeuvre en salle. Chaque oeuvre est identifiée à l’aide de la lettre de son champ coloré et d’un numéro. La salle d’exposition est divisée en 6 zones colorées: Jaune (J), Vert (V), Bleu (B), Rouge (R), Noir & Blanc(NB), en plus de l’espace central dédié à l’artiste Serge Lemoyne (L).
