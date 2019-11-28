@@ -3,6 +3,11 @@ extends layout
 block script
   script(src="/javascripts/application.js")
   script!= parcours
+  meta(property="og:url", content="http://cm.mbas.qc.ca")
+  meta(property="og:type", content="website")
+  meta(property="og:title", content="Couleurs Manifestes")
+  meta(property="og:description", content="Redécouvrez les collections du MBAS")
+
 
 block content
   #erreur-orientation

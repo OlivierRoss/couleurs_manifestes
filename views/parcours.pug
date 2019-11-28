@@ -3,21 +3,20 @@ extends layout
 block script
   script(src="/javascripts/parcours.js")
   script!= parcours
-  meta(property="og:url", content="http://mbas.qc.ca")
+  meta(property="og:url", content="http://cm.mbas.qc.ca")
   meta(property="og:type", content="website")
-  meta(property="og:title", content="couleurs manifestes")
-  meta(property="og:description", content="Jai vu plein de choses")
+  meta(property="og:title", content="Couleurs Manifestes")
+  meta(property="og:description", content="Redécouvrez les collections du MBAS")
 
 block content
-  //- TODO https://developers.facebook.com/docs/sharing/reference/feed-dialog
   script(async defer crossorigin="anonymus" src="https://connect.facebook.net/fr_CA/sdk.js")
   script.
     window.fbAsyncInit = function() {
       FB.init({
-            appId            : '3047912601901957',
-            autoLogAppEvents : true,
-            xfbml            : false,
-            version          : 'v4.0'
+        appId            : '3047912601901957',
+        autoLogAppEvents : true,
+        xfbml            : false,
+        version          : 'v4.0'
       });
     };
   #container-partager

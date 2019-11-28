@@ -18,7 +18,7 @@ export default {
         <div v-on:click="toggle('aleatoire')" class="icone" ref="container_icone_aleatoire">
           <img src="/images/Visuels/Autre/coma_des-footer.svg" />
         </div>
-        <div v-on:click="toggle('partage')"class="icone" style="display:none;" ref="container_icone_partage">
+        <div v-on:click="toggle('partage')"class="icone" ref="container_icone_partage">
           <img src="/images/Visuels/Autre/coma_partage-footer.svg" />
         </div>
         <div v-on:click="toggle('info')" class="icone" ref="container_icone_info">
@@ -41,7 +41,7 @@ export default {
         </div>
       </div>
       <div id="panneau-partage" ref="panneau_partage" class="panneau-interaction">
-        <img class="background-partage" src="/images/Visuels/Accueil/coma_logo-accueil.svg">
+        <img id="background-partage" src="/images/Visuels/Accueil/coma_logo-accueil.svg">
         <p>
           Lors de ma visite<br>
           j'ai vu {{ this.nombre_oeuvres }} oeuvres
@@ -115,7 +115,7 @@ export default {
         if(nom == 'loupe') {
           document.getElementById("container-application").style.display = "block";
           document.getElementById("erreur-orientation").style.display = "none";
-          this.$children[0].focus_couleur(); // TODO ne fonctionne pas
+          this.$children[0].focus_couleur();
         }
       }
       // Rendre inactif
