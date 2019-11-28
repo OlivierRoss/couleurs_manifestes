@@ -22,12 +22,17 @@ export default {
   methods: {
     nouvelle_oeuvre: function (oeuvre) {
       this.$emit('nouvelle-oeuvre', oeuvre);
+      this.clear();
     },
     focus_couleur: function () {
       this.$refs.couleur.focus();
     },
     focus_numero: function () {
       this.$refs.numero.focus();
+    },
+    clear: function () {
+      this.$refs.numero.value = null;
+      this.$refs.couleur.value = null;
     },
     test_couleur: function (event) {
       var val = event.target.value.toUpperCase();

@@ -105,14 +105,15 @@ export default {
         this.cacher_panneaux();
 
         // Rendre actif
+        this.$refs['panneau_' + nom].style.display = "block";
+        this.$refs["container_icone_" + nom].style.opacity = 1;
+        this[nom].actif = true;
+
         if(nom == 'loupe') {
           document.getElementById("container-application").style.display = "block";
           document.getElementById("erreur-orientation").style.display = "none";
           this.$children[0].focus_couleur(); // TODO ne fonctionne pas
         }
-        this.$refs['panneau_' + nom].style.display = "block";
-        this.$refs["container_icone_" + nom].style.opacity = 1;
-        this[nom].actif = true;
       }
       // Rendre inactif
       else {
