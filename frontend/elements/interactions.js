@@ -18,7 +18,7 @@ export default {
         <div v-on:click="toggle('aleatoire')" class="icone" ref="container_icone_aleatoire">
           <img src="/images/Visuels/Autre/coma_des-footer.svg" />
         </div>
-        <div v-on:click="toggle('partage')"class="icone" ref="container_icone_partage">
+        <div v-on:click="partager"class="icone" ref="container_icone_partage">
           <img src="/images/Visuels/Autre/coma_partage-footer.svg" />
         </div>
         <div v-on:click="toggle('info')" class="icone" ref="container_icone_info">

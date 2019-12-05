@@ -8,9 +8,6 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
-//let vh = window.innerHeight * 0.01;
-//document.documentElement.style.setProperty('--vh', `${vh}px`);
-
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({
@@ -61,14 +58,11 @@ function lancer_couleurs_manifestes () {
       // Chargement
       charger_application: function (seed) {
 
-        // Ouvrir en plein ecran
-        //openFullscreen(document.getElementById("container-application"));
-
         // Parcours actif
         if(this.parcours.length > 0) {
           let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
           this.set_actif({
-            id_oeuvre: dernier_affichage[0],
+            oeuvre: this.oeuvres.find((oeuvre) => {return oeuvre.id == dernier_affichage[0]}),
             id_dimension: dernier_affichage[1],
             skip_update_parcours: true
           });
@@ -231,18 +225,6 @@ function lancer_couleurs_manifestes () {
       }
     }
   });
-}
-
-function openFullscreen(elem) {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
-  }
 }
 
 window.onload = lancer_couleurs_manifestes;

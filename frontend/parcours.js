@@ -6,21 +6,18 @@ function afficher_page_partager () {
     el: '#container-partager',
     template: `
       <div id="container-partager">
-        <h1>Partager</h1>
+        <h1><img src="/images/Visuels/Accueil/coma_logo-accueil.svg"></h1>
           <p>
             Lors de ma visite<br>
-            j'ai vu {{ this.nombre_oeuvres }} oeuvres
-            par 8 artistes.<br>
-            j'ai étudié 5 courants<br>
+            j'ai vu {{ nombre_oeuvres }} oeuvres<br>
+            par {{ nombre_artistes }} artistes.<br>
+            j'ai étudié {{ nombre_courants }} courants<br>
             artistiques se déclinant<br> 
-            en 4 couleurs.<br>
-            Le tout en {{ this.temps_parcours }} minutes
+            en {{ nombre_couleurs }} couleurs.<br>
+            Le tout en {{ temps_parcours }} minutes
           </p>
-        <ul>
-          <li v-for="etape in parcours">{{ etape }}</li>
-        </ul>
         <button v-on:click="window.location.href = '/'">Retour</button>
-        <button v-on:click="afficher_feed">Partager</button>
+        <button v-on:click="afficher_feed">Facebook</button>
       </div>
     `,
     created: function () {
@@ -33,6 +30,38 @@ function afficher_page_partager () {
           quote: 'J\'ai vu ' + this.parcours.length + ' oeuvres et dimensions',
           link: 'http://mbas.qc.ca/'
         }, function(response){});
+      }
+    },
+    computed: {
+      nombre_oeuvres: function () {
+        return this.parcours.reduce((acc, valeur) => {
+          var id_oeuvre = valeur.split('#')[0];
+          if(!acc.includes(id_oeuvre)) acc.push(id_oeuvre);
+          return acc;
+        }, []).length;
+      },
+      nombre_artistes: function () {
+        return 1;
+        return this.parcours.map((valeur) => {
+          var id_oeuvre = valeur.split('#')[0];
+          return this.oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
+        }).reduce((acc, artiste) => {
+          if(!acc.includes(artiste)) acc.push(artiste);
+          return acc;
+        }, []).length;
+      },
+      nombre_courants: function () {
+        return 8;
+      },
+      nombre_couleurs: function () {
+        return this.parcours.reduce((acc, valeur) => {
+          var couleur = valeur.split('-')[0];
+          if(!acc.includes(couleur)) acc.push(couleur);
+          return acc;
+        }, []).length;
+      },
+      temps_parcours: function () {
+        return 10;
       }
     }
   });
