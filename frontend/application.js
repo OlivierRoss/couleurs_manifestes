@@ -8,9 +8,6 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
-import AsyncComputed from 'vue-async-computed';
-Vue.use(AsyncComputed);
-
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({

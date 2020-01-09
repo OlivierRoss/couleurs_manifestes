@@ -1,5 +1,8 @@
 require('../sass/partager.scss');
 
+import AsyncComputed from 'vue-async-computed';
+Vue.use(AsyncComputed);
+
 // Creation de l'application
 function afficher_page_partager () {
   new Vue({
@@ -90,7 +93,6 @@ function afficher_page_partager () {
       nombre_artistes: async function () {
         var oeuvres = await this.get_oeuvres();
         console.log(oeuvres);
-        return 1;
         return this.parcours.map((valeur) => {
           var id_oeuvre = valeur.split('#')[0];
           return oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
