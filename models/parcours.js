@@ -4,14 +4,14 @@ const { Schema  } = mongoose;
 const ParcoursSchema = new Schema({
   id: String,
   parcours: String,
-  timestamp: Date
+  temps_initial: Number
 });
 
 ParcoursSchema.methods.unserialize = function () {
   return {
     id: this.id,
     parcours: JSON.parse(this.parcours),
-    timestamp: this.timestamp
+    temps_initial: this.temps_initial
   };
 }
 

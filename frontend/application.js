@@ -46,12 +46,12 @@ function lancer_couleurs_manifestes () {
           
           // Recharger le parcours
           if(window.parcours) {
-            this.parcours = window.parcours.parcours;
+            this.parcours = window.parcours;
             this.charger_application();
           }
         });
 
-      this.debut_parcours = Date.now();
+      this.temps_initial = Date.now();
     },
     methods: {
 
@@ -117,13 +117,18 @@ function lancer_couleurs_manifestes () {
       partager: function () {
 
         // Sauvegarder le parcours
+        var obj = {
+          parcours: this.parcours,
+          temps_initial: this.temps_initial
+        };
+
         fetch("/parcours", {
           method: "POST",
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(this.parcours)
+          body: JSON.stringify(obj)
         }).then((data) => { return data.json(); })
 
         // Charger la nouvelle page

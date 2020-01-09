@@ -28,7 +28,8 @@ function afficher_page_partager () {
       parcours: null
     },
     created: function () {
-      this.parcours = parcours.parcours; // Defini dans window.
+      console.log(parcours);
+      this.parcours = window.parcours; // Defini dans window.
       this.get_oeuvres();
     },
     methods: {
@@ -86,13 +87,12 @@ function afficher_page_partager () {
         }, []).length;
       },
       temps_parcours: function () {
-        return 10;
+        return ((Date.now() - window.temps_initial) / 1000) % 60;
       }
     },
     asyncComputed: {
       nombre_artistes: async function () {
         var oeuvres = await this.get_oeuvres();
-        console.log(oeuvres);
         return this.parcours.map((valeur) => {
           var id_oeuvre = valeur.split('#')[0];
           return oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
