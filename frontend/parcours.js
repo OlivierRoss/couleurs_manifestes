@@ -20,10 +20,42 @@ function afficher_page_partager () {
         <button v-on:click="afficher_feed">Facebook</button>
       </div>
     `,
+    data: {
+      oeuvres: [],
+      parcours: null
+    },
     created: function () {
       this.parcours = parcours.parcours; // Defini dans window.
+      this.get_oeuvres();
     },
     methods: {
+      get_oeuvres: function () {
+        return new Promise ((resolve, reject) => {
+          if(this.oeuvres.length > 0) {
+            resolve(this.oeuvres);
+          }
+          else {
+            fetch("/oeuvres.json")
+              .then((res) => {
+                if(!res.ok){
+                  console.error(response.statusText);
+                  reject(response.statusText);
+                }
+                else {
+                  return res.json();
+                }
+              })
+              .then((oeuvres) => { 
+                this.oeuvres = oeuvres;
+                resolve(this.oeuvres);
+              })
+              .catch((err) => {
+                console.error(err);
+                reject(err);
+              });
+          }
+        });
+      },
       afficher_feed: function () {
         FB.ui({
           method: 'feed',
@@ -40,16 +72,6 @@ function afficher_page_partager () {
           return acc;
         }, []).length;
       },
-      nombre_artistes: function () {
-        return 1;
-        return this.parcours.map((valeur) => {
-          var id_oeuvre = valeur.split('#')[0];
-          return this.oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
-        }).reduce((acc, artiste) => {
-          if(!acc.includes(artiste)) acc.push(artiste);
-          return acc;
-        }, []).length;
-      },
       nombre_courants: function () {
         return 8;
       },
@@ -62,6 +84,20 @@ function afficher_page_partager () {
       },
       temps_parcours: function () {
         return 10;
+      }
+    },
+    asyncComputed: {
+      nombre_artistes: async function () {
+        var oeuvres = await this.get_oeuvres();
+        console.log(oeuvres);
+        return 1;
+        return this.parcours.map((valeur) => {
+          var id_oeuvre = valeur.split('#')[0];
+          return oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
+        }).reduce((acc, artiste) => {
+          if(!acc.includes(artiste)) acc.push(artiste);
+          return acc;
+        }, []).length;
       }
     }
   });

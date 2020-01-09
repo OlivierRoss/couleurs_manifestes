@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node -r esm ./bin/www",
-    "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ --ignore donnees/ ./bin/www",
+    "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ --ignore donnees/ --ignore webpack.config.js ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js",
     "deploy": "time heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
   },
   "dependencies": {
+    "@babel/runtime": "^7.7.7",
     "bluebird": "^3.7.1",
     "constantinople": "^4.0.1",
     "cookie-parser": "^1.4.4",
@@ -27,16 +28,17 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pug": "~2.0.4",
+    "regenerator-runtime": "^0.13.3",
     "ua-parser-js": "^0.7.20",
+    "vue-async-computed": "^3.8.2",
     "vue2-touch-events": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
-    "core-js": "^3.3.3",
+    "core-js": "^3.6.2",
     "css-loader": "^3.2.0",
     "dotenv": "^8.2.0",
     "node-sass": "^4.12.0",

@@ -81,7 +81,9 @@ function transform (donnees) {
       if(!config.dimensions_a_afficher.includes(id_dim)) return;
 
       // Supprimer les dimensions sans texte
-      if(!val_dim || val_dim.match(/^\s*$/)) return;
+      if(!val_dim || val_dim.match(/^\s*$/)) {
+        val_dim = "Contenu indisponible";
+      };
 
       // Sauvegarde des dimensions
       oeuvre.dimensions[id_dim] = {
