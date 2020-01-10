@@ -87,7 +87,7 @@ function afficher_page_partager () {
         }, []).length;
       },
       temps_parcours: function () {
-        return ((Date.now() - window.temps_initial) / 1000) % 60;
+        return Math.floor(((Date.now() - window.temps_initial) / 1000) / 60); // 1000 : en millisecondes, 60 : en minutes
       }
     },
     asyncComputed: {
