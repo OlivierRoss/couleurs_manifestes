@@ -36,6 +36,7 @@ function lancer_couleurs_manifestes () {
       oeuvres: [],
       oeuvre_active: null,
       dimension_active: null,
+      temps_initial: null,
       message_erreur: "Donnees indisponibles"
     },
     created: function () {
@@ -46,12 +47,12 @@ function lancer_couleurs_manifestes () {
           
           // Recharger le parcours
           if(window.parcours) {
-            this.parcours = window.parcours;
+            this.parcours = window.parcours.parcours;
             this.charger_application();
           }
         });
 
-      this.temps_initial = Date.now();
+      this.temps_initial = this.temps_initial || Date.now();
     },
     methods: {
 
