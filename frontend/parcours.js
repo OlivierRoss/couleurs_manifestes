@@ -65,7 +65,8 @@ function afficher_page_partager () {
         // Utiliser le OG pour definir l'allure du post
         return FB.ui({
           method: 'share',
-          href: 'http://couleurs-manifestes-staging.mbas.qc.ca/p/84517d11d0ede1da9c63d048cbf83778' // window.location
+          quote: 'Quote a tester',
+          href: window.location.toString()
         }, function(response){});
       }
     },
