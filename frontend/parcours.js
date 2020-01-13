@@ -61,10 +61,11 @@ function afficher_page_partager () {
         });
       },
       afficher_feed: function () {
-        FB.ui({
-          method: 'feed',
-          quote: 'J\'ai vu ' + this.parcours.length + ' oeuvres et dimensions',
-          link: 'http://mbas.qc.ca/'
+        // TODO https://developers.facebook.com/docs/sharing/reference/share-dialog
+        // Utiliser le OG pour definir l'allure du post
+        return FB.ui({
+          method: 'share',
+          href: 'http://couleurs-manifestes-staging.mbas.qc.ca/p/84517d11d0ede1da9c63d048cbf83778' // window.location
         }, function(response){});
       }
     },

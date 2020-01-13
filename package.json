@@ -7,7 +7,8 @@
     "start-dev": "nodemon -r esm -L --ignore public/ --ignore frontend/ --ignore donnees/ --ignore webpack.config.js ./bin/www",
     "build": "webpack --watch --mode development --config webpack.config.js",
     "build-once": "webpack --mode production --config webpack.config.js",
-    "deploy": "time heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes"
+    "deploy": "time heroku container:push web --app couleurs-manifestes && heroku container:release web --app couleurs-manifestes",
+    "deploy-staging": "time heroku container:push web --app couleurs-manifestes-staging && heroku container:release web --app couleurs-manifestes-staging"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.7",
@@ -41,7 +42,7 @@
     "core-js": "^3.6.2",
     "css-loader": "^3.2.0",
     "dotenv": "^8.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
