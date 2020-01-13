@@ -28,7 +28,6 @@ function afficher_page_partager () {
       parcours: null
     },
     created: function () {
-      console.log(parcours);
       this.parcours = window.parcours; // Defini dans window.
       this.get_oeuvres();
     },
@@ -65,7 +64,7 @@ function afficher_page_partager () {
         // Utiliser le OG pour definir l'allure du post
         return FB.ui({
           method: 'share',
-          quote: 'Quote a tester',
+          quote: 'Quote a \n tester',
           href: window.location.toString()
         }, function(response){});
       }
