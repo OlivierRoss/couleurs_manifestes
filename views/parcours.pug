@@ -4,16 +4,18 @@ block script
   script(src="/javascripts/parcours.js")
   script!= parcours
   script!= temps_initial
-  meta(property="og:url", content="http://couleurs-manifestes-staging.mbas.qc.ca/p/84517d11d0ede1da9c63d048cbf83778")
-  meta(property="og:type", content="website")
-  meta(property="og:title", content="Couleurs Manifestes")
-  meta(property="og:image", content="http://couleurs-manifestes-staging.mbas.qc.ca/images/logo_cm.png")
-  meta(property="og:description", content="Redécouvrez les collections du MBAS")
   meta(property="fb:app_id", content="3047912601901957")
+  meta(property="og:url", content="http://couleurs-manifestes-staging.mbas.qc.ca/p/f5d02a0f68f73e561eea793da077f3d7")
+  meta(property="og:title", content="Couleurs Manifestes")
+  meta(property="og:type", content="website")
+  meta(property="og:description", content="Redécouvrez les collections du MBAS")
+  meta(property="og:image", content="http://couleurs-manifestes-staging.mbas.qc.ca/images/logo1.png")
+  meta(property="og:image:alt", content="Logo de l'application")
 
 block content
   script(async defer crossorigin="anonymus" src="https://connect.facebook.net/fr_CA/sdk.js")
   script.
+    // https://developers.facebook.com/tools/debug
     window.fbAsyncInit = function() {
       FB.init({
         appId            : '3047912601901957',

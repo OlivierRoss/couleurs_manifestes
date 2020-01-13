@@ -60,13 +60,21 @@ function afficher_page_partager () {
         });
       },
       afficher_feed: function () {
-        // TODO https://developers.facebook.com/docs/sharing/reference/share-dialog
-        // Utiliser le OG pour definir l'allure du post
+        // https://developers.facebook.com/docs/sharing/reference/share-dialog
         return FB.ui({
           method: 'share',
-          quote: 'Quote a \n tester',
+          quote: 'Lors de ma visite\n' +
+            'J\'ai vu ' + this.nombre_oeuvres + ' oeuvres\n' +
+            'par ' + this.nombre_artistes + ' artistes.\n' +
+            'J\'ai étudié ' + this.nombre_courants + ' courants\n' +
+            'artistiques se déclinant\n' +
+            'en ' + this.nombre_couleurs + ' couleurs',
           href: window.location.toString()
-        }, function(response){});
+          //redirect_uri: window.location.origin
+        }, function(response){ 
+          console.log (respose); 
+          self.close();
+        });
       }
     },
     computed: {
