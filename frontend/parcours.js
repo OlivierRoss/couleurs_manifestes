@@ -65,10 +65,10 @@ function afficher_page_partager () {
           method: 'share',
           quote: 'Lors de ma visite\n' +
             'J\'ai vu ' + this.nombre_oeuvres + ' oeuvres\n' +
-            'par ' + this.nombre_artistes + ' artistes.\n' +
-            'J\'ai étudié ' + this.nombre_courants + ' courants\n' +
-            'artistiques se déclinant\n' +
-            'en ' + this.nombre_couleurs + ' couleurs',
+            'se déclinant\n' +
+            'en ' + this.nombre_couleurs + ' couleurs'+
+            'par ' + this.nombre_artistes + ' artistes.\n',
+            //'J\'ai étudié ' + this.nombre_courants + ' courants\n' +
           hashtag: '#MBAS',
           href: window.location.toString()
         }, function(response){ 
