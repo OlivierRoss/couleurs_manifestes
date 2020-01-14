@@ -69,10 +69,10 @@ function afficher_page_partager () {
             'J\'ai étudié ' + this.nombre_courants + ' courants\n' +
             'artistiques se déclinant\n' +
             'en ' + this.nombre_couleurs + ' couleurs',
+          hashtag: '#MBAS',
           href: window.location.toString()
-          //redirect_uri: window.location.origin
         }, function(response){ 
-          console.log (respose); 
+          console.log (response); 
           self.close();
         });
       }

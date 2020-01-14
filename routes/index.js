@@ -51,6 +51,7 @@ router.get(/\/p\/\w{32}/, function(req, res) {
     req.session.cookie.maxAge = parseInt(process.env.COOKIE_MAX_AGE) || 360000;
 
     res.render('parcours', {
+      hash_page: hash,
       parcours: "window.parcours = " + JSON.stringify(parcours_charge.parcours),
       temps_initial: "window.temps_initial = " + JSON.stringify(parcours_charge.temps_initial)
     });
