@@ -1,5 +1,6 @@
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
+import Carte from "./elements/carte.js";
 import Erreur from "./elements/erreur.js";
 import Interactions from "./elements/interactions.js";
 
@@ -15,6 +16,7 @@ function lancer_couleurs_manifestes () {
     components: {
       'oeuvre': Oeuvre,
       'accueil': Accueil,
+      'carte': Carte,
       'erreur': Erreur,
       'interactions': Interactions
     },
@@ -25,11 +27,11 @@ function lancer_couleurs_manifestes () {
           <oeuvre id="oeuvre" :infos="get_oeuvre_active_infos" :couleur="couleur_active" :src_logo="logo_app" :oeuvres="oeuvres" v-on:set-actif="set_actif" />
           <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" :oeuvres="oeuvres" />
         </div>
+        <carte v-if="ecran == 'carte'" :image_carte="image_carte" />
         <erreur v-if="ecran == 'erreur'" v-bind:message="message_erreur" />
       </transition>
     </div>`,
     data: {
-      clef_encryption: "couleurs_manifestes",
       debut_parcours: null,
       parcours: [],
       ecran: 'accueil',
@@ -37,6 +39,8 @@ function lancer_couleurs_manifestes () {
       oeuvre_active: null,
       dimension_active: null,
       temps_initial: null,
+      image_carte: '/images/Visuels/Autre/coma_plan-temporaire.svg', // TODO modifier dynamiquement avec les oeuvres (au changement)
+      temps_transition_carte: 2500,
       message_erreur: "Donnees indisponibles"
     },
     created: function () {
@@ -108,6 +112,12 @@ function lancer_couleurs_manifestes () {
       // Affichage
       afficher_oeuvre: function () {
         this.ecran = "oeuvre";
+      },
+      afficher_transition: function () {
+        this.ecran = "carte";
+        setTimeout(function () {
+          this.ecran = "oeuvre";
+        }.bind(this), this.temps_transition_carte);
       },
       afficher_erreur: function (message) {
         if(message) { this.message_erreur = message; }
@@ -191,6 +201,9 @@ function lancer_couleurs_manifestes () {
           // Sauver nouvel etat
           this.sauver_interaction();
         }
+
+        // Afficher la carte de transition
+        if(opts.oeuvre) this.afficher_transition();
       },
 
       // Utils
