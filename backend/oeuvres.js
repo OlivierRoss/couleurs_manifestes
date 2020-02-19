@@ -106,9 +106,7 @@ function transform (donnees) {
 
 function filtrer (oeuvres) {
   return oeuvres.filter((oeuvre) => { 
-    return 
-      (!!oeuvre.id && Object.keys(oeuvre.dimensions).length > 0)
-      && (!oeuvre.cacher);
+    return !!oeuvre.id && Object.keys(oeuvre.dimensions).length > 0 && !oeuvre.cacher;
   });
 }
 
