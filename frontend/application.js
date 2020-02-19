@@ -27,7 +27,7 @@ function lancer_couleurs_manifestes () {
           <oeuvre id="oeuvre" :infos="get_oeuvre_active_infos" :couleur="couleur_active" :src_logo="logo_app" :oeuvres="oeuvres" v-on:set-actif="set_actif" />
           <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" :oeuvres="oeuvres" />
         </div>
-        <carte v-if="ecran == 'carte'" :image_carte="image_carte" />
+        <carte v-if="ecran == 'carte'" :image_carte="image_carte" v-on:fermer-carte="afficher_oeuvre" />
         <erreur v-if="ecran == 'erreur'" v-bind:message="message_erreur" />
       </transition>
     </div>`,
@@ -113,11 +113,8 @@ function lancer_couleurs_manifestes () {
       afficher_oeuvre: function () {
         this.ecran = "oeuvre";
       },
-      afficher_transition: function () {
+      afficher_carte: function () {
         this.ecran = "carte";
-        setTimeout(function () {
-          this.ecran = "oeuvre";
-        }.bind(this), this.temps_transition_carte);
       },
       afficher_erreur: function (message) {
         if(message) { this.message_erreur = message; }
@@ -203,7 +200,7 @@ function lancer_couleurs_manifestes () {
         }
 
         // Afficher la carte de transition
-        if(opts.oeuvre) this.afficher_transition();
+        if(opts.oeuvre) this.afficher_carte();
       },
 
       // Utils
