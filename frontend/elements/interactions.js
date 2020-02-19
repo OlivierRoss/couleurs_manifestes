@@ -77,18 +77,10 @@ export default {
 
   data: function () {
     return {
-      loupe: {
-        actif: false
-      },
-      aleatoire: {
-        actif: false
-      },
-      partage: {
-        actif: false
-      },
-      info: {
-        actif: false
-      }
+      loupe: { actif: false },
+      aleatoire: { actif: false },
+      partage: { actif: false },
+      info: { actif: false }
     }
   },
 

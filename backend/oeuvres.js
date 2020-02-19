@@ -65,7 +65,7 @@ function extract () {
 function transform (donnees) {
 
   return donnees.slice(1).map((ligne) => {
-    var oeuvre = { dimensions: {}, hashtags: [], collisions: [] };
+    var oeuvre = { dimensions: {}, hashtags: [], collisions: [], alias: [] };
 
     // Extraction des dimensions
     ligne.forEach((val_dim, index) => {
@@ -74,6 +74,8 @@ function transform (donnees) {
 
       // Cas speciaux
       if(id_dim == 'id') oeuvre.id = val_dim;
+      if(id_dim == 'alias') oeuvre.alias = val_dim.split(','); // Reference a une autre oeuvre du meme artiste
+      if(id_dim == 'cacher') oeuvre.cacher = !!val_dim; // Reference a une autre oeuvre du meme artiste qui doit etre cachee
       if(id_dim == 'titre') oeuvre.titre = val_dim;
       if(id_dim == 'artiste') oeuvre.artiste = val_dim;
 
@@ -95,12 +97,19 @@ function transform (donnees) {
       };
     });
 
+    // Ajouter l'id comme alias
+    oeuvre.alias.push(oeuvre.id);
+
     return oeuvre;
   });
 }
 
 function filtrer (oeuvres) {
-  return oeuvres.filter((oeuvre) => { return !!oeuvre.id && Object.keys(oeuvre.dimensions).length > 0 });
+  return oeuvres.filter((oeuvre) => { 
+    return 
+      (!!oeuvre.id && Object.keys(oeuvre.dimensions).length > 0)
+      && (!oeuvre.cacher);
+  });
 }
 
 function extract_hashtags (oeuvres) {

@@ -67,7 +67,7 @@ function lancer_couleurs_manifestes () {
         if(this.parcours.length > 0) {
           let dernier_affichage = this.parcours[this.parcours.length - 1].split("#");
           this.set_actif({
-            oeuvre: this.oeuvres.find((oeuvre) => {return oeuvre.id == dernier_affichage[0]}),
+            oeuvre: this.find_oeuvre_by_id_or_alias(dernier_affichage[0]),
             id_dimension: dernier_affichage[1],
             skip_update_parcours: true
           });
@@ -168,10 +168,10 @@ function lancer_couleurs_manifestes () {
 
           // Mettre a jour l'oeuvre
           if(opts.oeuvre == -1){
-            this.oeuvre_active = this.oeuvres[Math.floor(Math.random() * (this.oeuvres.length - 1))];
+            this.set_oeuvre_active(this.oeuvres[Math.floor(Math.random() * (this.oeuvres.length - 1))]);
           }
           else {
-            this.oeuvre_active = opts.oeuvre;
+            this.set_oeuvre_active(opts.oeuvre);
           }
 
           // Noter le nombre de vues
@@ -207,6 +207,12 @@ function lancer_couleurs_manifestes () {
       },
 
       // Utils
+      set_oeuvre_active: function (oeuvre) {
+        this.oeuvre_active = oeuvre;
+      },
+      find_oeuvre_by_id_or_alias: function (id) {
+        return this.oeuvres.find((oeuvre) => { return oeuvre.alias.includes(id); });
+      },
       list_dimensions: function (oeuvre) {
         return Object.keys(oeuvre.dimensions);
       },

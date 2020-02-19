@@ -68,14 +68,13 @@ export default {
       }
 
       // Charger l'application
-      // TODO verifier que l'oeuvre existe
       if(event.keyCode == config.touches.ENTER) {
         this.test_oeuvre();
       }
     },
     test_oeuvre: function () {
       let id_oeuvre = this.$refs.couleur.value.toUpperCase() + '-' + this.$refs.numero.value;
-      let oeuvre = this.oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre });
+      let oeuvre = this.find_oeuvre_by_id_or_alias(id_oeuvre);
 
       if(oeuvre) {
         this.nouvelle_oeuvre(oeuvre);
@@ -83,6 +82,11 @@ export default {
       else {
         this.reset();
       }
+    },
+    find_oeuvre_by_id_or_alias: function (id) {
+      return this.oeuvres.find((oeuvre) => { 
+        return oeuvre.alias.includes(id);
+      });
     },
     reset: function () {
       this.$refs.couleur.value = "";
