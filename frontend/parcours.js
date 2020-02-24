@@ -1,3 +1,4 @@
+const _  = require('lodash');
 require('../sass/partager.scss');
 
 import AsyncComputed from 'vue-async-computed';
@@ -11,7 +12,7 @@ function afficher_page_partager () {
       <div id="container-partager">
         <h1><img src="/images/Visuels/Accueil/coma_logo-accueil.svg"></h1>
           <p>
-            Pour moi, Couleurs manifestes c'était:<br>
+            Couleurs manifestes c'est:<br>
             {{ hashtags_principaux }}
           </p>
         <button v-on:click="window.location.href = '/'">Retour</button>
@@ -58,49 +59,39 @@ function afficher_page_partager () {
         // https://developers.facebook.com/docs/sharing/reference/share-dialog
         return FB.ui({
           method: 'share',
-          quote: 'Pour moi, Couleurs manifestes c\'était :' + '',
-          hashtag: '#MBAS',
-          href: window.location.toString()
+          quote: 'Couleurs manifestes c\'est :' + this.hashtags_principaux,
+          hashtag: '#mbasherbrooke',
+          href: 'http://mbas.qc.ca/en/couleurs-manifestes-permanent-exhibition/'
+          //href: window.location.toString()
         }, function(response){ 
           self.close();
         });
       }
     },
-    computed: {
-      nombre_oeuvres: function () {
-        return this.parcours.reduce((acc, valeur) => {
-          var id_oeuvre = valeur.split('#')[0];
-          if(!acc.includes(id_oeuvre)) acc.push(id_oeuvre);
-          return acc;
-        }, []).length;
-      },
-      nombre_courants: function () {
-        return 8;
-      },
-      nombre_couleurs: function () {
-        return this.parcours.reduce((acc, valeur) => {
-          var couleur = valeur.split('-')[0];
-          if(!acc.includes(couleur)) acc.push(couleur);
-          return acc;
-        }, []).length;
-      },
-      hashtags_principaux: function () {
-        return null;
-      },
-      temps_parcours: function () {
-        return Math.ceil(((Date.now() - window.temps_initial) / 1000) / 60); // 1000 : en millisecondes, 60 : en minutes
-      }
-    },
     asyncComputed: {
-      nombre_artistes: async function () {
+      hashtags_principaux: async function () {
         var oeuvres = await this.get_oeuvres();
-        return this.parcours.map((valeur) => {
+
+        // Trouver les #
+        var hashtags = this.parcours.map((valeur) => {
           var id_oeuvre = valeur.split('#')[0];
-          return oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).artiste;
-        }).reduce((acc, artiste) => {
-          if(!acc.includes(artiste)) acc.push(artiste);
-          return acc;
-        }, []).length;
+          return oeuvres.find((oeuvre) => { return oeuvre.id == id_oeuvre }).hashtags;
+        }); 
+        
+        // Traitement
+        hashtags = _.flatten(hashtags);
+        hashtags = _.countBy(hashtags);
+        hashtags = _.map(hashtags, (compte, nom) => { 
+          return {
+            nom: nom,
+            compte: compte
+          }
+        });
+        hashtags = _.orderBy(hashtags, [(hashtag) => { return hashtag.compte; }], ['desc']);
+        hashtags =  _.take(hashtags, 10);
+        hashtags =  _.map(hashtags, (hashtag) => { return hashtag.nom; });
+
+        return hashtags.join(", ");
       }
     }
   });
