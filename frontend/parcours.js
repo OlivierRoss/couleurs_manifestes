@@ -11,13 +11,8 @@ function afficher_page_partager () {
       <div id="container-partager">
         <h1><img src="/images/Visuels/Accueil/coma_logo-accueil.svg"></h1>
           <p>
-            Lors de ma visite<br>
-            j'ai vu {{ nombre_oeuvres }} oeuvres<br>
-            par {{ nombre_artistes }} artistes.<br>
-            j'ai étudié {{ nombre_courants }} courants<br>
-            artistiques se déclinant<br> 
-            en {{ nombre_couleurs }} couleurs.<br>
-            Le tout en {{ temps_parcours }} minutes
+            Pour moi, Couleurs manifestes c'était:<br>
+            {{ hashtags_principaux }}
           </p>
         <button v-on:click="window.location.href = '/'">Retour</button>
         <button v-on:click="afficher_feed">Facebook</button>
@@ -63,16 +58,10 @@ function afficher_page_partager () {
         // https://developers.facebook.com/docs/sharing/reference/share-dialog
         return FB.ui({
           method: 'share',
-          quote: 'Lors de ma visite\n' +
-            'J\'ai vu ' + this.nombre_oeuvres + ' oeuvres\n' +
-            'se déclinant\n' +
-            'en ' + this.nombre_couleurs + ' couleurs'+
-            'par ' + this.nombre_artistes + ' artistes.\n',
-            //'J\'ai étudié ' + this.nombre_courants + ' courants\n' +
+          quote: 'Pour moi, Couleurs manifestes c\'était :' + '',
           hashtag: '#MBAS',
           href: window.location.toString()
         }, function(response){ 
-          console.log (response); 
           self.close();
         });
       }
@@ -94,6 +83,9 @@ function afficher_page_partager () {
           if(!acc.includes(couleur)) acc.push(couleur);
           return acc;
         }, []).length;
+      },
+      hashtags_principaux: function () {
+        return null;
       },
       temps_parcours: function () {
         return Math.ceil(((Date.now() - window.temps_initial) / 1000) / 60); // 1000 : en millisecondes, 60 : en minutes

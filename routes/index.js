@@ -78,8 +78,13 @@ router.post('/interaction', (request, response) => {
   });
 });
 
-router.get('/statistiques', isLoggedIn, (req, res) => {
-  res.render('statistiques');
+// TODO creer une authentification
+router.get('/statistiques', /*isLoggedIn,*/ (req, res) => {
+  statistiques.get_statistiques().then((interactions) => {
+    res.render('statistiques', {
+      interactions: "window['interactions']= " + JSON.stringify(interactions)
+    });
+  });
 });
 
 /* AUTHENTIFICATION */
