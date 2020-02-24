@@ -1,37 +1,59 @@
+require('../sass/statistiques.scss');
+
 function afficher_stats () {
   new Vue({
     el: '#container-partager',
     template: `
     <div id="container-partager">
-    <div class="chart-container" style="position: relative; height:400px; width:50%">
-      <canvas id="myChart" width="100" height="100"></canvas>
-    </div>
+      <h1>Couleurs Manifestes</h1>
+      <h2>Statistiques d'utilisation de l'application</h2>
+      <div id="container-graphiques"></div>
     </div>`,
     mounted: function () {
-      this.interactions = window.interactions;
+      this.statistiques = window.interactions;
+      var graphiques = document.getElementById("container-graphiques");
 
-      var ctx = document.getElementById('myChart');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: this.interactions.sessions_quotidiennes.dates,
-          datasets: [{
-            fill: false,
-            label: this.interactions.sessions_quotidiennes.nom,
-            data: this.interactions.sessions_quotidiennes.valeurs
-          }]
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                unit: 'day'
+      for(var statistique in this.statistiques) {
+        var wrapper = document.createElement('div');
+        wrapper.classList = ["wrapper-graphique"];
+        wrapper.id = statistique + "-wrapper";
+
+        var canvas = document.createElement('canvas');
+        canvas.id = statistique;
+        wrapper.appendChild(canvas);
+
+        // Ajouter au DOM
+        graphiques.appendChild(wrapper);
+      }
+      // Une fois que les elements sont dans le DOM
+      setTimeout(this.create_graphs, 0);
+    },
+    methods: {
+      create_graphs: function () {
+        for(var statistique in this.statistiques) {
+          new Chart(document.getElementById(statistique), {
+            type: 'line',
+            data: {
+              labels: this.statistiques.sessions_quotidiennes.dates,
+              datasets: [{
+                fill: false,
+                label: this.statistiques.sessions_quotidiennes.nom,
+                data: this.statistiques.sessions_quotidiennes.valeurs
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'day'
+                  }
+                }]
               }
-            }]
-          }
+            }
+          });
         }
-      });
+      }
     }
   });
 }

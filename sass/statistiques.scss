@@ -1,0 +1,50 @@
+@font-face {
+  font-family: apercu;
+  src: url('/fonts/apercu_regular.otf');
+}
+
+@font-face {
+  font-family: apercu;
+  src: url('/fonts/apercu_bold.otf');
+  font-weight: bold;
+}
+
+body {
+  font-family: apercu;
+  text-align: center;
+}
+
+#container-graphiques {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  height: 400px;
+}
+
+h1, h2 {
+  font-size: x-large;
+  text-transform: uppercase;
+  width: 80%;
+  margin: 1% auto;
+}
+
+h2 {
+  font-size: large;
+}
+
+p {
+  font-family: apercu;
+  font-weight: bold;
+  font-size: larger;
+  line-height: 300%;
+}
+
+.wrapper-graphique {
+  min-width: 400px;
+  width: 40%;
+  margin: 2% 0;
+}
