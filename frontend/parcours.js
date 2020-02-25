@@ -15,8 +15,8 @@ function afficher_page_partager () {
             Couleurs manifestes c'est:<br>
             {{ hashtags_principaux }}
           </p>
-        <button v-on:click="window.location.href = '/'">Retour</button>
-        <button v-on:click="afficher_feed">Facebook</button>
+        <img class="image-bouton" src="/images/Visuels/Autre/coma_return.svg" v-on:click="window.location.href = '/'">
+        <img class="image-bouton" src="/images/Visuels/Autre/coma_facebook.svg" v-on:click="afficher_feed">
       </div>
     `,
     data: {
