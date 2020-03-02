@@ -31,27 +31,60 @@ function afficher_stats () {
     methods: {
       create_graphs: function () {
         for(var statistique in this.statistiques) {
-          new Chart(document.getElementById(statistique), {
-            type: 'line',
-            data: {
-              labels: this.statistiques.sessions_quotidiennes.dates,
-              datasets: [{
-                fill: false,
-                label: this.statistiques.sessions_quotidiennes.nom,
-                data: this.statistiques.sessions_quotidiennes.valeurs
-              }]
-            },
-            options: {
-              scales: {
-                xAxes: [{
-                  type: 'time',
-                  time: {
-                    unit: 'day'
-                  }
+
+          if(this.statistiques[statistique].type == 'pie') {
+            new Chart(document.getElementById(statistique), {
+              type: this.statistiques[statistique].type,
+              data: {
+                labels: this.statistiques[statistique].etiquettes,
+                datasets: [{
+                  data: this.statistiques[statistique].valeurs,
+                  backgroundColor: this.statistiques[statistique].etiquettes.map((v) => { 
+                    if(v.match(/^R/)) return "red";
+                    else if(v.match(/^J/)) return "yellow";
+                    else if(v.match(/^B/)) return "blue";
+                    else if(v.match(/^V/)) return "green";
+                    else if(v.match(/^L/)) return "pink";
+                    else return "gray";
+                  })
                 }]
+              },
+              options: {
+                legend: {
+                  display: false
+                },
+                title: {
+                  display: true,
+                  text: this.statistiques[statistique].nom
+                },
+                cutoutPercentage: 25
               }
-            }
-          });
+            });
+          }
+
+          else {
+            new Chart(document.getElementById(statistique), {
+              type: this.statistiques[statistique].type,
+              data: {
+                labels: this.statistiques[statistique].etiquettes,
+                datasets: [{
+                  fill: false,
+                  label: this.statistiques[statistique].nom,
+                  data: this.statistiques[statistique].valeurs
+                }]
+              },
+              options: {
+                scales: {
+                  xAxes: [{
+                    type: 'time',
+                    time: {
+                      unit: 'day'
+                    }
+                  }]
+                }
+              }
+            });
+          }
         }
       }
     }
