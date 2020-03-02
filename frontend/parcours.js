@@ -56,13 +56,11 @@ function afficher_page_partager () {
         });
       },
       afficher_feed: function () {
-        // https://developers.facebook.com/docs/sharing/reference/share-dialog
         return FB.ui({
           method: 'share',
           quote: 'Couleurs manifestes c\'est :' + this.hashtags_principaux,
           hashtag: '#mbasherbrooke',
-          href: 'http://mbas.qc.ca/en/couleurs-manifestes-permanent-exhibition/'
-          //href: window.location.toString()
+          href: 'http://mbas.qc.ca/couleurs-manifestes-exposition-permanente/'
         }, function(response){ 
           self.close();
         });
