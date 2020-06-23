@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     valeur_dimension: function () {
-      return this.infos.dimension_active.valeur.replace(/\n/g, "<br />");
+      return this.infos.dimension_active.valeur.replace(/[\n\r]*$/, "").replace(/\n/g, "<br />");
     },
     meilleurs_liens_dimension_active: function () {
 
