@@ -25,7 +25,7 @@ export default {
       </div>
       <div id="contenu-dimension" v-touch:swipe="swipe">
         <h2 class="nom-dimension" ref="nom_dimension">{{ infos.dimension_active.nom }}</h2>
-        <p class="valeur-dimension">{{ infos.dimension_active.valeur }}</p>
+        <p class="valeur-dimension" v-html="valeur_dimension"></p>
       </div>
       <div id="decouverte">
         <div v-if="infos.dimension_active.collisions.length > 0" class="affichage-liens"><div class="texte">Deux oeuvres similaires à découvrir :</div></div>
@@ -93,6 +93,9 @@ export default {
     }
   },
   computed: {
+    valeur_dimension: function () {
+      return this.infos.dimension_active.valeur.replace(/\n/g, "<br />");
+    },
     meilleurs_liens_dimension_active: function () {
 
       function comparer_vues_et_collisions (o1, o2) {
