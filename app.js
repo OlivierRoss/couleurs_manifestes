@@ -33,7 +33,8 @@ app.use(session({secret: process.env.SECRET_SESSION, saveUninitialized: true, re
 app.use(flash());
 
 // BD
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 if(process.env.NODE_ENV != 'production'){
   mongoose.set('debug', true);
 }
