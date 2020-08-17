@@ -1,9 +1,4 @@
-const path = require("path");
-const {google} = require('googleapis');
-const sheets = google.sheets('v4'); // https://developers.google.com/sheets/api/quickstart/nodejs
-const scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
-const keyfile = path.join(__dirname, 'env/couleurs-manifestes-7b61afc4f8a6.json');
-const {auth} = require('google-auth-library');
+const needle = require('needle');
 const fs = require('fs');
 const DONNEES = process.cwd() + process.env.DOSSIER_DONNEES + process.env.FICHIER_DONNEES;
 
@@ -40,25 +35,19 @@ function update () {
 }
 
 function extract () {
+
   return new Promise ((resolve, reject) => {
+    
+    let url = "https://sheets.googleapis.com/v4/spreadsheets/" + process.env.FICHIER_SHEETS + "/values/" + process.env.ID_SHEET + "?key=" + process.env.CLEF_GOOGLE;
 
-    // Obtention des authorisations
-    get_googleapi_client_auth().then((client) => {
-
-      sheets.spreadsheets.values.get(
-        {
-          auth: client,
-          spreadsheetId: process.env.SHEET_OEUVRES,
-          range: process.env.RANGE_OEUVRES
-        },
-        (err, res) => {
-          if (err) {
-            console.error('The API returned an error.', err);
-            reject(err);
-          }
-          else { resolve(res.data.values); }
-        });
-    });
+    needle('get', url)
+      .then(function(response) {
+        resolve(response.body.values);
+      })
+      .catch(function(err) {
+        reject(err);
+        console.log(err);
+      });
   });
 }
 
