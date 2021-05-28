@@ -20,7 +20,7 @@ function lancer_couleurs_manifestes () {
       'erreur': Erreur,
       'interactions': Interactions
     },
-    template: `<div id="container-application">
+    template: `<div id="container-application" v-if="a_la_bonne_geo">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" :oeuvres="oeuvres"/>
         <div id="application" v-if="ecran== 'oeuvre'">
@@ -30,6 +30,20 @@ function lancer_couleurs_manifestes () {
         <carte v-if="ecran == 'carte'" :image_carte="this.carte_active" v-on:fermer-carte="afficher_oeuvre" />
         <erreur v-if="ecran == 'erreur'" v-bind:message="message_erreur" />
       </transition>
+    </div>
+    <div v-else>
+        <h1 class="erreur_de_geo">Erreur de géolocalisation</h1><br>
+        <strong><div class="marche_a_suivre">Pour utiliser l'application:</div>
+        <ul class="marche_a_suivre">
+            <li>Vous devez accepter de partager de votre position.</li>
+            <li>Vous devez être physiquement sur place.</li>
+        </ul>
+        </strong>
+        <div class="container">
+            <div class="vertical-center">
+                <button onClick="window.location.reload();">Rafraîchir</button>
+            </div>
+         </div>
     </div>`,
     data: {
       debut_parcours: null,
@@ -41,7 +55,8 @@ function lancer_couleurs_manifestes () {
       temps_initial: null,
       image_carte: '/images/Visuels/Autre/coma_plan-temporaire.svg', // TODO modifier dynamiquement avec les oeuvres (au changement)
       temps_transition_carte: 2500,
-      message_erreur: "Donnees indisponibles"
+      message_erreur: "Donnees indisponibles",
+      a_la_bonne_geo:''
     },
     created: function () {
 
@@ -57,6 +72,22 @@ function lancer_couleurs_manifestes () {
         });
 
       this.temps_initial = this.temps_initial || Date.now();
+
+      //Vérifie la possition gps
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        let lati = position.coords.latitude;
+        let lon = position.coords.longitude;
+        console.log(lati);
+        console.log(lon);
+        if ((lati > 44.2490 && lati< 46.2792) && (lon < -71.1595 && lon > -73.1599)) {
+          console.log('geo est ok');
+          this.a_la_bonne_geo = true;
+        } else {
+          console.log('geo n est pas bonne');
+          this.a_la_bonne_geo =  false;
+        }
+      });
     },
     methods: {
 
