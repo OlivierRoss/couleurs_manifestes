@@ -23,7 +23,7 @@
     "google-auth-library": "^4.2.5",
     "googleapis": "^41.0.0",
     "http-errors": "~1.6.3",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "mongoose": "^5.10.0",
     "morgan": "~1.9.1",
