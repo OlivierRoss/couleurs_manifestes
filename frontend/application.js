@@ -8,7 +8,10 @@ require('../sass/mobile.scss');
 
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
-
+const latitude_haute = 45.4053;
+const latitude_basse = 45.4048;
+const longitude_haute = -71.8942;
+const longitude_basse = -71.8949;
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({
@@ -75,16 +78,13 @@ function lancer_couleurs_manifestes () {
 
       //Vérifie la possition gps
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
+
         let lati = position.coords.latitude;
         let lon = position.coords.longitude;
-        console.log(lati);
-        console.log(lon);
-        if ((lati > 44.2490 && lati< 46.2792) && (lon < -71.1595 && lon > -73.1599)) {
-          console.log('geo est ok');
+
+        if ((latitude_basse < lati < latitude_haute) && (longitude_basse < lon < longitude_haute )) {
           this.a_la_bonne_geo = true;
         } else {
-          console.log('geo n est pas bonne');
           this.a_la_bonne_geo =  false;
         }
       });

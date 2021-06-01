@@ -12,7 +12,6 @@ body {
   width: 100vw;
   height: 100vh; }
 
-
 /***************** Vue transitions ***************/
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s; }
