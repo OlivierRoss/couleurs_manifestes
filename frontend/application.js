@@ -8,10 +8,10 @@ require('../sass/mobile.scss');
 
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
-const latitude_haute = 45.4053;
-const latitude_basse = 45.4048;
-const longitude_haute = -71.8942;
-const longitude_basse = -71.8949;
+const RAYON_EN_METRES= 100;// distance en metres du musee autorise
+const LATITUDE_MUSÉE =  45.405102 * (Math.PI/180);// en radian
+const LONGITUDE_MUSÉE = -71.894653 * (Math.PI/180);// en radian
+
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({
@@ -79,13 +79,28 @@ function lancer_couleurs_manifestes () {
       //Vérifie la possition gps
       navigator.geolocation.getCurrentPosition((position) => {
 
-        let lati = position.coords.latitude;
-        let lon = position.coords.longitude;
+        let lati = position.coords.latitude * (Math.PI/180);//conversion position en radian
+        let lon = position.coords.longitude * (Math.PI/180);//conversion position en radian
 
-        if ((latitude_basse < lati < latitude_haute) && (longitude_basse < lon < longitude_haute )) {
+        var R = 6371000; // radian de la terre en metres
+        var dLat = LATITUDE_MUSÉE-lati;
+        var dLon = LONGITUDE_MUSÉE-lon;
+
+        //formule de calcule de distance
+        var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(LATITUDE_MUSÉE) * Math.cos(lati) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var distance = R * c; // Distance en metres
+
+        if(distance <= RAYON_EN_METRES){
           this.a_la_bonne_geo = true;
-        } else {
-          this.a_la_bonne_geo =  false;
+        }
+        else {
+          this.a_la_bonne_geo = false;
         }
       });
     },
