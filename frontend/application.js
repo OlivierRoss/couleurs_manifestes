@@ -8,9 +8,11 @@ require('../sass/mobile.scss');
 
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
-const RAYON_EN_METRES= 100;// distance en metres du musee autorise
-const LATITUDE_MUSÉE =  45.405102 * (Math.PI/180);// en radian
-const LONGITUDE_MUSÉE = -71.894653 * (Math.PI/180);// en radian
+
+const RAYON_EN_METRES= 30000;// distance en metres du musee autorise
+
+const LATITUDE_MUSÉE =  45.405102;// en radian
+const LONGITUDE_MUSÉE = -71.894653;// en radian
 
 // Creation de l'application
 function lancer_couleurs_manifestes () {
@@ -79,22 +81,10 @@ function lancer_couleurs_manifestes () {
       //Vérifie la possition gps
       navigator.geolocation.getCurrentPosition((position) => {
 
-        let lati = position.coords.latitude * (Math.PI/180);//conversion position en radian
-        let lon = position.coords.longitude * (Math.PI/180);//conversion position en radian
+        let lati = position.coords.latitude;
+        let lon = position.coords.longitude;
 
-        var R = 6371000; // radian de la terre en metres
-        var dLat = LATITUDE_MUSÉE-lati;
-        var dLon = LONGITUDE_MUSÉE-lon;
-
-        //formule de calcule de distance
-        var a =
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(LATITUDE_MUSÉE) * Math.cos(lati) *
-            Math.sin(dLon/2) * Math.sin(dLon/2)
-
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-        var distance = R * c; // Distance en metres
+        var distance = this.calcul_distance(lati,lon); // Distance en metres
 
         if(distance <= RAYON_EN_METRES){
           this.a_la_bonne_geo = true;
@@ -106,6 +96,29 @@ function lancer_couleurs_manifestes () {
     },
     methods: {
 
+      calcul_distance: function (lat1,lon1) {
+
+        lat1 = lat1 * (Math.PI/180);//conversion position en radian
+        lon1 = lon1 * (Math.PI/180);//conversion position en radian
+        let latitude_musée_radian = LATITUDE_MUSÉE * (Math.PI/180);
+        let longitude_musée_radian = LONGITUDE_MUSÉE * (Math.PI/180);
+        var R = 6371000; // radian de la terre en metres
+        var dLat = latitude_musée_radian-lat1;
+        var dLon = longitude_musée_radian-lon1;
+
+        //formule de calcule de distance
+        var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(latitude_musée_radian) * Math.cos(lat1) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var distance = R * c; // Distance en metres
+
+        return distance;
+
+      },
       // Chargement
       charger_application: function (seed) {
 
