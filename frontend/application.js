@@ -33,17 +33,11 @@ function lancer_couleurs_manifestes () {
           <interactions :infos="get_oeuvre_active_infos" v-bind:parcours="this.parcours" v-bind:temps_debut="this.debut_parcours" v-on:set-actif="set_actif" v-on:partager="partager" :oeuvres="oeuvres" />
         </div>
         <carte v-if="ecran == 'carte'" :image_carte="this.carte_active" v-on:fermer-carte="afficher_oeuvre" />
-        <erreur v-if="ecran == 'erreur'" v-bind:message="message_erreur" />
       </transition>
     </div>
-    <div v-else>
-        <h1 class="erreur_de_geo">Erreur de géolocalisation</h1><br>
-        <strong><div class="marche_a_suivre">Pour utiliser l'application:</div>
-        <ul class="marche_a_suivre">
-            <li>Vous devez accepter de partager de votre position.</li>
-            <li>Vous devez être physiquement sur place.</li>
-        </ul>
-        </strong>
+    <div class="erreur_de_geo" v-else>
+        <img class="img_erreur_geolocalisation" src="/images/Visuels/Accueil/coma_logo-accueil.svg">
+        <div>L'application Couleurs Manifestes doit avoir accès au données de géolocalisation</div>
         <div class="container">
             <div class="vertical-center">
                 <button onClick="window.location.reload();">Rafraîchir</button>
@@ -175,11 +169,6 @@ function lancer_couleurs_manifestes () {
       afficher_carte: function () {
         this.ecran = "carte";
       },
-      afficher_erreur: function (message) {
-        if(message) { this.message_erreur = message; }
-        this.ecran = "erreur";
-      },
-
       // Historique
       partager: function () {
 
