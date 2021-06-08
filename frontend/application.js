@@ -9,6 +9,11 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
+const RAYON_EN_METRES= 30000;// distance en metres du musee autorise
+
+const LATITUDE_MUSÉE =  45.405102;// en radian
+const LONGITUDE_MUSÉE = -71.894653;// en radian
+
 // Creation de l'application
 function lancer_couleurs_manifestes () {
   new Vue({
@@ -20,7 +25,7 @@ function lancer_couleurs_manifestes () {
       'erreur': Erreur,
       'interactions': Interactions
     },
-    template: `<div id="container-application">
+    template: `<div id="container-application" v-if="a_la_bonne_geo">
       <transition appear name="fade" mode="out-in">
         <accueil v-if="ecran == 'accueil'" v-on:charger-application="charger_application" :oeuvres="oeuvres"/>
         <div id="application" v-if="ecran== 'oeuvre'">
@@ -30,6 +35,20 @@ function lancer_couleurs_manifestes () {
         <carte v-if="ecran == 'carte'" :image_carte="this.carte_active" v-on:fermer-carte="afficher_oeuvre" />
         <erreur v-if="ecran == 'erreur'" v-bind:message="message_erreur" />
       </transition>
+    </div>
+    <div v-else>
+        <h1 class="erreur_de_geo">Erreur de géolocalisation</h1><br>
+        <strong><div class="marche_a_suivre">Pour utiliser l'application:</div>
+        <ul class="marche_a_suivre">
+            <li>Vous devez accepter de partager de votre position.</li>
+            <li>Vous devez être physiquement sur place.</li>
+        </ul>
+        </strong>
+        <div class="container">
+            <div class="vertical-center">
+                <button onClick="window.location.reload();">Rafraîchir</button>
+            </div>
+         </div>
     </div>`,
     data: {
       debut_parcours: null,
@@ -41,7 +60,8 @@ function lancer_couleurs_manifestes () {
       temps_initial: null,
       image_carte: '/images/Visuels/Autre/coma_plan-temporaire.svg', // TODO modifier dynamiquement avec les oeuvres (au changement)
       temps_transition_carte: 2500,
-      message_erreur: "Donnees indisponibles"
+      message_erreur: "Donnees indisponibles",
+      a_la_bonne_geo:''
     },
     created: function () {
 
@@ -57,9 +77,48 @@ function lancer_couleurs_manifestes () {
         });
 
       this.temps_initial = this.temps_initial || Date.now();
+
+      //Vérifie la possition gps
+      navigator.geolocation.getCurrentPosition((position) => {
+
+        let lati = position.coords.latitude;
+        let lon = position.coords.longitude;
+
+        var distance = this.calcul_distance(lati,lon); // Distance en metres
+
+        if(distance <= RAYON_EN_METRES){
+          this.a_la_bonne_geo = true;
+        }
+        else {
+          this.a_la_bonne_geo = false;
+        }
+      });
     },
     methods: {
 
+      calcul_distance: function (lat1,lon1) {
+
+        lat1 = lat1 * (Math.PI/180);//conversion position en radian
+        lon1 = lon1 * (Math.PI/180);//conversion position en radian
+        let latitude_musée_radian = LATITUDE_MUSÉE * (Math.PI/180);
+        let longitude_musée_radian = LONGITUDE_MUSÉE * (Math.PI/180);
+        var R = 6371000; // radian de la terre en metres
+        var dLat = latitude_musée_radian-lat1;
+        var dLon = longitude_musée_radian-lon1;
+
+        //formule de calcule de distance
+        var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(latitude_musée_radian) * Math.cos(lat1) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var distance = R * c; // Distance en metres
+
+        return distance;
+
+      },
       // Chargement
       charger_application: function (seed) {
 

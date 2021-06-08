@@ -68,3 +68,12 @@ typings/
 
 # next.js build output
 .next
+
+.idea
+
+.idea/vcs.xml
+
+.idea/modules.xml
+
+.idea/couleurs_manifestes.iml
+
