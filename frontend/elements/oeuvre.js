@@ -25,6 +25,7 @@ export default {
       </div>
       <div id="contenu-dimension" v-touch:swipe="swipe">
         <h2 class="nom-dimension" ref="nom_dimension">{{ infos.dimension_active.nom }}</h2>
+         <img class="images-oeuvres" v-bind:src="'../images/images-oeuvres/' + infos.oeuvre.id + '.jpg'">
         <p class="valeur-dimension" v-html="valeur_dimension"></p>
       </div>
       <div id="decouverte">
