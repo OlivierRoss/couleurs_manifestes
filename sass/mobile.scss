@@ -15,15 +15,30 @@
   font-weight: bold;
 }
 .erreur_de_geo{
-  background: darkred;
-  color: white;
-  border: 2px solid black;
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-left: 10px;
-  padding: 10px 10px;
-  font-weight: bold;
+  position:absolute;
+  top:0%;
+  bottom:0;
+  left:0;
+  right:0;
+  overflow:hidden;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+  width: 50%;
+  margin: 0 auto;
+
+  font-family: apercu;
   text-align: center;
+  font-size: 1.3em;
+}
+.img_erreur_geolocalisation{
+  margin-bottom: 10%;
+  margin-top: 33%;
 }
 .strong{
   text-align: center;
@@ -31,7 +46,8 @@
 .container {
   height: 200px;
   position: relative;
-
+  display: flex;
+  justify-content: center;
 }
 .vertical-center {
   margin: 0 40%;
