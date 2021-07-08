@@ -9,7 +9,7 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
-const RAYON_EN_METRES= 30000;// distance en metres du musee autorise
+const RAYON = 30000; // rayon en metres
 
 const LATITUDE_MUSÉE =  45.405102;// en radian
 const LONGITUDE_MUSÉE = -71.894653;// en radian
@@ -61,8 +61,8 @@ function lancer_couleurs_manifestes () {
 
       // Charger les oeuvres
       this.get_oeuvres()
-        .then(() => { 
-          
+        .then(() => {
+
           // Recharger le parcours
           if(window.parcours) {
             this.parcours = window.parcours.parcours;
@@ -80,7 +80,7 @@ function lancer_couleurs_manifestes () {
 
         var distance = this.calcul_distance(lati,lon); // Distance en metres
 
-        if(distance <= RAYON_EN_METRES){
+        if(distance <=  RAYON){
           this.a_la_bonne_geo = true;
         }
         else {
@@ -132,7 +132,7 @@ function lancer_couleurs_manifestes () {
           this.set_actif( { id_dimension: this.list_dimensions(this.oeuvre_active)[0] } );
         }
 
-        this.afficher_oeuvre(); 
+        this.afficher_oeuvre();
       },
       get_oeuvres: function () {
         return new Promise ((resolve, reject) => {
@@ -150,7 +150,7 @@ function lancer_couleurs_manifestes () {
                   return res.json();
                 }
               })
-              .then((oeuvres) => { 
+              .then((oeuvres) => {
                 this.oeuvres = oeuvres;
                 resolve(this.oeuvres);
               })
@@ -188,8 +188,8 @@ function lancer_couleurs_manifestes () {
         }).then((data) => { return data.json(); })
 
         // Charger la nouvelle page
-          .then((res) => { 
-            window.location.href = "/p/" + res.page_parcours; 
+          .then((res) => {
+            window.location.href = "/p/" + res.page_parcours;
           });
       },
 
@@ -228,7 +228,7 @@ function lancer_couleurs_manifestes () {
 
           this.dimension_active = this.oeuvre_active.dimensions[index_dim >= 0 ? id_dim : this.premiere_dimension(this.oeuvre_active).id];
         }
-        
+
         // Dimension active
         else if(opts.id_dimension) {
           this.dimension_active = this.oeuvre_active.dimensions[opts.id_dimension];
