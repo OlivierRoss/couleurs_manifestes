@@ -9,7 +9,7 @@ require('../sass/mobile.scss');
 import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
 Vue.use(Vue2TouchEvents);
 
-const RAYON = 30000; // rayon en metres
+const RAYON = 1000; // rayon en metres
 
 const LATITUDE_MUSÉE =  45.405102;// en radian
 const LONGITUDE_MUSÉE = -71.894653;// en radian
@@ -79,6 +79,8 @@ function lancer_couleurs_manifestes () {
         let lon = position.coords.longitude;
 
         var distance = this.calcul_distance(lati,lon); // Distance en metres
+
+        console.log('Vous êtes à '+distance+' du musée')
 
         if(distance <=  RAYON){
           this.a_la_bonne_geo = true;
