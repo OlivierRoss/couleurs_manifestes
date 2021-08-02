@@ -38,7 +38,14 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 if(process.env.NODE_ENV != 'production'){
   mongoose.set('debug', true);
 }
-
+function requireHTTPS(req, res, next) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+};
+app.use(requireHTTPS);
 // Login
 app.use(passport.initialize());
 app.use(passport.session());
