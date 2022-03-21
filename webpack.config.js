@@ -35,7 +35,6 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        include: [ path.resolve(__dirname, "sass") ],
         use: [
           "style-loader", // creates style nodes from JS strings
           "css-loader", // translates CSS into CommonJS
@@ -43,6 +42,11 @@ module.exports = {
         ]
       }
     ]
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+    }
   },
   stats: {
     colors: true

@@ -1,3 +1,7 @@
+import Vue from 'vue';
+import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events AAALLLOOOOO
+Vue.use(Vue2TouchEvents);
+
 import Oeuvre from "./elements/oeuvre.js";
 import Accueil from "./elements/accueil.js";
 import Carte from "./elements/carte.js";
@@ -5,9 +9,6 @@ import Erreur from "./elements/erreur.js";
 import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
-
-import Vue2TouchEvents from 'vue2-touch-events'; //https://www.npmjs.com/package/vue2-touch-events
-Vue.use(Vue2TouchEvents);
 
 const RAYON_EN_METRES= 30000;// distance en metres du musee autorise
 
@@ -52,7 +53,7 @@ function lancer_couleurs_manifestes () {
       oeuvre_active: null,
       dimension_active: null,
       temps_initial: null,
-      image_carte: '/images/Visuels/Autre/coma_plan-temporaire.svg', // TODO modifier dynamiquement avec les oeuvres (au changement)
+      image_carte: '/images/Visuels/Autre/coma_plan-temporaire.svg', 
       temps_transition_carte: 2500,
       message_erreur: "Donnees indisponibles",
       a_la_bonne_geo:''
