@@ -10,7 +10,7 @@ import Interactions from "./elements/interactions.js";
 
 require('../sass/mobile.scss');
 
-const RAYON_EN_METRES= 30000;// distance en metres du musee autorise
+const RAYON_EN_METRES= 1000;// distance en metres du musee autorise
 
 const LATITUDE_MUSÉE =  45.405102;// en radian
 const LONGITUDE_MUSÉE = -71.894653;// en radian
@@ -76,19 +76,9 @@ function lancer_couleurs_manifestes () {
       //Vérifie la possition gps
       navigator.geolocation.getCurrentPosition((position) => {
 
-        let lati = position.coords.latitude;
-        let lon = position.coords.longitude;
-
-        var distance = this.calcul_distance(lati,lon); // Distance en metres
-
-        console.log('Vous êtes à '+distance+' du musée')
-
-        if(distance <=  RAYON){
-          this.a_la_bonne_geo = true;
-        }
-        else {
-          this.a_la_bonne_geo = false;
-        }
+        var distance = this.calcul_distance(position.coords.latitude, position.coords.longitude); // Distance en metres
+        console.debug('Distance du musee: ' + distance);
+        this.a_la_bonne_geo = (distance <= RAYON_EN_METRES);
       });
     },
     methods: {
@@ -116,6 +106,7 @@ function lancer_couleurs_manifestes () {
         return distance;
 
       },
+
       // Chargement
       charger_application: function (seed) {
 
